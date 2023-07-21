@@ -1,0 +1,500 @@
+intersect (3m_sets)  - [M_sets] return intersect values in array A
+ismember (3m_sets)   - [M_sets] return ismember values in array A
+M_sets (3m_sets)     - [M_sets::INTRO] functions reminiscent of Matlab set functions
+setdiff (3m_sets)    - [M_sets] return setdiff values in array A
+setxor (3m_sets)     - [M_sets] return setxor values in array A
+union (3m_sets)      - [M_sets] return union values in array A
+unique (3m_sets)     - [M_sets] return unique values in array A
+ismember(3m_sets)					     ismember(3m_sets)
+
+
+
+NAME
+  ismember(3f) - [M_sets] return ismember values in array A
+
+
+SYNOPSIS
+  ismember(A,B)
+
+DESCRIPTION
+  Return elements of the input array A
+
+OPTIONS
+  A input array
+
+  B input array
+
+EXAMPLE
+  sample program:
+
+     program demo_ismember
+     use M_sets, only: ismember
+     character(len=*),parameter :: g='(*(g0,1x))'
+     integer, allocatable      :: A(:)
+     integer, allocatable      :: B(:)
+
+	write(*,g) 'ISMEMBER', 'Determine which elements of A are also in B.'
+
+	 A=[5,3,4,2]
+	 B=[2,4,4,4,6,8]
+	 write(*,g) 'A=', A
+	 write(*,g) 'B=', B
+	 write(*,g) ismember(A,B)
+
+     end program demo_ismember
+
+  Results:
+
+   > ISMEMBER Determine which elements of A are also in B.
+   > A= 5 3 4 2
+   > B= 2 4 4 4 6 8
+   > 0 0 1 1
+
+
+AUTHORS
+  John S. Urban, 2023-07-20
+
+LICENSE
+  CC0-1.0
+
+
+
+				 July 21, 2023		     ismember(3m_sets)
+setdiff(3m_sets)					      setdiff(3m_sets)
+
+
+
+NAME
+  setdiff(3f) - [M_sets] return setdiff values in array A
+
+
+SYNOPSIS
+  setdiff(A,B, setOrder)
+
+DESCRIPTION
+  Return elements of the input array A
+
+OPTIONS
+  A input array
+
+  B input array
+
+  setOrder
+    May be "sort" or "stable"
+
+EXAMPLE
+  sample program:
+
+     program demo_setdiff
+     use M_sets, only: setdiff
+     character(len=*),parameter :: g='(*(g0,1x))'
+     integer, allocatable      :: A(:)
+     integer, allocatable      :: B(:)
+
+	write(*,g) 'SETDIFF','Find the values in A that are not in B.'
+	 A=[3, 6, 2, 1, 5, 1, 1]
+	 B=[2, 4, 6]
+	 write(*,g) 'A=', A
+	 write(*,g) 'B=', B
+	 write(*,g) setdiff(A, B)
+	 write(*,g) setdiff([4, 1, 3, 2, 5], [2, 1], 'sorted')
+	 write(*,g) setdiff([4, 1, 3, 2, 5], [2, 1], 'stable')
+
+     end program demo_setdiff
+
+  Results:
+
+   > SETDIFF Find the values in A that are not in B.
+   > A= 3 6 2 1 5 1 1
+   > B= 2 4 6
+   > 1 3 5
+   > 3 4 5
+   > 4 3 5
+
+
+AUTHORS
+  John S. Urban, 2023-07-20
+
+LICENSE
+  CC0-1.0
+
+
+
+				 July 21, 2023		      setdiff(3m_sets)
+setxor(3m_sets) 					       setxor(3m_sets)
+
+
+
+NAME
+  setxor(3f) - [M_sets] return setxor values in array A
+
+
+SYNOPSIS
+  setxor(A,B, setOrder)
+
+DESCRIPTION
+  Return elements of the input array A
+
+OPTIONS
+  A input array
+
+  B input array
+
+  setOrder
+    May be "sort" or "stable"
+
+EXAMPLE
+  sample program:
+
+     program demo_setxor
+     use M_sets, only: setxor
+     character(len=*),parameter :: g='(*(g0,1x))'
+     integer, allocatable      :: A(:)
+     integer, allocatable      :: B(:)
+
+	write(*,g) 'SETXOR','Find values of A and B not in their intersection.'
+	A = [5,1,3,3,3]
+	B = [4,1,2]
+	write(*,g) 'A=', A
+	write(*,g) 'A=', B
+	write(*,g) setxor(A,B)
+	write(*,g) setxor(A,B,'stable')
+
+     end program demo_setxor
+
+  Results:
+
+   > SETXOR Find values of A and B not in their intersection.
+   > A= 5 1 3 3 3
+   > A= 4 1 2
+   > 2 3 4 5
+   > 5 3 4 2
+
+
+AUTHORS
+  John S. Urban, 2023-07-20
+
+LICENSE
+  CC0-1.0
+
+
+
+				 July 21, 2023		       setxor(3m_sets)
+union(3m_sets)							union(3m_sets)
+
+
+
+NAME
+  union(3f) - [M_sets] return union values in array A
+
+
+SYNOPSIS
+  union(A,B, setOrder)
+
+DESCRIPTION
+  Return elements of the input array A
+
+OPTIONS
+  A input array
+
+  B input array
+
+  setOrder
+    May be "sort" or "stable"
+
+EXAMPLE
+  sample program:
+
+     program demo_union
+     use M_sets, only: union
+     character(len=*),parameter :: g='(*(g0,1x))'
+     integer, allocatable      :: A(:)
+     integer, allocatable      :: B(:)
+
+	write(*,g) 'UNION', 'Find the union of vectors A and B.'
+	A=[5, 7, 1]
+	B=[3, 1, 1]
+	write(*,g) 'A=', A
+	write(*,g) 'B=', B
+	write(*,g) union(A,B)
+
+	A=[5, 5, 3]
+	B=[1, 2, 5]
+	write(*,g) 'A=', A
+	write(*,g) 'B=', B
+	write(*,g) union(A, B, 'sorted')
+	write(*,g) union(A, B, 'stable')
+
+     end program demo_union
+  ``` Results:
+
+   > UNION Find the union of vectors A and B.
+   > A= 5 7 1
+   > B= 3 1 1
+   > 1 3 5 7
+   > A= 5 5 3
+   > B= 1 2 5
+   > 1 2 3 5
+   > 5 3 1 2
+
+
+AUTHORS
+  John S. Urban, 2023-07-20
+
+LICENSE
+  CC0-1.0
+
+
+
+				 July 21, 2023			union(3m_sets)
+unique(3m_sets) 					       unique(3m_sets)
+
+
+
+NAME
+  unique(3f) - [M_sets] return unique values in array A
+
+
+SYNOPSIS
+  unique(A,setOrder)
+
+DESCRIPTION
+  Return unique elements of the input array A
+
+OPTIONS
+  A input array to extract unique values from
+
+  setOrder
+    May be "sort" or "stable"
+
+EXAMPLE
+  sample program:
+
+     program demo_unique
+     use M_sets, only: unique
+     character(len=*),parameter :: g='(*(g0,1x))'
+     integer, allocatable      :: A(:)
+
+	write(*,g) 'UNIQUE','Find the unique elements of vector A.'
+	 A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
+	 write(*,g) 'A=', A
+	 write(*,g) unique(A)
+	 write(*,g) unique(A, setOrder='stable')
+
+     end program demo_unique
+
+  Results:
+
+   > UNIQUE Find the unique elements of vector A.
+   > A= 10 -10 0 1 2 3 3 2 1 -10
+   > -10 0 1 2 3 10
+   > 10 -10 0 1 2 3
+
+
+AUTHORS
+  John S. Urban, 2023-07-20
+
+LICENSE
+  CC0-1.0
+
+
+
+				 July 21, 2023		       unique(3m_sets)
+M_sets(3m_sets) 					       M_sets(3m_sets)
+
+
+
+NAME
+  M_sets(3f) - [M_sets::INTRO] functions reminiscent of Matlab set functions
+
+
+SYNOPSIS
+  Procedure names and syntax:
+
+      use M_sets, only : & union, unique, intersect, setdiff, ismember, setxor
+
+
+DESCRIPTION
+  Unions, intersection, and set membership
+
+  A small subset of set functions reminiscent of Matlab set functions. They
+  currently just work with vectors of default integer kind input and return
+  sets but not the subscripts of the original elements.
+
+  It basically uses some simple calls to the M_ordersort(3f) module to provide
+  the functionality that are not tuned for performance and make loose use of
+  memory allocation and space.
+
+  Set operations compare the elements in two sets to find commonalities or
+  differences. Currently the sets are arrays of integer numbers.
+
+  ## Functions
+
+    •  union(A,B,setOrder) - Set union of two arrays
+
+    •  unique(A,setOrder) - Unique values in array
+
+    •  intersect(A,B,setOrder) - Set intersection of two arrays
+
+    •  setdiff(A,B,setOrder) - Set difference of two arrays
+
+    •  ismember(A,B,setOrder) - Array elements that are members of set array
+
+    •  setxor(A,B,setOrder) - Set exclusive OR of two arrays
+
+EXAMPLE
+  sample program:
+
+     program demo_M_sets
+     use M_sets, only: unique, intersect, union, setdiff, ismember, setxor
+     character(len=*),parameter :: g='(*(g0,1x))'
+     integer, allocatable      :: A(:)
+     integer, allocatable      :: B(:)
+     integer, allocatable      :: C(:)
+
+	write(*,g) 'UNIQUE','Find the unique elements of vector A.'
+	 A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
+	 write(*,g) 'A=', A
+	 write(*,g) unique(A)
+	 write(*,g) unique(A, setOrder='stable')
+	write(*,g) 'UNION', 'Find the union of vectors A and B.'
+	 call setab( [5, 7, 1], [3, 1, 1] )
+	 write(*,g) union(A,B)
+	 call setab( [5, 5, 3], [1, 2, 5] )
+	 write(*,g) union(A, B, 'sorted')
+	 write(*,g) union(A, B, 'stable')
+	write(*,g) 'INTERSECT', 'Find the values common to both A and B.'
+	 call setab( [7, 1, 7, 7, 4], [7, 0, 4, 4, 0] )
+	 write(*,g) intersect(A, B)
+	 write(*,g) intersect(A, B, setOrder='stable')
+	write(*,g) 'SETDIFF','Find the values in A that are not in B.'
+	 call setab( [3, 6, 2, 1, 5, 1, 1], [2, 4, 6] )
+	 write(*,g) setdiff(A, B)
+	 call setab( [4, 1, 3, 2, 5], [2, 1])
+	 write(*,g) setdiff(A, B, 'sorted')
+	 write(*,g) setdiff(A, B, 'stable')
+	write(*,g) 'ISMEMBER', 'Determine which elements of A are also in B.'
+	 call setab( [5,3,4,2], [2,4,4,4,6,8] )
+	 write(*,g) ismember(A,B)
+	write(*,g) 'SETXOR','Find values of A and B not in their intersection.'
+	 call setab( [5,1,3,3,3], [4,1,2] )
+	 write(*,g) setxor(A,B)
+	 write(*,g) setxor(A,B,'stable')
+
+     contains
+     subroutine setab(ain,bin)
+     integer,intent(in) :: ain(:)
+     integer,intent(in) :: bin(:)
+	A=ain
+	B=bin
+	write(*,g) 'A=', A
+	write(*,g) 'B=', B
+     end subroutine setab
+
+     end program demo_M_sets
+
+  Results:
+
+   > UNIQUE Find the unique elements of vector A.
+   > A= 10 -10 0 1 2 3 3 2 1 -10
+   > -10 0 1 2 3 10
+   > 10 -10 0 1 2 3
+   > UNION Find the union of vectors A and B.
+   > A= 5 7 1
+   > B= 3 1 1
+   > 1 3 5 7
+   > A= 5 5 3
+   > B= 1 2 5
+   > 1 2 3 5
+   > 5 3 1 2
+   > INTERSECT Find the values common to both A and B.
+   > A= 7 1 7 7 4
+   > B= 7 0 4 4 0
+   > 4 7
+   > 7 4
+   > SETDIFF Find the values in A that are not in B.
+   > A= 3 6 2 1 5 1 1
+   > B= 2 4 6
+   > 1 3 5
+   > A= 4 1 3 2 5
+   > B= 2 1
+   > 3 4 5
+   > 4 3 5
+   > ISMEMBER Determine which elements of A are also in B.
+   > A= 5 3 4 2
+   > B= 2 4 4 4 6 8
+   > 0 0 1 1
+   > SETXOR Find values of A and B not in their intersection.
+   > A= 5 1 3 3 3
+   > B= 4 1 2
+   > 2 3 4 5
+   > 5 3 4 2
+
+
+AUTHORS
+  John S. Urban, 2023-07-20
+
+LICENSE
+  CC0-1.0
+
+
+
+				 July 21, 2023		       M_sets(3m_sets)
+intersect(3m_sets)					    intersect(3m_sets)
+
+
+
+NAME
+  intersect(3f) - [M_sets] return intersect values in array A
+
+
+SYNOPSIS
+  intersect(A,B, setOrder)
+
+DESCRIPTION
+  Return elements of the input array A
+
+OPTIONS
+  A input array
+
+  B input array
+
+  setOrder
+    May be "sort" or "stable"
+
+EXAMPLE
+  sample program:
+
+       program demo_intersect
+       use M_sets, only: unique, intersect, union, setdiff, ismember, setxor
+       character(len=*),parameter :: g='(*(g0,1x))'
+       integer, allocatable	 :: A(:)
+       integer, allocatable	 :: B(:)
+
+	  write(*,g) 'INTERSECT', 'Find the values common to both A and B.'
+	   A=[7, 1, 7, 7, 4]
+	   B=[7, 0, 4, 4, 0]
+	   write(*,g) 'A=', A
+	   write(*,g) 'B=', B
+	   write(*,g) intersect(A, B)
+	   write(*,g) intersect(A, B, setOrder='stable')
+       end program demo_intersect
+
+  Results:
+
+   > INTERSECT Find the values common to both A and B.
+   > A= 7 1 7 7 4
+   > B= 7 0 4 4 0
+   > 4 7
+   > 7 4
+
+
+AUTHORS
+  John S. Urban, 2023-07-20
+
+LICENSE
+  CC0-1.0
+
+
+
+				 July 21, 2023		    intersect(3m_sets)

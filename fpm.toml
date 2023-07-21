@@ -1,0 +1,25 @@
+name = "M_sets"
+version = "2.1.0"
+license = "CC0-1.0"
+author = "John S. Urban"
+maintainer = "urbanjost@comcast.net"
+copyright = "Copyright 2022, John S. Urban"
+
+[build]
+   auto-executables = true
+   auto-tests = true
+   auto-examples = true
+   module-naming = true
+
+[install]
+   library=true
+
+[dependencies]
+   M_orderpack          = { git = "https://github.com/urbanjost/M_orderpack.git" }
+
+[[test]]
+   name="test_suite_M_sets"
+   source-dir="test"
+   main="test_suite_M_sets.f90"
+   [test.dependencies]
+      M_framework          = { git = "https://github.com/urbanjost/M_framework.git" }
