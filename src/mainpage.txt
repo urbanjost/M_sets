@@ -1,10 +1,10 @@
 'mainpage.txt
 /**
-         @mainpage orderpack Fortran Library
+         @mainpage M_sets Fortran Library
 
          @section Introduction
       sorting and ranking
 
-         @image html docs/images/orderpack.gif
+         @image html docs/images/M_sets.gif
 
 */'

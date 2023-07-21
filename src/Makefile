@@ -65,7 +65,7 @@ nagfor: all
 	@echo built with $(FC)
 
 # name of library to build of the form lib$NAME.a
-LIBNAME = M_orderpack
+LIBNAME = M_sets
 LIBS = -Llib/$(FC) -l$(LIBNAME)
 # directory to place output files in
 LIBRARY=$(INSTALL)/$(FC)/lib$(LIBNAME).a
@@ -169,7 +169,7 @@ clean:
 #-------------------------------------------------------------------------------
 .PHONY: help
 help:
-	: all     '-- build M_ORDERPACK module'
+	: all     '-- build M_sets module'
 	: run     '-- run manpage demo programs'
 	: man     '-- show all manpages as text'
 	: clean   '-- clean directory of object files and executables'
@@ -199,14 +199,4 @@ man:
 	@env MANPATH=../man MANWIDTH=80  man -Tutf8 --regex '.*'|col -b
 	: SPELLING
 	@env MANPATH=../man MANWIDTH=80  man -Tutf8 --regex '.*'|col -b|spell|xargs -n 5|column -t
-#-------------------------------------------------------------------------------
-M_orderpack__ctrper.o: M_orderpack__mrgrnk.o
-M_orderpack__mulcnt.o: M_orderpack__uniinv.o
-M_orderpack__unista.o: M_orderpack__uniinv.o
-M_orderpack.o: M_orderpack__ctrper.o M_orderpack__fndnth.o M_orderpack__indmed.o \
-	M_orderpack__indnth.o M_orderpack__inspar.o \
-	M_orderpack__inssor.o M_orderpack__median.o M_orderpack__mrgref.o M_orderpack__mrgrnk.o \
-	M_orderpack__mulcnt.o M_orderpack__rapknr.o M_orderpack__refpar.o M_orderpack__refsor.o \
-	M_orderpack__rinpar.o M_orderpack__rnkpar.o M_orderpack__uniinv.o M_orderpack__unipar.o \
-	M_orderpack__unirnk.o M_orderpack__unista.o M_orderpack__valmed.o M_orderpack__valnth.o
 #-------------------------------------------------------------------------------
