@@ -1,4 +1,4 @@
-[![](docs/images/venn_littl.gif)](https://urbanjost.github.io/M_sets/fpm-ford/index.html)
+[![](docs/images/venn_little.gif)](https://urbanjost.github.io/M_sets/fpm-ford/index.html)
 # [M_sets](https://urbanjost.github.io/M_sets/man3.html)
 
 ## Name
