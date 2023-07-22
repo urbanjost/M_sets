@@ -1,5 +1,3 @@
-# THIS IS A WIP FOR A CONCEPT, NOT MUCH ELSE
-
 [![](docs/images/sets.gif)](https://urbanjost.github.io/M_sets/fpm-ford/index.html)
 # [M_sets](https://urbanjost.github.io/M_sets/man3.html)
 
@@ -10,15 +8,16 @@
 
 Unions, intersection, and set membership
 
-A small subset of set functions reminiscent of Matlab set functions. They currently
-just work with vectors of default integer kind input and return sets but not the
-subscripts of the original elements.
+A small subset of set functions reminiscent of Matlab set functions. They
+currently just work with vectors of default integer kind input and return
+sets but not the subscripts of the original elements.
 
-It basically uses some simple calls to the ORDERSORT module to provide the functionality
-that are not tuned for performance and make loose use of memory allocation and space.
+It basically uses some simple calls to the ORDERSORT module to provide
+the functionality that are not tuned for performance and make loose use
+of memory allocation and space.
 
-Set operations compare the elements in two sets to find commonalities or
-differences. Currently the sets are arrays of integer numbers.
+Set operations compare the elements in two sets to find commonalities
+or differences. Currently the sets are arrays of integer numbers.
 
 ## Functions
  + union(A,B,setOrder)     - Set union of two arrays
