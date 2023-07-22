@@ -8,11 +8,11 @@ and usage changes.
    - [x] git repository on WWW (github)
    - [x] annotated source files with an open license
    - [x] unit test
-   - [x] make(1) build
+   - [ ] make(1) build
    - [x] fpm(1) build
    - [x] user manual (on-line)
    - [x] man-page
-   - [x] app program
+   - [ ] app program
    - [x] demo program for public procedures
    - [x] developer documents (ford(1))
    - [x] CI/CD(Continious Integration/Development) verification (github actions)
