@@ -8,16 +8,17 @@
 
 Unions, intersection, and set membership
 
-A small subset of set functions reminiscent of Matlab set functions. They
-currently just work with vectors of default integer kind input and return
-sets but not the subscripts of the original elements.
-
-It basically uses some simple calls to the ORDERSORT module to provide
-the functionality that are not tuned for performance and make loose use
-of memory allocation and space.
+A small set of Fortran functions reminiscent of Matlab set-theory functions
+intended to be built with and used by fpm(1) projects.
 
 Set operations compare the elements in two sets to find commonalities
-or differences. Currently the sets are arrays of integer numbers.
+or differences. Currently the allowed sets are arrays of integer numbers.
+
+<!--
+M_sets(3f) basically uses some simple calls to the ORDERSORT module to provide
+the functionality that are not tuned for performance and make loose use
+of memory allocation and space.
+-->
 
 ## Functions
  + union(A,B,setOrder)     - Set union of two arrays
