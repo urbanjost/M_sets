@@ -155,12 +155,15 @@ contains
 !!
 !!##DESCRIPTION
 !!
-!!    Return unique elements of the input array A
+!! Return unique values in array.  C = unique(A) returns the same data as
+!! in A, but with no repetitions. C is in sorted order by defaul.t
 !!
 !!##OPTIONS
 !!
 !!     A         input array to extract unique values from
 !!     setOrder  May be "sort" or "stable"
+!!
+!!##RETURNS
 !!
 !!##EXAMPLE
 !!
@@ -229,7 +232,8 @@ end function unique
 !!
 !!##DESCRIPTION
 !!
-!!    Return elements of the input array A
+!! Set union of two arrays.  C = union(A,B) returns the combined data from
+!! A and B with no repetitions. C is in sorted order.
 !!
 !!##OPTIONS
 !!
@@ -300,7 +304,9 @@ end function union
 !!
 !!##DESCRIPTION
 !!
-!!    Return elements of the input array A
+!! Set intersection of two arrays.  C = intersect(A,B) returns the data
+!! common to both A and B, with no repetitions. C is in sorted order
+!! by default.
 !!
 !!##OPTIONS
 !!
@@ -366,7 +372,8 @@ end function intersect
 !!
 !!##DESCRIPTION
 !!
-!!    Return elements of the input array A
+!! Set difference of two arrays.  C = setdiff(A,B) returns the data in A
+!! that is not in B, with no repetitions. C is in sorted order by default.
 !!
 !!##OPTIONS
 !!
@@ -437,12 +444,17 @@ end function setdiff
 !!
 !!##DESCRIPTION
 !!
-!!    Return elements of the input array A
+!! Array elements that are members of set array.  C = ismember(A,B) returns
+!! an array containing "logical" 1 (true) where the data in A is found in
+!! B. Elsewhere, the array contains "logical" 0 (false).
 !!
 !!##OPTIONS
 !!
 !!     A         input array
 !!     B         input array
+!!
+!!##RETURNS
+!!     C
 !!
 !!##EXAMPLE
 !!
@@ -509,7 +521,10 @@ end function ismember
 !!
 !!##DESCRIPTION
 !!
-!!    Return elements of the input array A
+!! Set exclusive OR of two arrays.  C = setxor(A,B) returns the data of
+!! A and B that are not in their intersection (the symmetric difference),
+!! with no repetitions. That is, setxor(3f) returns the data that occurs
+!! in A or B, but not both. C is in sorted order.
 !!
 !!##OPTIONS
 !!

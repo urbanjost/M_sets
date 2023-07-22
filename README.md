@@ -83,10 +83,10 @@ This will compile the Fortran module and basic example programs that exercise th
      are described in HTML form using the format of man-pages.
 <!--
      and [programs](https://urbanjost.github.io/M_sets/man1.html)
+-->
    - A single page that uses javascript to combine all the HTML
      descriptions of the man-pages is at
      [BOOK_M_sets](https://urbanjost.github.io/M_sets/BOOK_M_sets.html).
--->
 
    - ![man-pages](docs/images/manpages.gif)
      There are man-pages in the repository download in the docs/ directory
