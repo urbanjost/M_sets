@@ -34,7 +34,7 @@
          write(*,g) setxor(A,B)
          write(*,g) setxor(A,B,'stable')
 
-         write(*,g) 'ISSSORTED','confirm whether array is sorted in ascending order or not'
+         write(*,g) 'ISSORTED','confirm whether array is sorted in ascending order or not'
          call setab([1,2,3,4,5],[5,4,3,2,1])
          write(*,g) issorted(A)
          write(*,g) issorted(B)
