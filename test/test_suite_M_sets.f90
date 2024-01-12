@@ -1,6 +1,6 @@
 program runtest
 use M_framework
-use M_sets, only: unique, intersect, union, setdiff, ismember, setxor
+use M_sets, only: unique, intersect, union, setdiff, ismember, setxor, issorted
 !
 implicit none
 integer, allocatable       :: A(:)
@@ -16,13 +16,13 @@ integer,allocatable        :: expected(:)
    call test_setdiff()
    call test_ismember()
    call test_setxor()
+   call test_issorted()
 
    call unit_check_stop()
 
 contains
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_unique
-implicit none
    call unit_check_start('unique', 'find the unique elements of vactor A') ! start tests
 
    A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
@@ -41,7 +41,6 @@ implicit none
 end subroutine test_unique
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_union
-implicit none
    call unit_check_start('union', 'find the unique elements of vactors A and B') ! start tests
 
    A = [5, 7, 1]
@@ -70,7 +69,6 @@ implicit none
 end subroutine test_union
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_intersect
-implicit none
    call unit_check_start('intersect', 'find the values common to both A and B') ! start tests
 
    A = [7, 1, 7, 7, 4]
@@ -90,7 +88,6 @@ implicit none
 end subroutine test_intersect
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_setdiff
-implicit none
    call unit_check_start('setdiff', 'find the values in A that are not in B') ! start tests
 
    A = [3, 6, 2, 1, 5, 1, 1]
@@ -118,7 +115,6 @@ implicit none
 end subroutine test_setdiff
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_setxor
-implicit none
    call unit_check_start('setxor', 'find values two vectors do not share') ! start tests
 
    A = [5,1,3,3,3]
@@ -138,7 +134,6 @@ implicit none
 end subroutine test_setxor
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_ismember
-implicit none
 call unit_check_start('ismember', 'report which values in A are also in B') ! start tests
 ! ! Create two vectors with values in common.
 
@@ -152,5 +147,18 @@ call unit_check_start('ismember', 'report which values in A are also in B') ! st
 
    call unit_check_done('ismember',msg='test completed')
 end subroutine test_ismember
+!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+subroutine test_issorted
+use M_sets, only: issorted
+
+   call unit_check_start( 'issorted','Find the issorted elements of vector A.')
+
+   A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
+   call unit_check('issorted', issorted(A).eq.0,'sorted, expected 0 got',issorted(A))
+
+   A = [-10, 10, 100, 201]
+   call unit_check('issorted', issorted(A).eq.1,'sorted, expected 1 got',issorted(A))
+
+end subroutine test_issorted
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 end program runtest

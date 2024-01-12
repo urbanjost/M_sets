@@ -1,5 +1,5 @@
      program demo_M_sets
-     use M_sets, only: unique, intersect, union, setdiff, ismember, setxor
+     use M_sets, only: unique, intersect, union, setdiff, ismember, setxor, issorted
      character(len=*),parameter :: g='(*(g0,1x))'
      integer, allocatable      :: A(:)
      integer, allocatable      :: B(:)
@@ -33,6 +33,11 @@
          call setab( [5,1,3,3,3], [4,1,2] )
          write(*,g) setxor(A,B)
          write(*,g) setxor(A,B,'stable')
+
+         write(*,g) 'ISSSORTED','confirm whether array is sorted in ascending order or not'
+         call setab([1,2,3,4,5],[5,4,3,2,1])
+         write(*,g) issorted(A)
+         write(*,g) issorted(B)
 
      contains
      subroutine setab(ain,bin)

@@ -31,6 +31,7 @@ module M_sets
 !!  + setdiff(A,B,setOrder)   - Set difference of two arrays
 !!  + ismember(A,B,setOrder)  - Array elements that are members of set array
 !!  + setxor(A,B,setOrder)    - Set exclusive OR of two arrays
+!!  + issorted(A)             - test if elements are in ascending order
 !!
 !!##EXAMPLE
 !!
@@ -38,7 +39,7 @@ module M_sets
 !!  sample program:
 !!
 !!    program demo_M_sets
-!!    use M_sets, only: unique, intersect, union, setdiff, ismember, setxor
+!!    use M_sets, only: unique, intersect, union, setdiff, ismember, setxor, issorted
 !!    character(len=*),parameter :: g='(*(g0,1x))'
 !!    integer, allocatable      :: A(:)
 !!    integer, allocatable      :: B(:)
@@ -72,6 +73,11 @@ module M_sets
 !!        call setab( [5,1,3,3,3], [4,1,2] )
 !!        write(*,g) setxor(A,B)
 !!        write(*,g) setxor(A,B,'stable')
+!!
+!!        write(*,g) 'ISSSORTED','confirm whether array is sorted in ascending order or not'
+!!        call setab([1,2,3,4,5],[5,4,3,2,1])
+!!        write(*,g) issorted(A)
+!!        write(*,g) issorted(B)
 !!
 !!    contains
 !!    subroutine setab(ain,bin)
@@ -142,6 +148,7 @@ public :: ismember  ! C = ismember(A,B) returns   an array containing 1 (true) w
 public :: setxor    ! C = setxor(A,B,setOrder)    returns the data of A and B that are not in their intersection
                     !                             (the symmetric difference), with no repetitions. That is, setxor returns the
                     !                             data that occurs in A or B, but not both. C is in sorted order.
+public :: issorted  ! C = issorted(A)             determine if A is in ascending order or not
 contains
 
 !>
@@ -156,7 +163,7 @@ contains
 !!##DESCRIPTION
 !!
 !! Return unique values in array.  C = unique(A) returns the same data as
-!! in A, but with no repetitions. C is in sorted order by defaul.t
+!! in A, but with no repetitions. C is in sorted order by default.
 !!
 !!##OPTIONS
 !!
@@ -599,5 +606,74 @@ integer                                :: inums
    result=unique(result,setOrder)
 
 end function setxor
+!>
+!!##NAME
+!!    issorted(3f) - [M_sets] Report if A is sorted in ascending order or not.
+!!
+!!##SYNOPSIS
+!!
+!!
+!!    issorted(A,setOrder)
+!!
+!!##DESCRIPTION
+!!
+!!    Report if A is sorted in ascending order or not. TF = issorted(A)
+!!    returns the logical scalar 1 (true) when the elements of A are listed
+!!    in ascending order and 0 (false) otherwise.
+!!
+!!##OPTIONS
+!!
+!!     A     input array to test
+!!
+!!##RETURNS
+!!
+!!     TF    1 if input array A issorted in ascending order, 0 otherwise
+!!
+!!##EXAMPLE
+!!
+!!
+!!  sample program:
+!!
+!!    program demo_issorted
+!!    use M_sets, only: issorted
+!!    character(len=*),parameter :: g='(*(g0,1x))'
+!!    integer, allocatable      :: A(:)
+!!
+!!       write(*,g) 'ISSORTED','Find the issorted elements of vector A.'
+!!        A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
+!!        write(*,g) 'A=', A
+!!        write(*,g) issorted(A)
+!!        A = [-10, 10, 100, 201]
+!!        write(*,g) 'A=', A
+!!        write(*,g) issorted(A)
+!!
+!!    end program demo_issorted
+!!
+!! Results:
+!!
+!!  > ISSORTED Find the issorted elements of vector A.
+!!  > A= 10 -10 0 1 2 3 3 2 1 -10
+!!  > 0
+!!  > A= -10 10 100 201
+!!  > 1
+!!
+!!##AUTHORS
+!!    John S. Urban, 2023-07-20
+!!
+!!##LICENSE
+!!    CC0-1.0
+function issorted(A) result(result)
+! TF = issorted(A) returns the logical scalar 1 (true) when the elements of A are listed in ascending order and 0 (false) otherwise.
+integer, intent(in) :: A(:)
+integer             :: result
+integer             :: i
+result=1
+do i=1,size(a)-1
+   if(A(i).gt.A(i+1))then
+      result=0
+      exit
+   endif
+enddo
+end function issorted
 
 end module M_sets
