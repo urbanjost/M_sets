@@ -1,3 +1,4 @@
+# TOML file for fpm as described at https://fpm.fortran-lang.org/en/spec/manifest.html
 name = "M_sets"
 version = "2.1.0"
 license = "CC0-1.0"
@@ -5,17 +6,43 @@ author = "John S. Urban"
 maintainer = "urbanjost@comcast.net"
 copyright = "Copyright 2022, John S. Urban"
 
+description = "set-theory functions including Union, intersection, and set membership"
+categories = ["sets"]
+keywords = ["fortran", "sets","set-theory","union","intersection","membership"]
+homepage = "https://github.com/urbanjost/M_sets.git"
+
 [build]
    auto-executables = true
    auto-tests = true
    auto-examples = true
+   # new default with v0.8.0
+   # force module naming rules to avoid collisions with other packages
    module-naming = true
+   # traditional where user can use any module name
+   #module-naming = false
+
+# new section with v0.8.0
+[fortran]
+   implicit-typing = false
+   implicit-external = false
+   source-form = "free"
+   # traditional pre-version8 compatibility
+   #implicit-typing = true
+   #implicit-external = true
+   #source-form = "default"
 
 [install]
    library=true
 
 [dependencies]
    M_orderpack          = { git = "https://github.com/urbanjost/M_orderpack.git" }
+
+[[executable]]
+   name="settheory"
+   source-dir="app"
+   main="main.f90"
+   [executable.dependencies]
+   M_CLI2 = { git = "https://github.com/urbanjost/M_CLI2.git" }
 
 [[test]]
    name="test_suite_M_sets"
