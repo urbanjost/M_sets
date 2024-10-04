@@ -1,0 +1,10 @@
+build/*
+FODDER/
+man/
+tmp/*
+Archive/
+src/source/doc
+src/source/GPF_build_module.out
+#docs/doxygen_out/*
+#docs/fpm-ford/*
+build.sh

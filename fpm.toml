@@ -35,24 +35,24 @@ homepage = "https://github.com/urbanjost/M_sets.git"
    library=true
 
 [dependencies]
-   #M_orderpack = { git = "https://github.com/urbanjost/M_orderpack.git" }
+   M_orderpack = { git = "https://github.com/urbanjost/M_orderpack.git" }
    #M_orderpack = { namespace = "GPF" }
-   M_orderpack  = { path = "GLINKS/M_orderpack" }
+   #M_orderpack  = { path = "GLINKS/M_orderpack" }
 
 [[executable]]
    name="settheory"
    source-dir="app"
    main="main.f90"
    [executable.dependencies]
-   #M_CLI2 = { git = "https://github.com/urbanjost/M_CLI2.git" }
+   M_CLI2 = { git = "https://github.com/urbanjost/M_CLI2.git" }
    #M_CLI2 = { namespace = "GPF" }
-   M_CLI2  = { path = "GLINKS/M_CLI2" }
+   #M_CLI2  = { path = "GLINKS/M_CLI2" }
 
 [[test]]
    name="test_suite_M_sets"
    source-dir="test"
    main="test_suite_M_sets.f90"
    [test.dependencies]
-   #M_framework = { git = "https://github.com/urbanjost/M_framework.git" }
+   M_framework = { git = "https://github.com/urbanjost/M_framework.git" }
    #M_framework = { namespace = "GPF" }
-   M_framework  = { path = "GLINKS/M_framework" }
+   #M_framework  = { path = "GLINKS/M_framework" }
