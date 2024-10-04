@@ -19,6 +19,12 @@ and usage changes.
    - [ ] registered in fpm(1) repository
 
 ---
+**2024-09-04**  John S. Urban  <https://github.com/urbanjost>
+
+### :green_circle: ADD:
+   - allow character string data
+---
+---
 **2023-07-20**  John S. Urban  <https://github.com/urbanjost>
 
 ### :green_circle: ADD:
