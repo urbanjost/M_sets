@@ -225,7 +225,7 @@ integer                                :: nuni
       setOrder_ = 'sorted'
    end if
    result = A
-   select case (lower(setOrder_))
+   select case (setOrder_)
    case ('stable')
       call unique_(result, nuni)
       result = result(:nuni)
@@ -235,7 +235,7 @@ integer                                :: nuni
       call rank_unique_(A, result, nuni)
       result = A(result(:nuni))
    case default
-      stop '*unique* unknown setOrder '//setOrder_//'allowed are "stable" and "sorted"'
+      stop '*unique* unknown setOrder '//setOrder_
    end select
 end function unique_i
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -243,24 +243,24 @@ function unique_c(A, setOrder) result(result)
 ! C = unique(A) returns the same data as in A, but with no repetitions. C is in sorted order.
 character(len=*), intent(in)           :: A(:)
 character(len=*), intent(in), optional :: setOrder
-character(len=:), allocatable          :: result(:)
+character(len=len(a)), allocatable     :: result(:)
 character(len=:), allocatable          :: setOrder_
 integer                                :: nuni
    if (present(setOrder)) then
       setOrder_ = setOrder
    else
       setOrder_ = 'sorted'
-   endif
-   result = A
-   call unique_(result, nuni)
-   result = result(:nuni)
-   select case (lower(setOrder_))
-   case ('stable')
-   case ('sorted')
-      call sort_(result)
-   case default
-      stop '*unique* unknown setOrder '//setOrder_//' allowed are "stable" and "sorted"'
-   end select
+   end if
+!   result = A
+!   call unique_(result, nuni)
+!   result = result(:nuni)
+!   select case (setOrder_)
+!   case ('stable')
+!   case ('sorted')
+!      call sort_(result)
+!   case default
+!      stop '*unique* unknown setOrder '//setOrder_
+!   end select
 end function unique_c
 !>
 !!##NAME
@@ -340,11 +340,7 @@ character(len=*), intent(in)           :: A(:)
 character(len=*), intent(in)           :: B(:)
 character(len=*), intent(in), optional :: setOrder
 character(len=:), allocatable          :: result(:)
-character(len=:), allocatable          :: kludge(:)
-integer                                :: longest
-longest=max(len(a),len(b))
-   kludge = [character(len=longest) :: A, B]
-   result = unique(kludge, setOrder)
+   result = unique([A, B], setOrder)
 end function union_c
 !>
 !!##NAME
@@ -421,18 +417,13 @@ character(len=*), intent(in)           :: B(:)
 character(len=*), intent(in), optional :: setOrder
 character(len=:), allocatable          :: result(:)
 integer, allocatable                   :: iwrk(:)
-character(len=:), allocatable          :: kludge(:)
 integer :: longest
    longest=max(len(A),len(B))
    result = [character(len=longest) :: unique(A, setOrder), unique(B, setOrder)]
    if (allocated(iwrk)) deallocate (iwrk)
    allocate (iwrk(size(result)))
    call occurrences_(result, iwrk)
-   !--------------------------------
-   !result= unique(pack(result//'',iwrk.gt.1),setOrder) ! add //' ' to avoid gfortran 13.1.0-8 bug
-   kludge=pack(result//'',iwrk.gt.1)
-   result = unique(kludge, setOrder)
-   !--------------------------------
+   result = unique(pack(result, iwrk .gt. 1), setOrder)
 end function intersect_c
 !>
 !!##NAME
@@ -511,7 +502,7 @@ function setdiff_c(A, B, setOrder) result(result)
 character(len=*), intent(in)           :: a(:)
 character(len=*), intent(in)           :: b(:)
 character(len=*), intent(in), optional :: setOrder
-character(len=:), allocatable          :: result(:),kludge(:)
+character(len=:), allocatable          :: result(:)
 integer         , allocatable          :: iwrk(:)
 integer                                :: longest
    result = unique(b, setOrder='stable')
@@ -520,11 +511,7 @@ integer                                :: longest
    if (allocated(iwrk)) deallocate (iwrk)
    allocate ( iwrk(size(result)))
    call occurrences_(result, iwrk)
-   !--------------------------------
-   !result = unique(pack(result, iwrk .eq. 1), setOrder)
-   kludge = pack(result//'', iwrk .eq. 1)
-   result = unique(kludge, setOrder)
-   !--------------------------------
+   result = unique(pack(result, iwrk .eq. 1), setOrder)
 
 end function setdiff_c
 !>
@@ -621,7 +608,7 @@ integer                        :: longest
    allocate (iwrk2(size(a)))
    if (allocated(iwrk1)) deallocate (iwrk1)
    allocate (iwrk1(size(cwrk1)))
-   call occurrences_(cwrk1, iwrk1)
+   call occurrences_(result, iwrk1)
    call occurrences_(a, iwrk2)
    result=iwrk1(:inums)-iwrk2
    result=merge(0,1,result.eq.0)
@@ -724,7 +711,7 @@ function setxor_c(A, B, setOrder) result(result)
 character(len=*), intent(in)           :: a(:)
 character(len=*), intent(in)           :: b(:)
 character(len=*), intent(in), optional :: setOrder
-character(len=:), allocatable          :: result(:), kludge(:)
+character(len=:), allocatable          :: result(:)
 integer         , allocatable          :: iwrk1(:)
 integer         , allocatable          :: iwrk2(:)
 integer         , allocatable          :: iwrk3(:)
@@ -748,8 +735,8 @@ integer                                :: longest
 
    iwrk1=iwrk1-[iwrk2,iwrk3]
 
-   kludge=pack(result//'',iwrk1.eq.0)
-   result=unique(kludge,setOrder)
+   result=pack(result,iwrk1.eq.0)
+   result=unique(result,setOrder)
 
 end function setxor_c
 !>
@@ -835,22 +822,4 @@ do i=1,size(a)-1
    endif
 enddo
 end function issorted_c
-elemental pure function lower(str) result (string)
-
-! ident_1="@(#) M_strings lower(3f) Changes a string to lowercase over specified range"
-
-character(*), intent(in)    :: str
-character(len(str))         :: string
-integer                     :: i
-integer,parameter           :: diff = iachar('A')-iachar('a')
-   string = str
-   do concurrent (i = 1:len_trim(str))                ! step thru each letter in the string in specified range
-      select case (str(i:i))
-      case ('A':'Z')
-         string(i:i) = achar(iachar(str(i:i))-diff)   ! change letter to miniscule
-      case default
-      end select
-   enddo
-
-end function lower
 end module M_sets

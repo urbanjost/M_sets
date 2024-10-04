@@ -12,7 +12,8 @@ A small set of Fortran functions reminiscent of Matlab set-theory functions
 intended to be built with and used by fpm(1) projects.
 
 Set operations compare the elements in two sets to find commonalities
-or differences. Currently the allowed sets are arrays of integer numbers.
+or differences. Currently the allowed sets are arrays of integer numbers or
+arrays of character variables.
 
 <!--
 M_sets(3f) basically uses some simple calls to the ORDERSORT module to provide

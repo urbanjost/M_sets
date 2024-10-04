@@ -14,15 +14,16 @@ DESCRIPTION
 Unions, intersection, and set membership
 
 A small subset of set functions reminiscent of Matlab set functions. They
-currently just work with vectors of default integer kind input and return
-sets but not the subscripts of the original elements.
+currently just work with vectors of default integer and character type
+input and return sets but not the subscripts of the original elements.
 
 It basically uses some simple calls to the M_ordersort(3f) module to
-provide the functionality that are not tuned for performance and make
-loose use of memory allocation and space.
+provide the functionality. They are not tuned for performance and make
+loose use of memory allocation and space but are sufficient for most use.
 
 Set operations compare the elements in two sets to find commonalities
-or differences. Currently the sets are arrays of integer numbers.
+or differences. Currently the sets are arrays of integer numbers or
+character strings.
 
 ## Functions
  + union(A,B,setOrder)     - Set union of two arrays
@@ -136,7 +137,7 @@ $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ! a subset of the functionality of set functions in Matlab are provided.
 ! currently, just integer vector input is provided.
-use M_orderpack, only: unique_ => unique, occurrences_ => occurrences
+use M_orderpack, only: unique_ => unique, occurrences_ => occurrences, sort_ => sort
 use M_orderpack, only: rank_unique_ => rank_unique
 
 private
@@ -150,6 +151,15 @@ public :: setxor    ! C = setxor(A,B,setOrder)    returns the data of A and B th
                     !                             (the symmetric difference), with no repetitions. That is, setxor returns the
                     !                             data that occurs in A or B, but not both. C is in sorted order.
 public :: issorted  ! C = issorted(A)             determine if A is in ascending order or not
+
+interface unique;    module procedure unique_i,    unique_c;     end interface unique
+interface union;     module procedure union_i,     union_c;      end interface union
+interface intersect; module procedure intersect_i, intersect_c;  end interface intersect
+interface setdiff;   module procedure setdiff_i,   setdiff_c;    end interface setdiff
+interface ismember;  module procedure ismember_i,  ismember_c;   end interface ismember
+interface setxor;    module procedure setxor_i,    setxor_c;     end interface setxor
+interface issorted;  module procedure issorted_i,  issorted_c;   end interface issorted
+
 contains
 
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -204,7 +214,7 @@ LICENSE
    CC0-1.0
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function unique(A, setOrder) result(result)
+function unique_i(A, setOrder) result(result)
 ! C = unique(A) returns the same data as in A, but with no repetitions. C is in sorted order.
 integer, intent(in)                    :: A(:)
 character(len=*), intent(in), optional :: setOrder
@@ -217,7 +227,7 @@ integer                                :: nuni
       setOrder_ = 'sorted'
    end if
    result = A
-   select case (setOrder_)
+   select case (lower(setOrder_))
    case ('stable')
       call unique_(result, nuni)
       result = result(:nuni)
@@ -227,9 +237,33 @@ integer                                :: nuni
       call rank_unique_(A, result, nuni)
       result = A(result(:nuni))
    case default
-      stop '*unique* unknown setOrder '//setOrder_
+      stop '*unique* unknown setOrder '//setOrder_//'allowed are "stable" and "sorted"'
    end select
-end function unique
+end function unique_i
+!-----------------------------------------------------------------------------------------------------------------------------------
+function unique_c(A, setOrder) result(result)
+! C = unique(A) returns the same data as in A, but with no repetitions. C is in sorted order.
+character(len=*), intent(in)           :: A(:)
+character(len=*), intent(in), optional :: setOrder
+character(len=:), allocatable          :: result(:)
+character(len=:), allocatable          :: setOrder_
+integer                                :: nuni
+   if (present(setOrder)) then
+      setOrder_ = setOrder
+   else
+      setOrder_ = 'sorted'
+   endif
+   result = A
+   call unique_(result, nuni)
+   result = result(:nuni)
+   select case (lower(setOrder_))
+   case ('stable')
+   case ('sorted')
+      call sort_(result)
+   case default
+      stop '*unique* unknown setOrder '//setOrder_//' allowed are "stable" and "sorted"'
+   end select
+end function unique_c
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file union.3m_sets.man
 NAME
@@ -294,15 +328,27 @@ LICENSE
    CC0-1.0
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function union(A, B, setOrder) result(result)
+function union_i(A, B, setOrder) result(result)
 ! C = union(A,B) returns the combined data from A and B with no repetitions. C is in sorted order.
 integer, intent(in)                    :: A(:)
 integer, intent(in)                    :: B(:)
 character(len=*), intent(in), optional :: setOrder
 integer, allocatable                   :: result(:)
    result = unique([A, B], setOrder)
-end function union
-
+end function union_i
+!-----------------------------------------------------------------------------------------------------------------------------------
+function union_c(A, B, setOrder) result(result)
+! C = union(A,B) returns the combined data from A and B with no repetitions. C is in sorted order.
+character(len=*), intent(in)           :: A(:)
+character(len=*), intent(in)           :: B(:)
+character(len=*), intent(in), optional :: setOrder
+character(len=:), allocatable          :: result(:)
+character(len=:), allocatable          :: kludge(:)
+integer                                :: longest
+longest=max(len(a),len(b))
+   kludge = [character(len=longest) :: A, B]
+   result = unique(kludge, setOrder)
+end function union_c
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file intersect.3m_sets.man
 NAME
@@ -358,7 +404,7 @@ LICENSE
    CC0-1.0
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function intersect(A, B, setOrder) result(result)
+function intersect_i(A, B, setOrder) result(result)
 ! C = intersect(A,B) returns the data common to both A and B, with no repetitions. C is in sorted order by default
 integer, intent(in)                    :: A(:)
 integer, intent(in)                    :: B(:)
@@ -370,8 +416,28 @@ integer, allocatable                   :: iwrk(:)
    allocate (iwrk(size(result)))
    call occurrences_(result, iwrk)
    result = unique(pack(result, iwrk .gt. 1), setOrder)
-end function intersect
-
+end function intersect_i
+!-----------------------------------------------------------------------------------------------------------------------------------
+function intersect_c(A, B, setOrder) result(result)
+! C = intersect(A,B) returns the data common to both A and B, with no repetitions. C is in sorted order by default
+character(len=*), intent(in)           :: A(:)
+character(len=*), intent(in)           :: B(:)
+character(len=*), intent(in), optional :: setOrder
+character(len=:), allocatable          :: result(:)
+integer, allocatable                   :: iwrk(:)
+character(len=:), allocatable          :: kludge(:)
+integer :: longest
+   longest=max(len(A),len(B))
+   result = [character(len=longest) :: unique(A, setOrder), unique(B, setOrder)]
+   if (allocated(iwrk)) deallocate (iwrk)
+   allocate (iwrk(size(result)))
+   call occurrences_(result, iwrk)
+   !--------------------------------
+   !result= unique(pack(result//'',iwrk.gt.1),setOrder) ! add //' ' to avoid gfortran 13.1.0-8 bug
+   kludge=pack(result//'',iwrk.gt.1)
+   result = unique(kludge, setOrder) 
+   !--------------------------------
+end function intersect_c
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file setdiff.3m_sets.man
 NAME
@@ -429,7 +495,7 @@ LICENSE
    CC0-1.0
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function setdiff(A, B, setOrder) result(result)
+function setdiff_i(A, B, setOrder) result(result)
 ! C = setdiff(A,B) returns the data in A that is not in B, with no repetitions. C is in sorted order by default.
 integer, intent(in)                    :: a(:)
 integer, intent(in)                    :: b(:)
@@ -443,8 +509,29 @@ integer, allocatable                   :: iwrk(:)
    call occurrences_(result, iwrk)
    result = unique(pack(result, iwrk .eq. 1), setOrder)
 
-end function setdiff
+end function setdiff_i
+!-----------------------------------------------------------------------------------------------------------------------------------
+function setdiff_c(A, B, setOrder) result(result)
+! C = setdiff(A,B) returns the data in A that is not in B, with no repetitions. C is in sorted order by default.
+character(len=*), intent(in)           :: a(:)
+character(len=*), intent(in)           :: b(:)
+character(len=*), intent(in), optional :: setOrder
+character(len=:), allocatable          :: result(:),kludge(:)
+integer         , allocatable          :: iwrk(:)
+integer                                :: longest
+   result = unique(b, setOrder='stable')
+   longest=max(len(a),len(b))
+   result = [character(len=longest) :: unique(a, setOrder='stable'), result, result] ! potentially a lot of memory
+   if (allocated(iwrk)) deallocate (iwrk)
+   allocate ( iwrk(size(result)))
+   call occurrences_(result, iwrk)
+   !--------------------------------
+   !result = unique(pack(result, iwrk .eq. 1), setOrder)
+   kludge = pack(result//'', iwrk .eq. 1)
+   result = unique(kludge, setOrder)
+   !--------------------------------
 
+end function setdiff_c
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file ismember.3m_sets.man
 NAME
@@ -502,7 +589,7 @@ LICENSE
    CC0-1.0
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function ismember(A, B) result(result)
+function ismember_i(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 integer, intent(in)   :: a(:)
 integer, intent(in)   :: b(:)
@@ -521,8 +608,31 @@ integer               :: inums
    result=iwrk1(:inums)-iwrk2
    result=merge(0,1,result.eq.0)
 
-end function ismember
+end function ismember_i
+!-----------------------------------------------------------------------------------------------------------------------------------
+function ismember_c(A, B) result(result)
+! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
+character(len=*), intent(in)   :: a(:)
+character(len=*), intent(in)   :: b(:)
+integer         , allocatable  :: result(:)
+integer         , allocatable  :: iwrk1(:)
+integer         , allocatable  :: iwrk2(:)
+character(len=:), allocatable  :: cwrk1(:)
+integer                        :: inums
+integer                        :: longest
+   longest=max(len(a),len(b))
+   inums=size(a)
+   cwrk1 = [ character(len=longest) :: a, unique(b) ] ! potentially a lot of memory
+   if (allocated(iwrk2)) deallocate (iwrk2)
+   allocate (iwrk2(size(a)))
+   if (allocated(iwrk1)) deallocate (iwrk1)
+   allocate (iwrk1(size(cwrk1)))
+   call occurrences_(cwrk1, iwrk1)
+   call occurrences_(a, iwrk2)
+   result=iwrk1(:inums)-iwrk2
+   result=merge(0,1,result.eq.0)
 
+end function ismember_c
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file setxor.3m_sets.man
 NAME
@@ -580,7 +690,7 @@ LICENSE
    CC0-1.0
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function setxor(A, B, setOrder) result(result)
+function setxor_i(A, B, setOrder) result(result)
 ! C = setxor(A,B,setOrder) returns the data of A and B that are not in their intersection
 !                          (the symmetric difference), with no repetitions. That is, setxor returns the
 !                          data that occurs in A or B, but not both. C is in sorted order.
@@ -612,7 +722,43 @@ integer                                :: inums
    result=pack(result,iwrk1.eq.0)
    result=unique(result,setOrder)
 
-end function setxor
+end function setxor_i
+!-----------------------------------------------------------------------------------------------------------------------------------
+function setxor_c(A, B, setOrder) result(result)
+! C = setxor(A,B,setOrder) returns the data of A and B that are not in their intersection
+!                          (the symmetric difference), with no repetitions. That is, setxor returns the
+!                          data that occurs in A or B, but not both. C is in sorted order.
+character(len=*), intent(in)           :: a(:)
+character(len=*), intent(in)           :: b(:)
+character(len=*), intent(in), optional :: setOrder
+character(len=:), allocatable          :: result(:), kludge(:)
+integer         , allocatable          :: iwrk1(:)
+integer         , allocatable          :: iwrk2(:)
+integer         , allocatable          :: iwrk3(:)
+integer                                :: inums
+integer                                :: longest
+   inums=size(a)
+   longest=max(len(a),len(b))
+
+   result = [character(len=longest) ::  a, b ] ! potentially a lot of memory
+   if (allocated(iwrk1)) deallocate (iwrk1)
+   allocate (iwrk1(size(result)))
+   call occurrences_(result, iwrk1)
+
+   if (allocated(iwrk2)) deallocate (iwrk2)
+   allocate (iwrk2(size(a)))
+   call occurrences_(a, iwrk2)
+
+   if (allocated(iwrk3)) deallocate (iwrk3)
+   allocate (iwrk3(size(b)))
+   call occurrences_(b, iwrk3)
+
+   iwrk1=iwrk1-[iwrk2,iwrk3]
+
+   kludge=pack(result//'',iwrk1.eq.0)
+   result=unique(kludge,setOrder)
+
+end function setxor_c
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file issorted.3m_sets.man
 NAME
@@ -634,7 +780,7 @@ OPTIONS
 
 RETURNS
 
-    TF    1 if input array A issorted in ascending order, 0 otherwise 
+    TF    1 if input array A issorted in ascending order, 0 otherwise
 
 EXAMPLE
 
@@ -670,7 +816,7 @@ LICENSE
    CC0-1.0
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function issorted(A) result(result)
+function issorted_i(A) result(result)
 ! TF = issorted(A) returns the logical scalar 1 (true) when the elements of A are listed in ascending order and 0 (false) otherwise.
 integer, intent(in) :: A(:)
 integer             :: result
@@ -682,6 +828,39 @@ do i=1,size(a)-1
       exit
    endif
 enddo
-end function issorted
+end function issorted_i
+!-----------------------------------------------------------------------------------------------------------------------------------
+function issorted_c(A) result(result)
+! TF = issorted(A) returns the logical scalar 1 (true) when the elements of A are listed in ascending order and 0 (false) otherwise.
+character(len=*), intent(in) :: A(:)
+integer                      :: result
+integer                      :: i
+result=1
+do i=1,size(a)-1
+   if(A(i).gt.A(i+1))then
+      result=0
+      exit
+   endif
+enddo
+end function issorted_c
+$!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+elemental pure function lower(str) result (string)
 
+$@(#) M_strings::lower(3f): Changes a string to lowercase over specified range
+
+character(*), intent(in)    :: str
+character(len(str))         :: string
+integer                     :: i
+integer,parameter           :: diff = iachar('A')-iachar('a')
+   string = str
+   do concurrent (i = 1:len_trim(str))                ! step thru each letter in the string in specified range
+      select case (str(i:i))
+      case ('A':'Z')
+         string(i:i) = achar(iachar(str(i:i))-diff)   ! change letter to miniscule
+      case default
+      end select
+   enddo
+
+end function lower
+$!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 end module M_sets
