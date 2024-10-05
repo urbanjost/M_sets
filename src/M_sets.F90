@@ -1,38 +1,45 @@
 module M_sets
 !>
 !!##NAME
-!!    M_sets(3f) - [M_sets::INTRO] functions reminiscent of Matlab set functions
+!!    M_sets(3f) - [M_sets::INTRO] functions reminiscent of Matlab set
+!!    functions
 !!
 !!##SYNOPSIS
 !!
 !!    Procedure names and syntax:
 !!
-!!     use M_sets, only : & union, unique, intersect, setdiff, ismember, setxor
+!!     use M_sets, only : &
+!!     union, unique, intersect, setdiff, ismember, setxor
+!!     use M_sets, only : &
+!!     issorted
 !!
 !!##DESCRIPTION
 !!
-!! Unions, intersection, and set membership
-!!
-!! A small subset of set functions reminiscent of Matlab set functions. They
-!! currently just work with vectors of default integer and character type
-!! input and return sets but not the subscripts of the original elements.
-!!
-!! It basically uses some simple calls to the M_ordersort(3f) module to
-!! provide the functionality. They are not tuned for performance and make
-!! loose use of memory allocation and space but are sufficient for most use.
-!!
 !! Set operations compare the elements in two sets to find commonalities
-!! or differences. Currently the sets are arrays of integer numbers or
-!! character strings.
+!! or differences. This includes Unions, Intersections, and set Membership.
+!!
+!! M_set(3f) is a Fortran module comprising a small subset of set theory
+!! functions reminiscent of Matlab functions.
+!!
+!! The functions currently work only with vectors of default
+!! integer and character input.
+!!
+!! M_set(3f) primarily uses simple calls to the M_ordersort(3f) module to
+!! provide the functionality. The functions  are not otherwise tuned for
+!! performance and make loose use of memory allocation but are sufficient
+!! for most uses, simple to use, and familiar to a large base of users.
 !!
 !! ## Functions
-!!  + union(A,B,setOrder)     - Set union of two arrays
-!!  + unique(A,setOrder)      - Unique values in array
-!!  + intersect(A,B,setOrder) - Set intersection of two arrays
-!!  + setdiff(A,B,setOrder)   - Set difference of two arrays
-!!  + ismember(A,B,setOrder)  - Array elements that are members of set array
-!!  + setxor(A,B,setOrder)    - Set exclusive OR of two arrays
-!!  + issorted(A)             - test if elements are in ascending order
+!!  + union(A,B,setOrder)     - Join two sets and remove duplicates of values
+!!  + unique(A,setOrder)      - Remove duplicates of values from a set
+!!  + intersect(A,B,setOrder) - Find the values common to both A and B
+!!  + setdiff(A,B,setOrder)   - Find the values in A that are not in B
+!!  + ismember(A,B,setOrder)  - Create a mask of A marking elements also in B
+!!  + setxor(A,B,setOrder)    - Find values of A and B not in both arrays
+!!  + issorted(A)             - Determine if array is already sorted
+!!
+!!  The subsequent data may be produced sorted, or left in the order
+!!  encountered.
 !!
 !!##EXAMPLE
 !!
@@ -40,7 +47,8 @@ module M_sets
 !!  sample program:
 !!
 !!    program demo_M_sets
-!!    use M_sets, only: unique, intersect, union, setdiff, ismember, setxor, issorted
+!!    use M_sets, only: &
+!!    & unique, intersect, union, setdiff, ismember, setxor, issorted
 !!    character(len=*),parameter :: g='(*(g0,1x))'
 !!    integer, allocatable      :: A(:)
 !!    integer, allocatable      :: B(:)
@@ -67,15 +75,18 @@ module M_sets
 !!        call setab( [4, 1, 3, 2, 5], [2, 1])
 !!        write(*,g) setdiff(A, B, 'sorted')
 !!        write(*,g) setdiff(A, B, 'stable')
-!!       write(*,g) 'ISMEMBER', 'Determine which elements of A are also in B.'
+!!       write(*,g) 'ISMEMBER', &
+!!       'Determine which elements of A are also in B.'
 !!        call setab( [5,3,4,2], [2,4,4,4,6,8] )
 !!        write(*,g) ismember(A,B)
-!!       write(*,g) 'SETXOR','Find values of A and B not in their intersection.'
+!!       write(*,g) 'SETXOR',&
+!!       'Find values of A and B not in their intersection.'
 !!        call setab( [5,1,3,3,3], [4,1,2] )
 !!        write(*,g) setxor(A,B)
 !!        write(*,g) setxor(A,B,'stable')
 !!
-!!        write(*,g) 'ISSSORTED','confirm whether array is sorted in ascending order or not'
+!!        write(*,g) 'ISSSORTED',&
+!!        'confirm whether array is sorted in ascending order or not'
 !!        call setab([1,2,3,4,5],[5,4,3,2,1])
 !!        write(*,g) issorted(A)
 !!        write(*,g) issorted(B)
@@ -264,7 +275,7 @@ integer                                :: nuni
 end function unique_c
 !>
 !!##NAME
-!!    union(3f) - [M_sets] return union values in array A
+!!    union(3f) - [M_sets] Join two sets and remove duplicates of values
 !!
 !!##SYNOPSIS
 !!
@@ -348,7 +359,7 @@ longest=max(len(a),len(b))
 end function union_c
 !>
 !!##NAME
-!!    intersect(3f) - [M_sets] return intersect values in array A
+!!    intersect(3f) - [M_sets] Find the values common to both sets A and B
 !!
 !!##SYNOPSIS
 !!
@@ -358,8 +369,9 @@ end function union_c
 !!##DESCRIPTION
 !!
 !! Set intersection of two arrays.  C = intersect(A,B) returns the data
-!! common to both A and B, with no repetitions. C is in sorted order
-!! by default.
+!! common to both A and B, with no repetitions.
+!!
+!! C is generated in sorted order by default.
 !!
 !!##OPTIONS
 !!
@@ -372,20 +384,20 @@ end function union_c
 !!
 !!  sample program:
 !!
-!!      program demo_intersect
-!!      use M_sets, only: unique, intersect, union, setdiff, ismember, setxor
-!!      character(len=*),parameter :: g='(*(g0,1x))'
-!!      integer, allocatable      :: A(:)
-!!      integer, allocatable      :: B(:)
+!!   program demo_intersect
+!!   use M_sets, only: unique, intersect, union, setdiff, ismember, setxor
+!!   character(len=*),parameter :: g='(*(g0,1x))'
+!!   integer, allocatable      :: A(:)
+!!   integer, allocatable      :: B(:)
 !!
-!!         write(*,g) 'INTERSECT', 'Find the values common to both A and B.'
-!!          A=[7, 1, 7, 7, 4]
-!!          B=[7, 0, 4, 4, 0]
-!!          write(*,g) 'A=', A
-!!          write(*,g) 'B=', B
-!!          write(*,g) intersect(A, B)
-!!          write(*,g) intersect(A, B, setOrder='stable')
-!!      end program demo_intersect
+!!      write(*,g) 'INTERSECT', 'Find the values common to both A and B.'
+!!       A=[7, 1, 7, 7, 4]
+!!       B=[7, 0, 4, 4, 0]
+!!       write(*,g) 'A=', A
+!!       write(*,g) 'B=', B
+!!       write(*,g) intersect(A, B)
+!!       write(*,g) intersect(A, B, setOrder='stable')
+!!   end program demo_intersect
 !!
 !! Results:
 !!
@@ -436,7 +448,7 @@ integer :: longest
 end function intersect_c
 !>
 !!##NAME
-!!    setdiff(3f) - [M_sets] return setdiff values in array A
+!!    setdiff(3f) - [M_sets] Find the values in A that are not in B
 !!
 !!##SYNOPSIS
 !!
@@ -445,8 +457,10 @@ end function intersect_c
 !!
 !!##DESCRIPTION
 !!
-!! Set difference of two arrays.  C = setdiff(A,B) returns the data in A
-!! that is not in B, with no repetitions. C is in sorted order by default.
+!! Produce the Set Difference of two arrays.  That is, C = setdiff(A,B)
+!! returns the data in A that is not in B, with no repetitions.
+!!
+!! C is in sorted order by default.
 !!
 !!##OPTIONS
 !!
@@ -529,7 +543,7 @@ integer                                :: longest
 end function setdiff_c
 !>
 !!##NAME
-!!    ismember(3f) - [M_sets] return ismember values in array A
+!!    ismember(3f) - [M_sets] Create a mask of A marking elements also in B
 !!
 !!##SYNOPSIS
 !!
@@ -629,7 +643,7 @@ integer                        :: longest
 end function ismember_c
 !>
 !!##NAME
-!!    setxor(3f) - [M_sets] return setxor values in array A
+!!    setxor(3f) - [M_sets] Find values of A and B not in both arrays
 !!
 !!##SYNOPSIS
 !!
