@@ -6,13 +6,15 @@
 
 ## Description
 
+Set-operations compare the elements in two sets to find commonalities
+differences, and membership.
 
-A small set of Fortran functions reminiscent of Matlab set-theory functions
-intended to be built with and used by fpm(1) projects. They create
-unions of sets, list intersection sets, and identify set membership.
+M_set(3f) is a Fortran module comprising a small group of set-functions
+reminiscent of Matlab set-theory procedures. 
 
-Set operations compare the elements in two sets to find commonalities
-or differences. Currently the allowed sets are arrays of integer numbers or
+M_set(3f) is intended to be built with and used by fpm(1) projects. 
+
+Currently the allowed sets are arrays of integer numbers or
 arrays of character variables.
 
 <!--
