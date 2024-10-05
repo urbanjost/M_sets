@@ -2,48 +2,61 @@ module M_sets
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file M_sets.3m_sets.man
 NAME
-   M_sets(3f) - [M_sets::INTRO] functions reminiscent of Matlab set functions
+   M_sets(3f) - [M_sets::INTRO] functions reminiscent of Matlab set
+   functions
 
 SYNOPSIS
    Procedure names and syntax:
 
-    use M_sets, only : & union, unique, intersect, setdiff, ismember, setxor
+    use M_sets, only : &
+    union, unique, intersect, setdiff, ismember, setxor
+    use M_sets, only : &
+    issorted
 
 DESCRIPTION
 
-Unions, intersection, and set membership
-
-A small subset of set functions reminiscent of Matlab set functions. They
-currently just work with vectors of default integer and character type
-input and return sets but not the subscripts of the original elements.
-
-It basically uses some simple calls to the M_ordersort(3f) module to
-provide the functionality. They are not tuned for performance and make
-loose use of memory allocation and space but are sufficient for most use.
-
 Set operations compare the elements in two sets to find commonalities
-or differences. Currently the sets are arrays of integer numbers or
-character strings.
+or differences. This includes Unions, Intersections, and Membership.
+
+M_set(3f) is a Fortran module comprising a small subset of set theory
+functions reminiscent of Matlab functions.
+
+The functions currently only support vectors of 
+integer and default character type.
+
+float numbers (both kind=real32 and kind=real64) are allowed but "caveat
+emptor", as comparing floats for equality has issues. You may have to
+condition the float data by converting it to scaled integers or using
+intrinsics such as NEAREST(3f) to produce the desired results.
+
+M_set(3f) primarily uses simple calls to the M_ordersort(3f) module to
+provide the functionality. The functions  are not otherwise tuned for
+performance and make loose use of memory allocation but are sufficient
+for most uses, simple to use, and familiar to a large base of users.
 
 ## Functions
- + union(A,B,setOrder)     - Set union of two arrays
- + unique(A,setOrder)      - Unique values in array
- + intersect(A,B,setOrder) - Set intersection of two arrays
- + setdiff(A,B,setOrder)   - Set difference of two arrays
- + ismember(A,B,setOrder)  - Array elements that are members of set array
- + setxor(A,B,setOrder)    - Set exclusive OR of two arrays
- + issorted(A)             - test if elements are in ascending order
+ + union(A,B,setOrder)     - Join two sets and remove duplicates of values
+ + unique(A,setOrder)      - Remove duplicates of values from a set
+ + intersect(A,B,setOrder) - Find the values common to both A and B
+ + setdiff(A,B,setOrder)   - Find the values in A that are not in B
+ + ismember(A,B,setOrder)  - Create a mask of A marking elements also in B
+ + setxor(A,B,setOrder)    - Find values of A and B not in both arrays
+ + issorted(A)             - Determine if array is already sorted
+
+ The subsequent data may be produced sorted, or left in the order
+ encountered.
 
 EXAMPLE
 
  sample program:
 
    program demo_M_sets
-   use M_sets, only: unique, intersect, union, setdiff, ismember, setxor, issorted
+   use M_sets, only: &
+   & unique, intersect, union, setdiff, ismember, setxor, issorted
    character(len=*),parameter :: g='(*(g0,1x))'
-   integer, allocatable      :: A(:)
-   integer, allocatable      :: B(:)
-   integer, allocatable      :: C(:)
+   integer,allocatable        :: A(:)
+   integer,allocatable        :: B(:)
+   integer,allocatable        :: C(:)
 
       write(*,g) 'UNIQUE','Find the unique elements of vector A.'
        A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
@@ -66,15 +79,18 @@ EXAMPLE
        call setab( [4, 1, 3, 2, 5], [2, 1])
        write(*,g) setdiff(A, B, 'sorted')
        write(*,g) setdiff(A, B, 'stable')
-      write(*,g) 'ISMEMBER', 'Determine which elements of A are also in B.'
+      write(*,g) 'ISMEMBER', &
+      'Determine which elements of A are also in B.'
        call setab( [5,3,4,2], [2,4,4,4,6,8] )
        write(*,g) ismember(A,B)
-      write(*,g) 'SETXOR','Find values of A and B not in their intersection.'
+      write(*,g) 'SETXOR',&
+      'Find values of A and B not in their intersection.'
        call setab( [5,1,3,3,3], [4,1,2] )
        write(*,g) setxor(A,B)
        write(*,g) setxor(A,B,'stable')
 
-       write(*,g) 'ISSSORTED','confirm whether array is sorted in ascending order or not'
+       write(*,g) 'ISSSORTED',&
+       'confirm whether array is sorted in ascending order or not'
        call setab([1,2,3,4,5],[5,4,3,2,1])
        write(*,g) issorted(A)
        write(*,g) issorted(B)
@@ -136,7 +152,8 @@ LICENSE
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ! a subset of the functionality of set functions in Matlab are provided.
-! currently, just integer vector input is provided.
+use,intrinsic :: iso_fortran_env, only : int8, int16, int32, int64
+use,intrinsic :: iso_fortran_env, only : real32,real64,real128
 use M_orderpack, only: unique_ => unique, occurrences_ => occurrences, sort_ => sort
 use M_orderpack, only: rank_unique_ => rank_unique
 
@@ -152,13 +169,30 @@ public :: setxor    ! C = setxor(A,B,setOrder)    returns the data of A and B th
                     !                             data that occurs in A or B, but not both. C is in sorted order.
 public :: issorted  ! C = issorted(A)             determine if A is in ascending order or not
 
-interface unique;    module procedure unique_i,    unique_c;     end interface unique
-interface union;     module procedure union_i,     union_c;      end interface union
-interface intersect; module procedure intersect_i, intersect_c;  end interface intersect
-interface setdiff;   module procedure setdiff_i,   setdiff_c;    end interface setdiff
-interface ismember;  module procedure ismember_i,  ismember_c;   end interface ismember
-interface setxor;    module procedure setxor_i,    setxor_c;     end interface setxor
-interface issorted;  module procedure issorted_i,  issorted_c;   end interface issorted
+$PARCEL MODULARIZE
+
+interface unique;    module procedure unique_${KIND};    end interface unique
+interface union;     module procedure union_${KIND};     end interface union
+interface intersect; module procedure intersect_${KIND}; end interface intersect
+interface setdiff;   module procedure setdiff_${KIND};   end interface setdiff
+interface ismember;  module procedure ismember_${KIND};  end interface ismember
+interface setxor;    module procedure setxor_${KIND};    end interface setxor
+interface issorted;  module procedure issorted_${KIND};  end interface issorted
+$ENDPARCEL MODULARIZE
+$set KIND c
+$POST MODULARIZE
+$set KIND int8
+$POST MODULARIZE
+$set KIND int16
+$POST MODULARIZE
+$set KIND int32
+$POST MODULARIZE
+$set KIND int64
+$POST MODULARIZE
+$set KIND real32
+$POST MODULARIZE
+$set KIND real64
+$POST MODULARIZE
 
 contains
 
@@ -190,7 +224,7 @@ EXAMPLE
    program demo_unique
    use M_sets, only: unique
    character(len=*),parameter :: g='(*(g0,1x))'
-   integer, allocatable      :: A(:)
+   integer,allocatable        :: A(:)
 
       write(*,g) 'UNIQUE','Find the unique elements of vector A.'
        A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
@@ -214,13 +248,16 @@ LICENSE
    CC0-1.0
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function unique_i(A, setOrder) result(result)
+$PARCEL UNIQUE_TEMPLATE
+function unique_${KIND}(A, setOrder) result(result)
 ! C = unique(A) returns the same data as in A, but with no repetitions. C is in sorted order.
-integer, intent(in)                    :: A(:)
+${TYPE}(kind=${KIND}), intent(in)                    :: A(:)
 character(len=*), intent(in), optional :: setOrder
-integer, allocatable                   :: result(:)
+${TYPE}(kind=${KIND}),allocatable      :: result(:)
+integer,allocatable                    :: indices(:)
 character(len=:), allocatable          :: setOrder_
 integer                                :: nuni
+
    if (present(setOrder)) then
       setOrder_ = setOrder
    else
@@ -232,14 +269,15 @@ integer                                :: nuni
       call unique_(result, nuni)
       result = result(:nuni)
    case ('sorted')
-      if (allocated(result)) deallocate (result)
-      allocate (result(size(A)))
-      call rank_unique_(A, result, nuni)
-      result = A(result(:nuni))
+      if (allocated(indices)) deallocate (indices)
+      allocate (indices(size(A)))
+      call rank_unique_(A, indices, nuni)
+      result = A(indices(:nuni))
    case default
       stop '*unique* unknown setOrder '//setOrder_//'allowed are "stable" and "sorted"'
    end select
-end function unique_i
+end function unique_${KIND}
+$ENDPARCEL UNIQUE_TEMPLATE
 !-----------------------------------------------------------------------------------------------------------------------------------
 function unique_c(A, setOrder) result(result)
 ! C = unique(A) returns the same data as in A, but with no repetitions. C is in sorted order.
@@ -267,7 +305,7 @@ end function unique_c
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file union.3m_sets.man
 NAME
-   union(3f) - [M_sets] return union values in array A
+   union(3f) - [M_sets] Join two sets and remove duplicates of values
 
 SYNOPSIS
 
@@ -291,8 +329,8 @@ EXAMPLE
    program demo_union
    use M_sets, only: union
    character(len=*),parameter :: g='(*(g0,1x))'
-   integer, allocatable      :: A(:)
-   integer, allocatable      :: B(:)
+   integer,allocatable        :: A(:)
+   integer,allocatable        :: B(:)
 
       write(*,g) 'UNION', 'Find the union of vectors A and B.'
       A=[5, 7, 1]
@@ -328,14 +366,16 @@ LICENSE
    CC0-1.0
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function union_i(A, B, setOrder) result(result)
+$PARCEL UNION_TEMPLATE
+function union_${KIND}(A, B, setOrder) result(result)
 ! C = union(A,B) returns the combined data from A and B with no repetitions. C is in sorted order.
-integer, intent(in)                    :: A(:)
-integer, intent(in)                    :: B(:)
-character(len=*), intent(in), optional :: setOrder
-integer, allocatable                   :: result(:)
+${TYPE}(kind=${KIND}),intent(in)         :: A(:)
+${TYPE}(kind=${KIND}),intent(in)         :: B(:)
+character(len=*),intent(in), optional  :: setOrder
+${TYPE}(kind=${KIND}),allocatable        :: result(:)
    result = unique([A, B], setOrder)
-end function union_i
+end function union_${KIND}
+$ENDPARCEL UNION_TEMPLATE
 !-----------------------------------------------------------------------------------------------------------------------------------
 function union_c(A, B, setOrder) result(result)
 ! C = union(A,B) returns the combined data from A and B with no repetitions. C is in sorted order.
@@ -352,7 +392,7 @@ end function union_c
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file intersect.3m_sets.man
 NAME
-   intersect(3f) - [M_sets] return intersect values in array A
+   intersect(3f) - [M_sets] Find the values common to both sets A and B
 
 SYNOPSIS
 
@@ -361,8 +401,9 @@ SYNOPSIS
 DESCRIPTION
 
 Set intersection of two arrays.  C = intersect(A,B) returns the data
-common to both A and B, with no repetitions. C is in sorted order
-by default.
+common to both A and B, with no repetitions.
+
+C is generated in sorted order by default.
 
 OPTIONS
 
@@ -374,20 +415,20 @@ EXAMPLE
 
  sample program:
 
-     program demo_intersect
-     use M_sets, only: unique, intersect, union, setdiff, ismember, setxor
-     character(len=*),parameter :: g='(*(g0,1x))'
-     integer, allocatable      :: A(:)
-     integer, allocatable      :: B(:)
+  program demo_intersect
+  use M_sets, only: unique, intersect, union, setdiff, ismember, setxor
+  character(len=*),parameter :: g='(*(g0,1x))'
+  integer, allocatable      :: A(:)
+  integer, allocatable      :: B(:)
 
-        write(*,g) 'INTERSECT', 'Find the values common to both A and B.'
-         A=[7, 1, 7, 7, 4]
-         B=[7, 0, 4, 4, 0]
-         write(*,g) 'A=', A
-         write(*,g) 'B=', B
-         write(*,g) intersect(A, B)
-         write(*,g) intersect(A, B, setOrder='stable')
-     end program demo_intersect
+     write(*,g) 'INTERSECT', 'Find the values common to both A and B.'
+      A=[7, 1, 7, 7, 4]
+      B=[7, 0, 4, 4, 0]
+      write(*,g) 'A=', A
+      write(*,g) 'B=', B
+      write(*,g) intersect(A, B)
+      write(*,g) intersect(A, B, setOrder='stable')
+  end program demo_intersect
 
 Results:
 
@@ -404,19 +445,21 @@ LICENSE
    CC0-1.0
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function intersect_i(A, B, setOrder) result(result)
+$PARCEL INTERSECT_TEMPLATE
+function intersect_${KIND}(A, B, setOrder) result(result)
 ! C = intersect(A,B) returns the data common to both A and B, with no repetitions. C is in sorted order by default
-integer, intent(in)                    :: A(:)
-integer, intent(in)                    :: B(:)
+${TYPE}(kind=${KIND}), intent(in)                    :: A(:)
+${TYPE}(kind=${KIND}), intent(in)                    :: B(:)
 character(len=*), intent(in), optional :: setOrder
-integer, allocatable                   :: result(:)
-integer, allocatable                   :: iwrk(:)
+${TYPE}(kind=${KIND}), allocatable                   :: result(:)
+integer, allocatable                                 :: iwrk(:)
    result = [unique(A, setOrder), unique(B, setOrder)]
    if (allocated(iwrk)) deallocate (iwrk)
    allocate (iwrk(size(result)))
    call occurrences_(result, iwrk)
    result = unique(pack(result, iwrk .gt. 1), setOrder)
-end function intersect_i
+end function intersect_${KIND}
+$ENDPARCEL INTERSECT_TEMPLATE
 !-----------------------------------------------------------------------------------------------------------------------------------
 function intersect_c(A, B, setOrder) result(result)
 ! C = intersect(A,B) returns the data common to both A and B, with no repetitions. C is in sorted order by default
@@ -426,7 +469,7 @@ character(len=*), intent(in), optional :: setOrder
 character(len=:), allocatable          :: result(:)
 integer, allocatable                   :: iwrk(:)
 character(len=:), allocatable          :: kludge(:)
-integer :: longest
+integer                                :: longest
    longest=max(len(A),len(B))
    result = [character(len=longest) :: unique(A, setOrder), unique(B, setOrder)]
    if (allocated(iwrk)) deallocate (iwrk)
@@ -435,13 +478,13 @@ integer :: longest
    !--------------------------------
    !result= unique(pack(result//'',iwrk.gt.1),setOrder) ! add //' ' to avoid gfortran 13.1.0-8 bug
    kludge=pack(result//'',iwrk.gt.1)
-   result = unique(kludge, setOrder) 
+   result = unique(kludge, setOrder)
    !--------------------------------
 end function intersect_c
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file setdiff.3m_sets.man
 NAME
-   setdiff(3f) - [M_sets] return setdiff values in array A
+   setdiff(3f) - [M_sets] Find the values in A that are not in B
 
 SYNOPSIS
 
@@ -449,8 +492,10 @@ SYNOPSIS
 
 DESCRIPTION
 
-Set difference of two arrays.  C = setdiff(A,B) returns the data in A
-that is not in B, with no repetitions. C is in sorted order by default.
+Produce the Set Difference of two arrays.  That is, C = setdiff(A,B)
+returns the data in A that is not in B, with no repetitions.
+
+C is in sorted order by default.
 
 OPTIONS
 
@@ -495,13 +540,14 @@ LICENSE
    CC0-1.0
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function setdiff_i(A, B, setOrder) result(result)
+$PARCEL SETDIFF_TEMPLATE
+function setdiff_${KIND}(A, B, setOrder) result(result)
 ! C = setdiff(A,B) returns the data in A that is not in B, with no repetitions. C is in sorted order by default.
-integer, intent(in)                    :: a(:)
-integer, intent(in)                    :: b(:)
+${TYPE}(kind=${KIND}), intent(in)                    :: a(:)
+${TYPE}(kind=${KIND}), intent(in)                    :: b(:)
 character(len=*), intent(in), optional :: setOrder
-integer, allocatable                   :: result(:)
-integer, allocatable                   :: iwrk(:)
+${TYPE}(kind=${KIND}), allocatable                   :: result(:)
+integer, allocatable                                 :: iwrk(:)
    result = unique(b, setOrder='stable')
    result = [unique(a, setOrder='stable'), result, result] ! potentially a lot of memory
    if (allocated(iwrk)) deallocate (iwrk)
@@ -509,7 +555,8 @@ integer, allocatable                   :: iwrk(:)
    call occurrences_(result, iwrk)
    result = unique(pack(result, iwrk .eq. 1), setOrder)
 
-end function setdiff_i
+end function setdiff_${KIND}
+$ENDPARCEL SETDIFF_TEMPLATE
 !-----------------------------------------------------------------------------------------------------------------------------------
 function setdiff_c(A, B, setOrder) result(result)
 ! C = setdiff(A,B) returns the data in A that is not in B, with no repetitions. C is in sorted order by default.
@@ -535,7 +582,7 @@ end function setdiff_c
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file ismember.3m_sets.man
 NAME
-   ismember(3f) - [M_sets] return ismember values in array A
+   ismember(3f) - [M_sets] Create a mask of A marking elements also in B
 
 SYNOPSIS
 
@@ -589,14 +636,15 @@ LICENSE
    CC0-1.0
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function ismember_i(A, B) result(result)
+$PARCEL ISMEMBER_TEMPLATE
+function ismember_${KIND}(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
-integer, intent(in)   :: a(:)
-integer, intent(in)   :: b(:)
-integer, allocatable  :: result(:)
-integer, allocatable  :: iwrk1(:)
-integer, allocatable  :: iwrk2(:)
-integer               :: inums
+${TYPE}(kind=${KIND}), intent(in)   :: a(:)
+${TYPE}(kind=${KIND}), intent(in)   :: b(:)
+${TYPE}(kind=${KIND}), allocatable  :: result(:)
+integer, allocatable                :: iwrk1(:)
+integer, allocatable                :: iwrk2(:)
+integer                             :: inums
    inums=size(a)
    result = [ a, unique(b) ] ! potentially a lot of memory
    if (allocated(iwrk2)) deallocate (iwrk2)
@@ -608,7 +656,8 @@ integer               :: inums
    result=iwrk1(:inums)-iwrk2
    result=merge(0,1,result.eq.0)
 
-end function ismember_i
+end function ismember_${KIND}
+$ENDPARCEL ISMEMBER_TEMPLATE
 !-----------------------------------------------------------------------------------------------------------------------------------
 function ismember_c(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
@@ -636,7 +685,7 @@ end function ismember_c
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file setxor.3m_sets.man
 NAME
-   setxor(3f) - [M_sets] return setxor values in array A
+   setxor(3f) - [M_sets] Find values of A and B not in both arrays
 
 SYNOPSIS
 
@@ -690,17 +739,18 @@ LICENSE
    CC0-1.0
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function setxor_i(A, B, setOrder) result(result)
+$PARCEL SETXOR_TEMPLATE
+function setxor_${KIND}(A, B, setOrder) result(result)
 ! C = setxor(A,B,setOrder) returns the data of A and B that are not in their intersection
 !                          (the symmetric difference), with no repetitions. That is, setxor returns the
 !                          data that occurs in A or B, but not both. C is in sorted order.
-integer, intent(in)                    :: a(:)
-integer, intent(in)                    :: b(:)
+${TYPE}(kind=${KIND}), intent(in)                    :: a(:)
+${TYPE}(kind=${KIND}), intent(in)                    :: b(:)
 character(len=*), intent(in), optional :: setOrder
-integer, allocatable                   :: result(:)
-integer, allocatable                   :: iwrk1(:)
-integer, allocatable                   :: iwrk2(:)
-integer, allocatable                   :: iwrk3(:)
+${TYPE}(kind=${KIND}), allocatable                   :: result(:)
+integer, allocatable                                 :: iwrk1(:)
+integer, allocatable                                 :: iwrk2(:)
+integer, allocatable                                 :: iwrk3(:)
 integer                                :: inums
    inums=size(a)
 
@@ -722,7 +772,8 @@ integer                                :: inums
    result=pack(result,iwrk1.eq.0)
    result=unique(result,setOrder)
 
-end function setxor_i
+end function setxor_${KIND}
+$ENDPARCEL SETXOR_TEMPLATE
 !-----------------------------------------------------------------------------------------------------------------------------------
 function setxor_c(A, B, setOrder) result(result)
 ! C = setxor(A,B,setOrder) returns the data of A and B that are not in their intersection
@@ -816,10 +867,11 @@ LICENSE
    CC0-1.0
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function issorted_i(A) result(result)
+$PARCEL ISSORTED_TEMPLATE
+function issorted_${KIND}(A) result(result)
 ! TF = issorted(A) returns the logical scalar 1 (true) when the elements of A are listed in ascending order and 0 (false) otherwise.
-integer, intent(in) :: A(:)
-integer             :: result
+${TYPE}(kind=${KIND}), intent(in) :: A(:)
+${TYPE}(kind=${KIND})             :: result
 integer             :: i
 result=1
 do i=1,size(a)-1
@@ -828,7 +880,8 @@ do i=1,size(a)-1
       exit
    endif
 enddo
-end function issorted_i
+end function issorted_${KIND}
+$ENDPARCEL ISSORTED_TEMPLATE
 !-----------------------------------------------------------------------------------------------------------------------------------
 function issorted_c(A) result(result)
 ! TF = issorted(A) returns the logical scalar 1 (true) when the elements of A are listed in ascending order and 0 (false) otherwise.
@@ -846,7 +899,7 @@ end function issorted_c
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 elemental pure function lower(str) result (string)
 
-$@(#) M_strings::lower(3f): Changes a string to lowercase over specified range
+$@(#) M_strings::lower(3f): Changes a string to lowercase
 
 character(*), intent(in)    :: str
 character(len(str))         :: string
@@ -863,4 +916,42 @@ integer,parameter           :: diff = iachar('A')-iachar('a')
 
 end function lower
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+$PARCEL SPACE
+
+$ENDPARCEL SPACE
+
+$PARCEL PROCEDURES
+$POST SPACE
+$POST UNIQUE_TEMPLATE
+$POST SPACE
+$POST UNION_TEMPLATE
+$POST SPACE
+$POST INTERSECT_TEMPLATE
+$POST SPACE
+$POST SETDIFF_TEMPLATE
+$POST SPACE
+$POST ISMEMBER_TEMPLATE
+$POST SPACE
+$POST SETXOR_TEMPLATE
+$POST SPACE
+$POST ISSORTED_TEMPLATE
+$ENDPARCEL PROCEDURES
+
+$!>>> INTEGER
+$set TYPE integer
+$set KIND int8
+$POST PROCEDURES
+$set KIND int16
+$POST PROCEDURES
+$set KIND int32
+$POST PROCEDURES
+$set KIND int64
+$POST PROCEDURES
+$!>>> REAL
+$set TYPE real
+$set KIND real32
+$POST PROCEDURES
+$set KIND real64
+$POST PROCEDURES
+
 end module M_sets

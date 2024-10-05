@@ -14,8 +14,11 @@ reminiscent of Matlab set-theory procedures.
 
 M_set(3f) is intended to be built with and used by fpm(1) projects. 
 
-Currently the allowed sets are arrays of integer numbers or
-arrays of character variables.
+Currently the allowed sets are arrays of integer numbers or arrays
+of character variables. real numbers are allowed but "caveat emptor",
+as comparing floats for equality has issues. You may have to condition
+the float date by converting it to scaled integers or using intrinsics
+such as NEAREST(3f) to produce the desired results.
 
 <!--
 M_sets(3f) basically uses some simple calls to the ORDERSORT module to provide
