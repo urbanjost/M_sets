@@ -75,41 +75,43 @@ contains
 subroutine setup()
 help_text=[ CHARACTER(LEN=128) :: &
 'NAME',&
-'   settheory(1f) - [FUNIX:FILESYSTEM] find the pathname of commands and',&
-'              optionally perform commands on them.                     ',&
-'   (LICENSE:MIT)                                                       ',&
-'                                                                       ',&
-'SYNOPSIS                                                               ',&
-'    settheory -a INTEGER_SET_ONE -b INTEGER_SET_TWO                    ',&
-'                                                                       ',&
-'DESCRIPTION                                                            ',&
-'   settheory(1f) finds the union, intersection, and setdiff of two     ',&
-'   small sets of integers and displays them                            ',&
-'                                                                       ',&
-'   If any set is empty a simple example is run.                        ',&
-'                                                                       ',&
-'OPTIONS                                                                ',&
-'    -a SET_ONE       vector of whole numbers or strings comprising     ',&
-'                     set A. May be delimited by commas, spaces,        ',&
-'                     or colons. If spaces are used the set needs       ',&
-'                     quoted. If empty a test set is run.               ',&
-'    -b SET_TWO       vector of whole numbers or strings comprising     ',&
-'                     set B. May be delimited by commas, spaces,        ',&
-'                     or colons. If spaces are used the set needs       ',&
-'                     quoted. If empty a test set is run.               ',&
-'    --type DATATYPE  May be "integer" or "character". Defaults to      ',&
-'                     "character".                                      ',&
-'    --setorder       "sorted" or "stable". If "stable" the values remain',&
-'                     in the order input.                                ',&
-'    --verbose        add additional descriptive text                    ',&
-'    --version,-v     Print version information on standard output then  ',&
-'                     exit successfully.                                 ',&
-'    --help,-h        Print usage information on standard output then    ',&
-'                     exit successfully.                                 ',&
-'RESULTS                                                                 ',&
-'                                                                        ',&
-'  Outputs the results from the following calls to the M_set(3f) module  ',&
-'                                                                        ',&
+'   settheory(1f) - [M_sets:SETTHEORY] combine two sets of values',&
+'   and display union, intersection, values found in both sets,  ',&
+'   values found only in one set, ...                            ',&
+'   (LICENSE:MIT)                                                ',&
+'                                                                ',&
+'SYNOPSIS                                                        ',&
+'    settheory -a INTEGER_SET_ONE -b INTEGER_SET_TWO [--type DATATYPE]',&
+'    [--setorder ORDERTYPE] [--verbose]                               ',&
+'                                                                     ',&
+'DESCRIPTION                                                          ',&
+'   settheory(1f) finds the union, intersection, and set differences of',&
+'   two small sets of integers or strings and displays them            ',&
+'                                                                      ',&
+'   If any set is empty a simple example is run.                       ',&
+'                                                                      ',&
+'OPTIONS                                                               ',&
+'    -a SET_ONE       vector of whole numbers or strings comprising    ',&
+'                     set A. May be delimited by commas, spaces,       ',&
+'                     or colons. If spaces are used the set needs      ',&
+'                     quoted. If empty a test set is run.              ',&
+'    -b SET_TWO       vector of whole numbers or strings comprising    ',&
+'                     set B. May be delimited by commas, spaces,       ',&
+'                     or colons. If spaces are used the set needs      ',&
+'                     quoted. If empty a test set is run.              ',&
+'    --type DATATYPE       May be "integer" or "character". Defaults to',&
+'                          "character".                                ',&
+'    --setorder ORDERTYPE  "sorted" or "stable". If "stable" the values',&
+'                          remain in the order input.                  ',&
+'    --verbose             add additional descriptive text             ',&
+'    --version,-v          Print version information on standard output',&
+'                          then exit successfully.                     ',&
+'    --help,-h             Print usage information on standard output  ',&
+'                          then exit successfully.                     ',&
+'RESULTS                                                               ',&
+'                                                                      ',&
+'  Outputs the results from the following calls to the M_set(3f) module',&
+'                                                                      ',&
 '   * unique(A,setOrder);unique(B,setOrder) - Unique values in each array',&
 '   * union(A,B,setOrder) - Set union of two arrays                      ',&
 '   * intersect(A,B,setOrder) - Set intersection of two arrays           ',&
