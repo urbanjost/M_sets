@@ -6,10 +6,10 @@
 
 ## Description
 
-Unions, intersection, and set membership
 
 A small set of Fortran functions reminiscent of Matlab set-theory functions
-intended to be built with and used by fpm(1) projects.
+intended to be built with and used by fpm(1) projects. They create
+unions of sets, list intersection sets, and identify set membership.
 
 Set operations compare the elements in two sets to find commonalities
 or differences. Currently the allowed sets are arrays of integer numbers or
@@ -22,12 +22,13 @@ of memory allocation and space.
 -->
 
 ## Functions
- + union(A,B,setOrder)     - Set union of two arrays
- + unique(A,setOrder)      - Unique values in array
- + intersect(A,B,setOrder) - Set intersection of two arrays
- + setdiff(A,B,setOrder)   - Set difference of two arrays
- + ismember(A,B,setOrder)  - Array elements that are members of set array
- + setxor(A,B,setOrder)    - Set exclusive OR of two arrays
+ + union(A,B,setOrder)     - Set unique union of two arrays
+ + unique(A,setOrder)      - Find unique values in array
+ + intersect(A,B,setOrder) - Find the values common to both A and B
+ + setdiff(A,B,setOrder)   - Find the values in A that are not in B
+ + ismember(A,B,setOrder)  - Create a mask of A marking elements also in B
+ + setxor(A,B,setOrder)    - Find values of A and B not in both arrays
+ + issorted(A)             - Determine if array is already sorted
 
 <!--
 ## Building the module using make![gmake](docs/images/gnu.gif)
@@ -36,7 +37,6 @@ This will compile the Fortran module and basic example programs that exercise th
 
 ```bash
      git clone https://github.com/urbanjost/M_sets.git
-
 
      cd M_sets/src
      # change Makefile if not using one of the listed compilers

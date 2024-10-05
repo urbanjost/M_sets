@@ -1,6 +1,7 @@
 build/*
 FODDER/
 man/
+lib/
 tmp/*
 Archive/
 src/source/doc
