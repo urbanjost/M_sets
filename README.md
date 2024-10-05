@@ -6,7 +6,7 @@
 
 ## Description
 
-Set-operations compare the elements in two sets to find commonalities
+Set-operations compare the elements in two sets to find commonalities,
 differences, and membership.
 
 M_set(3f) is a Fortran module comprising a small group of set-functions
@@ -163,10 +163,10 @@ This will compile the Fortran module and basic example programs that exercise th
 -->
 
 ---
-## Build and test with![fpm](docs/images/fpm_logo.gif)
+## Build and test with ![fpm](docs/images/fpm_logo.gif)
 
-   Download the github repository and build it with
-   fpm ( as described at [Fortran Package Manager](https://github.com/fortran-lang/fpm) )
+   Download the github repository and build it with fpm ( as described at
+   [Fortran Package Manager](https://github.com/fortran-lang/fpm) )
 ```bash
         git clone https://github.com/urbanjost/M_sets.git
         cd M_sets
