@@ -1,6 +1,6 @@
 program main
 use M_sets, only: unique, intersect, union, setdiff, ismember, setxor, issorted
-use M_CLI2, only: set_args, igets, sget, lget, sgets
+use M_CLI2, only: set_args, igets, sget, lget, sgets, rgets
 implicit none
 character(len=*),parameter :: g='(*(g0,1x))'
 integer, allocatable       :: A(:)
@@ -9,6 +9,7 @@ character(len=:),allocatable :: version_text(:), help_text(:)
 character(len=:),allocatable :: setorder
 character(len=:),allocatable :: datatype
 character(len=:),allocatable :: strA(:),strB(:)
+real,allocatable             :: fltA(:),fltB(:)
 logical :: verbose
    call setup()
    call set_args('-a , -b , --setorder "sorted" --type "character"',help_text,version_text)
@@ -41,6 +42,33 @@ logical :: verbose
       write(*,g) 'ISMEMBER     : ', ismember(a, b)
       if(verbose)write(*,g) '-------------: ', 'Find values of A and B not in their intersection.'
       write(*,g) 'SETXOR       : ', setxor(a, b, setorder=setorder)
+
+      case('real')
+      flta=rgets('a')
+      fltb=rgets('b')
+      setorder=sget('setorder')
+      verbose=lget('verbose')
+      if(size(flta) == 0.and.size(fltb) == 0)then
+         write(*,g)repeat('TEST OF SETTHEORY ',4)
+         a = [7,23,14,15,9,12,8,24,35]
+         b = [ 2,5,7,8,14,16,25,35,27]
+         verbose=.true.
+      endif
+      if(verbose)write(*,g) '-------------: ', 'Given the sets'
+      write(*,g) 'A            : ', flta
+      write(*,g) 'B            : ', fltb
+      if(verbose)write(*,g) '-------------: ', 'Find the unique elements of vector A, then of B'
+      write(*,g) 'UNIQUE       : ', unique(flta,setorder=setorder),',',unique(fltb,setorder=setorder)
+      if(verbose)write(*,g) '-------------: ', 'Find the unique union of vectors A and B.'
+      write(*,g) 'UNION        : ', union(flta, fltb, setorder=setorder)
+      if(verbose)write(*,g) '-------------: ', 'Find the values common to both A and B.'
+      write(*,g) 'INTERSECT    : ', intersect(flta, fltb, setorder=setorder)
+      if(verbose)write(*,g) '-------------: ', 'Find the values in A that are not in B.'
+      write(*,g) 'SETDIFF      : ', setdiff(flta, fltb, setorder=setorder)
+      if(verbose)write(*,g) '-------------: ', 'Determine which elements of A are also in B by position.'
+      write(*,g) 'ISMEMBER     : ', ismember(flta, fltb)
+      if(verbose)write(*,g) '-------------: ', 'Find values of A and B not in their intersection.'
+      write(*,g) 'SETXOR       : ', setxor(flta, fltb, setorder=setorder)
 
       case('character')
       stra=sgets('a')
@@ -99,8 +127,8 @@ help_text=[ CHARACTER(LEN=128) :: &
 '                     set B. May be delimited by commas, spaces,       ',&
 '                     or colons. If spaces are used the set needs      ',&
 '                     quoted. If empty a test set is run.              ',&
-'    --type DATATYPE       May be "integer" or "character". Defaults to',&
-'                          "character".                                ',&
+'    --type DATATYPE       May be "integer","character" or "real".     ',&
+'                          Defaults to "character".                    ',&
 '    --setorder ORDERTYPE  "sorted" or "stable". If "stable" the values',&
 '                          remain in the order input.                  ',&
 '    --verbose             add additional descriptive text             ',&

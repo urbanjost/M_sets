@@ -551,7 +551,7 @@ end function setdiff_c
 !!##SYNOPSIS
 !!
 !!
-!!    ismember(A,B)
+!!    C=ismember(A,B)
 !!
 !!##DESCRIPTION
 !!
@@ -888,7 +888,7 @@ function ismember_int8(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 integer(kind=int8), intent(in)   :: a(:)
 integer(kind=int8), intent(in)   :: b(:)
-integer(kind=int8), allocatable  :: result(:)
+integer, allocatable                :: result(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
@@ -1025,7 +1025,7 @@ function ismember_int16(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 integer(kind=int16), intent(in)   :: a(:)
 integer(kind=int16), intent(in)   :: b(:)
-integer(kind=int16), allocatable  :: result(:)
+integer, allocatable                :: result(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
@@ -1162,7 +1162,7 @@ function ismember_int32(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 integer(kind=int32), intent(in)   :: a(:)
 integer(kind=int32), intent(in)   :: b(:)
-integer(kind=int32), allocatable  :: result(:)
+integer, allocatable                :: result(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
@@ -1299,7 +1299,7 @@ function ismember_int64(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 integer(kind=int64), intent(in)   :: a(:)
 integer(kind=int64), intent(in)   :: b(:)
-integer(kind=int64), allocatable  :: result(:)
+integer, allocatable                :: result(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
@@ -1436,7 +1436,7 @@ function ismember_real32(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 real(kind=real32), intent(in)   :: a(:)
 real(kind=real32), intent(in)   :: b(:)
-real(kind=real32), allocatable  :: result(:)
+integer, allocatable                :: result(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
@@ -1573,7 +1573,7 @@ function ismember_real64(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 real(kind=real64), intent(in)   :: a(:)
 real(kind=real64), intent(in)   :: b(:)
-real(kind=real64), allocatable  :: result(:)
+integer, allocatable                :: result(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums

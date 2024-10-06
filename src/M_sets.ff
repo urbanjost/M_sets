@@ -596,7 +596,7 @@ NAME
 
 SYNOPSIS
 
-   ismember(A,B)
+   C=ismember(A,B)
 
 DESCRIPTION
 
@@ -656,7 +656,7 @@ function ismember_${KIND}(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 ${TYPE}(kind=${KIND}), intent(in)   :: a(:)
 ${TYPE}(kind=${KIND}), intent(in)   :: b(:)
-${TYPE}(kind=${KIND}), allocatable  :: result(:)
+integer, allocatable                :: result(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
