@@ -6,24 +6,26 @@
 
 ## Description
 
-Set-operations compare the elements in two sets to find commonalities,
-differences, and membership.
+Set-theory operations compare the elements in two sets to find
+commonalities, differences, and membership.
 
-M_set(3f) is a Fortran module comprising a small group of set-functions
-reminiscent of Matlab set-theory procedures. 
+M_set(3f) is a Fortran module comprising a small group of set-theory
+functions reminiscent of related Matlab procedures.
 
-M_set(3f) is intended to be built with and used by fpm(1) projects. 
+M_set(3f) is intended to be built with and used by fpm(1) projects.
+It requires the M_orderpack(3f) as a dependency, which is of course
+taken care of automatically via fpm(1).
 
-Currently the allowed sets are arrays of integer numbers or arrays
+Currently the allowed sets are vectors of integer numbers or arrays
 of character variables. real numbers are allowed but "caveat emptor",
 as comparing floats for equality has issues. You may have to condition
 the float date by converting it to scaled integers or using intrinsics
 such as NEAREST(3f) to produce the desired results.
 
 <!--
-M_sets(3f) basically uses some simple calls to the ORDERSORT module to provide
-the functionality that are not tuned for performance and make loose use
-of memory allocation and space.
+M_sets(3f) basically uses some simple calls to the M_orderpack(3f)
+module that make loose use of memory allocation and space, but are
+adequate for the vast majority of cases.
 -->
 
 ## Functions
@@ -185,23 +187,34 @@ This will compile the Fortran module and basic example programs that exercise th
 ---
 ## Documentation ![docs](docs/images/docs.gif)
 
+The documenation for each procedure is included in the source.
+That documentation is also available as a flat text file, HTML
+documents, and man-pages.
+
 ### User
+   - A [text manual](https://urbanjost.github.io/M_sets/manual.txt)
+     contains all the procedure descriptions in a single flat ASCII
+     text file.
+
    - [routines](https://urbanjost.github.io/M_sets/man3.html)
-     are described in HTML form using the format of man-pages.
+     are also described in HTML form using the format of man-pages.
 <!--
      and [programs](https://urbanjost.github.io/M_sets/man1.html)
 -->
-   - A single page that uses javascript to combine all the HTML
-     descriptions of the man-pages is at
-     [BOOK_M_sets](https://urbanjost.github.io/M_sets/BOOK_M_sets.html).
+   - For easier searching and printing Javascript is used to combine
+     all those HTML descriptions of the man-pages into a single
+     [book](https://urbanjost.github.io/M_sets/BOOK_M_sets.html).
 
-   - ![man-pages](docs/images/manpages.gif)
-     There are man-pages in the repository download in the docs/ directory
-     that may be installed on ULS (Unix-Like Systems).
+   - ![man-pages](docs/images/manpages.gif) are the de-facto standard
+     method of providing procedure descriptions on Unix, GNU/Linux,
+     OpenBSD, Cygwin, WLS, and other ULS (Unix-Like Systems)
+
+     Installation can vary depending on whether you are installing
+     personal copies or as an adminstrator, but man-pages are well suited
+     for any CLI user (Command-Line Interface):
 
       + [manpages.zip](https://urbanjost.github.io/M_sets/manpages.zip)
       + [manpages.tgz](https://urbanjost.github.io/M_sets/manpages.tgz)
-
 
    - [CHANGELOG](docs/CHANGELOG.md) provides a history of significant changes
 ---
