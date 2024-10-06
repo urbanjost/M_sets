@@ -1,27 +1,29 @@
-intersect (3m_sets)  - [M_sets] return intersect values in array A
-ismember (3m_sets)   - [M_sets] return ismember values in array A
+intersect (3m_sets)  - [M_sets] Find the values common to both sets A and B
+ismember (3m_sets)   - [M_sets] Create a mask of A marking elements also in B
 issorted (3m_sets)   - [M_sets] Report if A is sorted in ascending order or not.
 M_sets (3m_sets)     - [M_sets::INTRO] functions reminiscent of Matlab set functions
-setdiff (3m_sets)    - [M_sets] return setdiff values in array A
-settheory (1)	     - [FUNIX:FILESYSTEM] find the pathname of commands and optionally perform commands on them. (LICENSE:MIT)
-setxor (3m_sets)     - [M_sets] return setxor values in array A
-union (3m_sets)      - [M_sets] return union values in array A
+setdiff (3m_sets)    - [M_sets] Find the values in A that are not in B
+settheory (1)	     - [M_sets:SETTHEORY] combine two sets of values and display union, intersection, values found in both sets, values found only in one set, ... (LICENSE:MIT)
+setxor (3m_sets)     - [M_sets] Find values of A and B not in both arrays
+union (3m_sets)      - [M_sets] Join two sets and removes duplicates of values
 unique (3m_sets)     - [M_sets] return unique values in array A
 settheory.1.man(1m_sets)			      settheory.1.man(1m_sets)
 
 
 
 NAME
-  settheory(1f) - [FUNIX:FILESYSTEM] find the pathname of commands and
-  optionally perform commands on them.	(LICENSE:MIT)
+  settheory(1f) - [M_sets:SETTHEORY] combine two sets of values and display
+  union, intersection, values found in both sets, values found only in one
+  set, ...  (LICENSE:MIT)
 
 
 SYNOPSIS
-  settheory -a INTEGER_SET_ONE -b INTEGER_SET_TWO
+  settheory -a INTEGER_SET_ONE -b INTEGER_SET_TWO [--type DATATYPE]
+  [--setorder ORDERTYPE] [--verbose]
 
 DESCRIPTION
-  settheory(1f) finds the union, intersection, and setdiff of two small sets
-  of integers and displays them
+  settheory(1f) finds the union, intersection, and set differences of two
+  small sets of integers or strings and displays them
 
   If any set is empty a simple example is run.
 
@@ -39,7 +41,7 @@ OPTIONS
   --type DATATYPE
     May be "integer" or "character". Defaults to "character".
 
-  --setorder
+  --setorder ORDERTYPE
     "sorted" or "stable". If "stable" the values remain in the order input.
 
   --verbose
@@ -100,31 +102,36 @@ SEE ALSO
 
 
 
-			       October 04, 2024       settheory.1.man(1m_sets)
+			       October 05, 2024       settheory.1.man(1m_sets)
 ismember(3m_sets)					     ismember(3m_sets)
 
 
 
 NAME
-  ismember(3f) - [M_sets] return ismember values in array A
+  ismember(3f) - [M_sets] Create a mask of A marking elements also in B
 
 
 SYNOPSIS
   ismember(A,B)
 
 DESCRIPTION
-  Array elements that are members of set array.
-    C = ismember(A,B) returns an array containing "logical" 1 (true) where the
-    data in A is found in B. Elsewhere, the array contains "logical" 0
-    (false).
+  Identifies elements of the first set that are members of the second set as
+  well.
+
+  The returned array is a mask of the first array containing a 1 (aka. "true")
+  where the data in A is found in B. Elsewhere, the array contains 0 (aka.
+  "false").
 
 OPTIONS
   A input array
 
-  B input array
+  B input array of values to find in vector A.
 
 RETURNS
-   C
+  A mask of array A with a 1 at locations where the value in that position in
+  A is also a value that occurs in B, and with a 0 at locations where that
+  value in A was not found in B.
+
 EXAMPLE
   sample program:
 
@@ -160,7 +167,7 @@ LICENSE
 
 
 
-			       October 04, 2024 	     ismember(3m_sets)
+			       October 05, 2024 	     ismember(3m_sets)
 M_sets(3m_sets) 					       M_sets(3m_sets)
 
 
@@ -172,49 +179,63 @@ NAME
 SYNOPSIS
   Procedure names and syntax:
 
-      use M_sets, only : & union, unique, intersect, setdiff, ismember, setxor
+      use M_sets, only : &
+      union, unique, intersect, setdiff, ismember, setxor
+      use M_sets, only : &
+      issorted
 
 
 DESCRIPTION
-  Unions, intersection, and set membership
-
-  A small subset of set functions reminiscent of Matlab set functions. They
-  currently just work with vectors of default integer and character type input
-  and return sets but not the subscripts of the original elements.
-
-  It basically uses some simple calls to the M_ordersort(3f) module to provide
-  the functionality. They are not tuned for performance and make loose use of
-  memory allocation and space but are sufficient for most use.
-
   Set operations compare the elements in two sets to find commonalities or
-  differences. Currently the sets are arrays of integer numbers or character
-  strings.
+  differences. This includes Unions, Intersections, and Membership.
+
+  M_set(3f) is a Fortran module comprising a small subset of set theory
+  functions reminiscent of Matlab functions.
+
+  The functions currently only support vectors of integer and default
+  character type.
+
+  float numbers (both kind=real32 and kind=real64) are allowed but "caveat
+  emptor", as comparing floats for equality has issues. You may have to
+  condition the float data by converting it to scaled integers or using
+  intrinsics such as NEAREST(3f) to produce the desired results.
+
+  M_set(3f) primarily uses simple calls to the M_ordersort(3f) module to
+
+  provide the functionality. The functions
+    are not otherwise tuned for performance and make loose use of memory
+    allocation but are sufficient for most uses, simple to use, and familiar
+    to a large base of users.
 
   ## Functions
 
-    •  union(A,B,setOrder) - Set union of two arrays
+    •  union(A,B,setOrder) - Join two sets and remove duplicates of values
 
-    •  unique(A,setOrder) - Unique values in array
+    •  unique(A,setOrder) - Remove duplicates of values from a set
 
-    •  intersect(A,B,setOrder) - Set intersection of two arrays
+    •  intersect(A,B,setOrder) - Find the values common to both A and B
 
-    •  setdiff(A,B,setOrder) - Set difference of two arrays
+    •  setdiff(A,B,setOrder) - Find the values in A that are not in B
 
-    •  ismember(A,B,setOrder) - Array elements that are members of set array
+    •  ismember(A,B,setOrder) - Create a mask of A marking elements also in B
 
-    •  setxor(A,B,setOrder) - Set exclusive OR of two arrays
+    •  setxor(A,B,setOrder) - Find values of A and B not in both arrays
 
-    •  issorted(A) - test if elements are in ascending order
+    •  issorted(A) - Determine if array is already sorted
+
+    The subsequent data may be produced sorted, or left in the order
+    encountered.
 
 EXAMPLE
   sample program:
 
      program demo_M_sets
-     use M_sets, only: unique, intersect, union, setdiff, ismember, setxor, issorted
+     use M_sets, only: &
+     & unique, intersect, union, setdiff, ismember, setxor, issorted
      character(len=*),parameter :: g='(*(g0,1x))'
-     integer, allocatable      :: A(:)
-     integer, allocatable      :: B(:)
-     integer, allocatable      :: C(:)
+     integer,allocatable	:: A(:)
+     integer,allocatable	:: B(:)
+     integer,allocatable	:: C(:)
 
 	write(*,g) 'UNIQUE','Find the unique elements of vector A.'
 	 A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
@@ -237,15 +258,18 @@ EXAMPLE
 	 call setab( [4, 1, 3, 2, 5], [2, 1])
 	 write(*,g) setdiff(A, B, 'sorted')
 	 write(*,g) setdiff(A, B, 'stable')
-	write(*,g) 'ISMEMBER', 'Determine which elements of A are also in B.'
+	write(*,g) 'ISMEMBER', &
+	'Determine which elements of A are also in B.'
 	 call setab( [5,3,4,2], [2,4,4,4,6,8] )
 	 write(*,g) ismember(A,B)
-	write(*,g) 'SETXOR','Find values of A and B not in their intersection.'
+	write(*,g) 'SETXOR',&
+	'Find values of A and B not in their intersection.'
 	 call setab( [5,1,3,3,3], [4,1,2] )
 	 write(*,g) setxor(A,B)
 	 write(*,g) setxor(A,B,'stable')
 
-	 write(*,g) 'ISSSORTED','confirm whether array is sorted in ascending order or not'
+	 write(*,g) 'ISSSORTED',&
+	 'confirm whether array is sorted in ascending order or not'
 	 call setab([1,2,3,4,5],[5,4,3,2,1])
 	 write(*,g) issorted(A)
 	 write(*,g) issorted(B)
@@ -308,22 +332,20 @@ LICENSE
 
 
 
-			       October 04, 2024 	       M_sets(3m_sets)
+			       October 05, 2024 	       M_sets(3m_sets)
 setdiff(3m_sets)					      setdiff(3m_sets)
 
 
 
 NAME
-  setdiff(3f) - [M_sets] return setdiff values in array A
+  setdiff(3f) - [M_sets] Find the values in A that are not in B
 
 
 SYNOPSIS
   setdiff(A,B, setOrder)
 
 DESCRIPTION
-  Set difference of two arrays.
-    C = setdiff(A,B) returns the data in A that is not in B, with no
-    repetitions. C is in sorted order by default.
+  setdiff(3f) returns the data in A that is not in B, with no repetitions.
 
 OPTIONS
   A input array
@@ -331,7 +353,9 @@ OPTIONS
   B input array
 
   setOrder
-    May be "sort" or "stable"
+    May be "sort" or "stable". If "stable" the values are returned in the
+    order discovered. The default is "sorted", which returns the data in
+    ascending order.
 
 EXAMPLE
   sample program:
@@ -371,24 +395,25 @@ LICENSE
 
 
 
-			       October 04, 2024 	      setdiff(3m_sets)
+			       October 05, 2024 	      setdiff(3m_sets)
 setxor(3m_sets) 					       setxor(3m_sets)
 
 
 
 NAME
-  setxor(3f) - [M_sets] return setxor values in array A
+  setxor(3f) - [M_sets] Find values of A and B not in both arrays
 
 
 SYNOPSIS
   setxor(A,B, setOrder)
 
 DESCRIPTION
-  Set exclusive OR of two arrays.
-    C = setxor(A,B) returns the data of A and B that are not in their
-    intersection (the symmetric difference), with no repetitions. That is,
-    setxor(3f) returns the data that occurs in A or B, but not both. C is in
-    sorted order.
+  setxfor(3f) returns the exclusive OR of two arrays.
+    That is, it returns the data of A and B that are not in their intersection
+    (the symmetric difference), with no repetitions.
+
+  Another way of defining the result is that setxor(3f) returns the data that
+  occurs in A or B, but not both.
 
 OPTIONS
   A input array
@@ -396,7 +421,9 @@ OPTIONS
   B input array
 
   setOrder
-    May be "sort" or "stable"
+    May be "sort" or "stable". If "stable" the values are returned in the
+    order discovered. The default is "sorted", which returns the data in
+    ascending order.
 
 EXAMPLE
   sample program:
@@ -434,22 +461,20 @@ LICENSE
 
 
 
-			       October 04, 2024 	       setxor(3m_sets)
+			       October 05, 2024 	       setxor(3m_sets)
 union(3m_sets)							union(3m_sets)
 
 
 
 NAME
-  union(3f) - [M_sets] return union values in array A
+  union(3f) - [M_sets] Join two sets and removes duplicates of values
 
 
 SYNOPSIS
   union(A,B, setOrder)
 
 DESCRIPTION
-  Set union of two arrays.
-    C = union(A,B) returns the combined data from A and B with no repetitions.
-    C is in sorted order.
+  The two sets are combined and repetitions are removed.
 
 OPTIONS
   A input array
@@ -457,7 +482,9 @@ OPTIONS
   B input array
 
   setOrder
-    May be "sort" or "stable"
+    May be "sort" or "stable". If "stable" the values are returned in the
+    order discovered. The default is "sorted", which returns the data in
+    ascending order.
 
 EXAMPLE
   sample program:
@@ -465,8 +492,8 @@ EXAMPLE
      program demo_union
      use M_sets, only: union
      character(len=*),parameter :: g='(*(g0,1x))'
-     integer, allocatable      :: A(:)
-     integer, allocatable      :: B(:)
+     integer,allocatable	:: A(:)
+     integer,allocatable	:: B(:)
 
 	write(*,g) 'UNION', 'Find the union of vectors A and B.'
 	A=[5, 7, 1]
@@ -503,7 +530,7 @@ LICENSE
 
 
 
-			       October 04, 2024 		union(3m_sets)
+			       October 05, 2024 		union(3m_sets)
 unique(3m_sets) 					       unique(3m_sets)
 
 
@@ -516,24 +543,31 @@ SYNOPSIS
   unique(A,setOrder)
 
 DESCRIPTION
-  Return unique values in array.
-    C = unique(A) returns the same data as in A, but with no repetitions. C is
-    in sorted order by default.
+  unique(3) returns the unique values found in an array. That is, it
+  eliminates all but one occurrence of each value.
+
+  The result is in sorted order by default, but may be returned in the order
+  found.
 
 OPTIONS
   A input array to extract unique values from
 
   setOrder
-    May be "sort" or "stable"
+    May be "sort" or "stable". If "stable" the values are returned in the
+    order discovered. The default is "sorted", which returns the data in
+    ascending order.
 
 RETURNS
+  All the values that occur in the input occur in the output just once. All
+  duplicates are removed.
+
 EXAMPLE
   sample program:
 
      program demo_unique
      use M_sets, only: unique
      character(len=*),parameter :: g='(*(g0,1x))'
-     integer, allocatable      :: A(:)
+     integer,allocatable	:: A(:)
 
 	write(*,g) 'UNIQUE','Find the unique elements of vector A.'
 	 A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
@@ -559,7 +593,7 @@ LICENSE
 
 
 
-			       October 04, 2024 	       unique(3m_sets)
+			       October 05, 2024 	       unique(3m_sets)
 issorted(3m_sets)					     issorted(3m_sets)
 
 
@@ -572,16 +606,15 @@ SYNOPSIS
   issorted(A,setOrder)
 
 DESCRIPTION
-  Report if A is sorted in ascending order or not. TF = issorted(A) returns
-  the logical scalar 1 (true) when the elements of A are listed in ascending
-  order and 0 (false) otherwise.
+  Report if A is sorted in ascending order or not.
+    A 1 (true) is returned when the elements of A are listed in ascending
+    order and 0 (false) otherwise.
 
 OPTIONS
   A input array to test
 
 RETURNS
-  TF
-    1 if input array A issorted in ascending order, 0 otherwise
+  1 if input array A is sorted in ascending order, 0 otherwise
 
 EXAMPLE
   sample program:
@@ -618,22 +651,23 @@ LICENSE
 
 
 
-			       October 04, 2024 	     issorted(3m_sets)
+			       October 05, 2024 	     issorted(3m_sets)
 intersect(3m_sets)					    intersect(3m_sets)
 
 
 
 NAME
-  intersect(3f) - [M_sets] return intersect values in array A
+  intersect(3f) - [M_sets] Find the values common to both sets A and B
 
 
 SYNOPSIS
   intersect(A,B, setOrder)
 
 DESCRIPTION
-  Set intersection of two arrays.
-    C = intersect(A,B) returns the data common to both A and B, with no
-    repetitions. C is in sorted order by default.
+  The values that occur at least once in each set are returned.
+
+  That is, intersect(3f) returns the data common to both A and B, with no
+  repetitions.
 
 OPTIONS
   A input array
@@ -641,25 +675,27 @@ OPTIONS
   B input array
 
   setOrder
-    May be "sort" or "stable"
+    May be "sort" or "stable". If "stable" the values are returned in the
+    order discovered. The default is "sorted", which returns the data in
+    ascending order.
 
 EXAMPLE
   sample program:
 
-       program demo_intersect
-       use M_sets, only: unique, intersect, union, setdiff, ismember, setxor
-       character(len=*),parameter :: g='(*(g0,1x))'
-       integer, allocatable	 :: A(:)
-       integer, allocatable	 :: B(:)
+    program demo_intersect
+    use M_sets, only: unique, intersect, union, setdiff, ismember, setxor
+    character(len=*),parameter :: g='(*(g0,1x))'
+    integer, allocatable      :: A(:)
+    integer, allocatable      :: B(:)
 
-	  write(*,g) 'INTERSECT', 'Find the values common to both A and B.'
-	   A=[7, 1, 7, 7, 4]
-	   B=[7, 0, 4, 4, 0]
-	   write(*,g) 'A=', A
-	   write(*,g) 'B=', B
-	   write(*,g) intersect(A, B)
-	   write(*,g) intersect(A, B, setOrder='stable')
-       end program demo_intersect
+       write(*,g) 'INTERSECT', 'Find the values common to both A and B.'
+	A=[7, 1, 7, 7, 4]
+	B=[7, 0, 4, 4, 0]
+	write(*,g) 'A=', A
+	write(*,g) 'B=', B
+	write(*,g) intersect(A, B)
+	write(*,g) intersect(A, B, setOrder='stable')
+    end program demo_intersect
 
   Results:
 
@@ -678,4 +714,4 @@ LICENSE
 
 
 
-			       October 04, 2024 	    intersect(3m_sets)
+			       October 05, 2024 	    intersect(3m_sets)

@@ -187,7 +187,7 @@ This will compile the Fortran module and basic example programs that exercise th
 ---
 ## Documentation ![docs](docs/images/docs.gif)
 
-The documenation for each procedure is included in the source.
+The documentation for each procedure is included in the source.
 That documentation is also available as a flat text file, HTML
 documents, and man-pages.
 
@@ -210,7 +210,7 @@ documents, and man-pages.
      OpenBSD, Cygwin, WLS, and other ULS (Unix-Like Systems)
 
      Installation can vary depending on whether you are installing
-     personal copies or as an adminstrator, but man-pages are well suited
+     personal copies or as an administrator, but man-pages are well suited
      for any CLI user (Command-Line Interface):
 
       + [manpages.zip](https://urbanjost.github.io/M_sets/manpages.zip)
