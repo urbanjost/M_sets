@@ -10,6 +10,7 @@ character(len=:),allocatable :: setorder
 character(len=:),allocatable :: datatype
 character(len=:),allocatable :: strA(:),strB(:)
 real,allocatable             :: fltA(:),fltB(:)
+doubleprecision,allocatable  :: dblA(:),dblB(:)
 logical :: verbose
    call setup()
    call set_args('-a , -b , --setorder "sorted" --type "character"',help_text,version_text)
@@ -31,7 +32,8 @@ logical :: verbose
       write(*,g) 'A            : ', a
       write(*,g) 'B            : ', b
       if(verbose)write(*,g) '-------------: ', 'Find the unique elements of vector A, then of B'
-      write(*,g) 'UNIQUE       : ', unique(a,setorder=setorder),',',unique(b,setorder=setorder)
+      write(*,g) 'UNIQUE A     : ', unique(a,setorder=setorder)
+      write(*,g) 'UNIQUE B     : ', unique(b,setorder=setorder)
       if(verbose)write(*,g) '-------------: ', 'Find the unique union of vectors A and B.'
       write(*,g) 'UNION        : ', union(a, b, setorder=setorder)
       if(verbose)write(*,g) '-------------: ', 'Find the values common to both A and B.'
@@ -49,16 +51,15 @@ logical :: verbose
       setorder=sget('setorder')
       verbose=lget('verbose')
       if(size(flta) == 0.and.size(fltb) == 0)then
-         write(*,g)repeat('TEST OF SETTHEORY ',4)
-         a = [7,23,14,15,9,12,8,24,35]
-         b = [ 2,5,7,8,14,16,25,35,27]
-         verbose=.true.
+         datatype='integer'
+         cycle
       endif
       if(verbose)write(*,g) '-------------: ', 'Given the sets'
       write(*,g) 'A            : ', flta
       write(*,g) 'B            : ', fltb
       if(verbose)write(*,g) '-------------: ', 'Find the unique elements of vector A, then of B'
-      write(*,g) 'UNIQUE       : ', unique(flta,setorder=setorder),',',unique(fltb,setorder=setorder)
+      write(*,g) 'UNIQUE A     : ', unique(flta,setorder=setorder)
+      write(*,g) 'UNIQUE B     : ', unique(fltb,setorder=setorder)
       if(verbose)write(*,g) '-------------: ', 'Find the unique union of vectors A and B.'
       write(*,g) 'UNION        : ', union(flta, fltb, setorder=setorder)
       if(verbose)write(*,g) '-------------: ', 'Find the values common to both A and B.'
@@ -69,6 +70,32 @@ logical :: verbose
       write(*,g) 'ISMEMBER     : ', ismember(flta, fltb)
       if(verbose)write(*,g) '-------------: ', 'Find values of A and B not in their intersection.'
       write(*,g) 'SETXOR       : ', setxor(flta, fltb, setorder=setorder)
+
+      case('double','doubleprecision')
+      dbla=rgets('a')
+      dblb=rgets('b')
+      setorder=sget('setorder')
+      verbose=lget('verbose')
+      if(size(dbla) == 0.and.size(dblb) == 0)then
+         datatype='integer'
+         cycle
+      endif
+      if(verbose)write(*,g) '-------------: ', 'Given the sets'
+      write(*,g) 'A            : ', dbla
+      write(*,g) 'B            : ', dblb
+      if(verbose)write(*,g) '-------------: ', 'Find the unique elements of vector A, then of B'
+      write(*,g) 'UNIQUE A     : ', unique(dbla,setorder=setorder)
+      write(*,g) 'UNIQUE B     : ', unique(dblb,setorder=setorder)
+      if(verbose)write(*,g) '-------------: ', 'Find the unique union of vectors A and B.'
+      write(*,g) 'UNION        : ', union(dbla, dblb, setorder=setorder)
+      if(verbose)write(*,g) '-------------: ', 'Find the values common to both A and B.'
+      write(*,g) 'INTERSECT    : ', intersect(dbla, dblb, setorder=setorder)
+      if(verbose)write(*,g) '-------------: ', 'Find the values in A that are not in B.'
+      write(*,g) 'SETDIFF      : ', setdiff(dbla, dblb, setorder=setorder)
+      if(verbose)write(*,g) '-------------: ', 'Determine which elements of A are also in B by position.'
+      write(*,g) 'ISMEMBER     : ', ismember(dbla, dblb)
+      if(verbose)write(*,g) '-------------: ', 'Find values of A and B not in their intersection.'
+      write(*,g) 'SETXOR       : ', setxor(dbla, dblb, setorder=setorder)
 
       case('character')
       stra=sgets('a')
@@ -83,7 +110,8 @@ logical :: verbose
       write(*,g) 'A            : ', stra
       write(*,g) 'B            : ', strb
       if(verbose)write(*,g) '-------------: ', 'Find the unique elements of vector A, then of B'
-      write(*,g) 'UNIQUE       : ', unique(stra,setorder=setorder),',',unique(strb,setorder=setorder)
+      write(*,g) 'UNIQUE A     : ', unique(stra,setorder=setorder)
+      write(*,g) 'UNIQUE B     : ', unique(strb,setorder=setorder)
       if(verbose)write(*,g) '-------------: ', 'Find the unique union of vectors A and B.'
       write(*,g) 'UNION        : ', union(stra, strb, setorder=setorder)
       if(verbose)write(*,g) '-------------: ', 'Find the values common to both A and B.'
@@ -104,7 +132,7 @@ subroutine setup()
 help_text=[ CHARACTER(LEN=128) :: &
 'NAME',&
 '   settheory(1f) - [M_sets:SETTHEORY] combine two sets of values',&
-'   and display union, intersection, values found in both sets,  ',&
+'   and displays union, intersection, values found in both sets, ',&
 '   values found only in one set, ...                            ',&
 '   (LICENSE:MIT)                                                ',&
 '                                                                ',&
@@ -114,66 +142,72 @@ help_text=[ CHARACTER(LEN=128) :: &
 '                                                                     ',&
 'DESCRIPTION                                                          ',&
 '   settheory(1f) finds the union, intersection, and set differences of',&
-'   two small sets of integers or strings and displays them            ',&
+'   two small sets of numbers or strings and displays them             ',&
 '                                                                      ',&
-'   If any set is empty a simple example is run.                       ',&
+'   If both sets are empty a simple example is run.                    ',&
 '                                                                      ',&
 'OPTIONS                                                               ',&
-'    -a SET_ONE       vector of whole numbers or strings comprising    ',&
+'    -a SET_ONE       vector of numbers or strings comprising          ',&
 '                     set A. May be delimited by commas, spaces,       ',&
 '                     or colons. If spaces are used the set needs      ',&
 '                     quoted. If empty a test set is run.              ',&
-'    -b SET_TWO       vector of whole numbers or strings comprising    ',&
+'    -b SET_TWO       vector of numbers or strings comprising          ',&
 '                     set B. May be delimited by commas, spaces,       ',&
 '                     or colons. If spaces are used the set needs      ',&
 '                     quoted. If empty a test set is run.              ',&
-'    --type DATATYPE       May be "integer","character" or "real".     ',&
-'                          Defaults to "character".                    ',&
-'    --setorder ORDERTYPE  "sorted" or "stable". If "stable" the values',&
-'                          remain in the order input.                  ',&
-'    --verbose             add additional descriptive text             ',&
-'    --version,-v          Print version information on standard output',&
-'                          then exit successfully.                     ',&
-'    --help,-h             Print usage information on standard output  ',&
-'                          then exit successfully.                     ',&
-'RESULTS                                                               ',&
-'                                                                      ',&
-'  Outputs the results from the following calls to the M_set(3f) module',&
-'                                                                      ',&
-'   * unique(A,setOrder);unique(B,setOrder) - Unique values in each array',&
-'   * union(A,B,setOrder) - Set union of two arrays                      ',&
-'   * intersect(A,B,setOrder) - Set intersection of two arrays           ',&
-'   * setdiff(A,B,setOrder) - Set difference of two arrays               ',&
-'   * ismember(A,B) - Array elements of set B that are members           ',&
-'                     of set A array                                     ',&
-'   * setxor(A,B,setOrder) - Set exclusive OR of two arrays              ',&
-'EXAMPLE                                                                 ',&
-'   Sample commands                                                      ',&
-'                                                                        ',&
-'    settheory -a one,two,three -b four,two,five,three                   ',&
-'    A            :  one   two   three                                   ',&
-'    B            :  four  two   five  three                             ',&
-'    UNIQUE       :  one   three two   , five  four  three two           ',&
-'    UNION        :  five  four  one   three two                         ',&
-'    INTERSECT    :  three two                                           ',&
-'    SETDIFF      :  one                                                 ',&
-'    ISMEMBER     :  0 1 1                                               ',&
-'    SETXOR       :  five  four  one                                     ',&
-'                                                                        ',&
-'    settheory -a 7,23,14,15,9,12,8,24,35 -b 2,5,7,8,14,16,25,35,27 \    ',&
-'              -type integer                                             ',&
-'    A            :  7 23 14 15 9 12 8 24 35                             ',&
-'    B            :  2 5 7 8 14 16 25 35 27                              ',&
-'    UNIQUE       :  7 8 9 12 14 15 23 24 35 , 2 5 7 8 14 16 25 27 35    ',&
-'    UNION        :  2 5 7 8 9 12 14 15 16 23 24 25 27 35                ',&
-'    INTERSECT    :  7 8 14 35                                           ',&
-'    SETDIFF      :  9 12 15 23 24                                       ',&
-'    ISMEMBER     :  1 0 1 0 0 0 1 0 1                                   ',&
-'    SETXOR       :  2 5 9 12 15 16 23 24 25 27                          ',&
-'    # or                                                                ',&
-'    settheory -a ''7 23 14 15 9 12 8 24 35'' -b ''2 5 7 8 14 16 25 35 27''',&
+'    --type DATATYPE       May be "integer","character","real" or "double".',&
+'                          Defaults to "character".                        ',&
+'    --setorder ORDERTYPE  "sorted" or "stable". If "stable" the values    ',&
+'                          remain in the order input.                      ',&
+'    --verbose             add additional descriptive text                 ',&
+'    --version,-v          Print version information on standard output    ',&
+'                          then exit successfully.                         ',&
+'    --help,-h             Print usage information on standard output      ',&
+'                          then exit successfully.                         ',&
+'RESULTS                                                                   ',&
+'                                                                          ',&
+'  Outputs the results from the following calls to the M_set(3f) module    ',&
+'                                                                          ',&
+'   * unique(A,setOrder);unique(B,setOrder) - Unique values in each array  ',&
+'   * union(A,B,setOrder) - Set union of two arrays                        ',&
+'   * intersect(A,B,setOrder) - Set intersection of two arrays             ',&
+'   * setdiff(A,B,setOrder) - Set difference of two arrays                 ',&
+'   * ismember(A,B) - Array elements of set B that are members             ',&
+'                     of set A array                                       ',&
+'   * setxor(A,B,setOrder) - Set exclusive OR of two arrays                ',&
+'EXAMPLE                                                                   ',&
+'   Sample commands                                                        ',&
+'                                                                          ',&
+'    settheory -a one,two,three -b four,two,five,three                     ',&
+'    A            :  one   two   three                                     ',&
+'    B            :  four  two   five  three                               ',&
+'    UNIQUE       :  one   three two   , five  four  three two             ',&
+'    UNION        :  five  four  one   three two                           ',&
+'    INTERSECT    :  three two                                             ',&
+'    SETDIFF      :  one                                                   ',&
+'    ISMEMBER     :  0 1 1                                                 ',&
+'    SETXOR       :  five  four  one                                       ',&
+'                                                                          ',&
+'    settheory -a 7,23,14,15,9,12,8,24,35 -b 2,5,7,8,14,16,25,35,27 \      ',&
+'              -type integer                                               ',&
+'    A            :  7 23 14 15 9 12 8 24 35                               ',&
+'    B            :  2 5 7 8 14 16 25 35 27                                ',&
+'    UNIQUE       :  7 8 9 12 14 15 23 24 35 , 2 5 7 8 14 16 25 27 35      ',&
+'    UNION        :  2 5 7 8 9 12 14 15 16 23 24 25 27 35                  ',&
+'    INTERSECT    :  7 8 14 35                                             ',&
+'    SETDIFF      :  9 12 15 23 24                                         ',&
+'    ISMEMBER     :  1 0 1 0 0 0 1 0 1                                     ',&
+'    SETXOR       :  2 5 9 12 15 16 23 24 25 27                            ',&
 '    # or                                                                  ',&
-'    settheory -a 7:23:14:15:9:12:8:24:35 -b 2:5:7:8:14:16:25:35:27        ',&
+'    settheory \                                                           ',&
+'     -a ''7 23 14 15 9 12 8 24 35'' \                                     ',&
+'     -b ''2 5 7 8 14 16 25 35 27'' \                                      ',&
+'      --type integer                                                      ',&
+'    # or                                                                  ',&
+'    settheory \                                                           ',&
+'     -a 7:23:14:15:9:12:8:24:35 \                                         ',&
+'     -b 2:5:7:8:14:16:25:35:27 \                                          ',&
+'     --type integer                                                       ',&
 '                                                                          ',&
 'SEE ALSO                                                                  ',&
 '    diff(1),uniq(1),sort(1),comm(1),join(1)                               ',&

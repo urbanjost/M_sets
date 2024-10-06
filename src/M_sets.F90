@@ -888,17 +888,19 @@ function ismember_int8(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 integer(kind=int8), intent(in)   :: a(:)
 integer(kind=int8), intent(in)   :: b(:)
+integer, allocatable                :: ab(:)
 integer, allocatable                :: result(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
    inums=size(a)
-   result = [ a, unique(b) ] ! potentially a lot of memory
+   ab = [ a, unique(b) ] ! potentially a lot of memory
+   if (allocated(iwrk1)) deallocate (iwrk1)
+   allocate (iwrk1(size(ab)))
+   call occurrences_(ab, iwrk1)
+   if (allocated(ab) ) deallocate(ab)
    if (allocated(iwrk2)) deallocate (iwrk2)
    allocate (iwrk2(size(a)))
-   if (allocated(iwrk1)) deallocate (iwrk1)
-   allocate (iwrk1(size(result)))
-   call occurrences_(result, iwrk1)
    call occurrences_(a, iwrk2)
    result=iwrk1(:inums)-iwrk2
    result=merge(0,1,result.eq.0)
@@ -1025,17 +1027,19 @@ function ismember_int16(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 integer(kind=int16), intent(in)   :: a(:)
 integer(kind=int16), intent(in)   :: b(:)
+integer, allocatable                :: ab(:)
 integer, allocatable                :: result(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
    inums=size(a)
-   result = [ a, unique(b) ] ! potentially a lot of memory
+   ab = [ a, unique(b) ] ! potentially a lot of memory
+   if (allocated(iwrk1)) deallocate (iwrk1)
+   allocate (iwrk1(size(ab)))
+   call occurrences_(ab, iwrk1)
+   if (allocated(ab) ) deallocate(ab)
    if (allocated(iwrk2)) deallocate (iwrk2)
    allocate (iwrk2(size(a)))
-   if (allocated(iwrk1)) deallocate (iwrk1)
-   allocate (iwrk1(size(result)))
-   call occurrences_(result, iwrk1)
    call occurrences_(a, iwrk2)
    result=iwrk1(:inums)-iwrk2
    result=merge(0,1,result.eq.0)
@@ -1162,17 +1166,19 @@ function ismember_int32(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 integer(kind=int32), intent(in)   :: a(:)
 integer(kind=int32), intent(in)   :: b(:)
+integer, allocatable                :: ab(:)
 integer, allocatable                :: result(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
    inums=size(a)
-   result = [ a, unique(b) ] ! potentially a lot of memory
+   ab = [ a, unique(b) ] ! potentially a lot of memory
+   if (allocated(iwrk1)) deallocate (iwrk1)
+   allocate (iwrk1(size(ab)))
+   call occurrences_(ab, iwrk1)
+   if (allocated(ab) ) deallocate(ab)
    if (allocated(iwrk2)) deallocate (iwrk2)
    allocate (iwrk2(size(a)))
-   if (allocated(iwrk1)) deallocate (iwrk1)
-   allocate (iwrk1(size(result)))
-   call occurrences_(result, iwrk1)
    call occurrences_(a, iwrk2)
    result=iwrk1(:inums)-iwrk2
    result=merge(0,1,result.eq.0)
@@ -1299,17 +1305,19 @@ function ismember_int64(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 integer(kind=int64), intent(in)   :: a(:)
 integer(kind=int64), intent(in)   :: b(:)
+integer, allocatable                :: ab(:)
 integer, allocatable                :: result(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
    inums=size(a)
-   result = [ a, unique(b) ] ! potentially a lot of memory
+   ab = [ a, unique(b) ] ! potentially a lot of memory
+   if (allocated(iwrk1)) deallocate (iwrk1)
+   allocate (iwrk1(size(ab)))
+   call occurrences_(ab, iwrk1)
+   if (allocated(ab) ) deallocate(ab)
    if (allocated(iwrk2)) deallocate (iwrk2)
    allocate (iwrk2(size(a)))
-   if (allocated(iwrk1)) deallocate (iwrk1)
-   allocate (iwrk1(size(result)))
-   call occurrences_(result, iwrk1)
    call occurrences_(a, iwrk2)
    result=iwrk1(:inums)-iwrk2
    result=merge(0,1,result.eq.0)
@@ -1436,17 +1444,19 @@ function ismember_real32(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 real(kind=real32), intent(in)   :: a(:)
 real(kind=real32), intent(in)   :: b(:)
+integer, allocatable                :: ab(:)
 integer, allocatable                :: result(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
    inums=size(a)
-   result = [ a, unique(b) ] ! potentially a lot of memory
+   ab = [ a, unique(b) ] ! potentially a lot of memory
+   if (allocated(iwrk1)) deallocate (iwrk1)
+   allocate (iwrk1(size(ab)))
+   call occurrences_(ab, iwrk1)
+   if (allocated(ab) ) deallocate(ab)
    if (allocated(iwrk2)) deallocate (iwrk2)
    allocate (iwrk2(size(a)))
-   if (allocated(iwrk1)) deallocate (iwrk1)
-   allocate (iwrk1(size(result)))
-   call occurrences_(result, iwrk1)
    call occurrences_(a, iwrk2)
    result=iwrk1(:inums)-iwrk2
    result=merge(0,1,result.eq.0)
@@ -1573,17 +1583,19 @@ function ismember_real64(A, B) result(result)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 real(kind=real64), intent(in)   :: a(:)
 real(kind=real64), intent(in)   :: b(:)
+integer, allocatable                :: ab(:)
 integer, allocatable                :: result(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
    inums=size(a)
-   result = [ a, unique(b) ] ! potentially a lot of memory
+   ab = [ a, unique(b) ] ! potentially a lot of memory
+   if (allocated(iwrk1)) deallocate (iwrk1)
+   allocate (iwrk1(size(ab)))
+   call occurrences_(ab, iwrk1)
+   if (allocated(ab) ) deallocate(ab)
    if (allocated(iwrk2)) deallocate (iwrk2)
    allocate (iwrk2(size(a)))
-   if (allocated(iwrk1)) deallocate (iwrk1)
-   allocate (iwrk1(size(result)))
-   call occurrences_(result, iwrk1)
    call occurrences_(a, iwrk2)
    result=iwrk1(:inums)-iwrk2
    result=merge(0,1,result.eq.0)

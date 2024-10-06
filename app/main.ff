@@ -10,6 +10,7 @@ character(len=:),allocatable :: setorder
 character(len=:),allocatable :: datatype
 character(len=:),allocatable :: strA(:),strB(:)
 real,allocatable             :: fltA(:),fltB(:)
+doubleprecision,allocatable  :: dblA(:),dblB(:)
 logical :: verbose
    call setup()
    call set_args('-a , -b , --setorder "sorted" --type "character"',help_text,version_text)
@@ -31,7 +32,8 @@ logical :: verbose
       write(*,g) 'A            : ', a
       write(*,g) 'B            : ', b
       if(verbose)write(*,g) '-------------: ', 'Find the unique elements of vector A, then of B'
-      write(*,g) 'UNIQUE       : ', unique(a,setorder=setorder),',',unique(b,setorder=setorder)
+      write(*,g) 'UNIQUE A     : ', unique(a,setorder=setorder)
+      write(*,g) 'UNIQUE B     : ', unique(b,setorder=setorder)
       if(verbose)write(*,g) '-------------: ', 'Find the unique union of vectors A and B.'
       write(*,g) 'UNION        : ', union(a, b, setorder=setorder)
       if(verbose)write(*,g) '-------------: ', 'Find the values common to both A and B.'
@@ -49,16 +51,15 @@ logical :: verbose
       setorder=sget('setorder')
       verbose=lget('verbose')
       if(size(flta) == 0.and.size(fltb) == 0)then
-         write(*,g)repeat('TEST OF SETTHEORY ',4)
-         a = [7,23,14,15,9,12,8,24,35]
-         b = [ 2,5,7,8,14,16,25,35,27]
-         verbose=.true.
+         datatype='integer'
+         cycle
       endif
       if(verbose)write(*,g) '-------------: ', 'Given the sets'
       write(*,g) 'A            : ', flta
       write(*,g) 'B            : ', fltb
       if(verbose)write(*,g) '-------------: ', 'Find the unique elements of vector A, then of B'
-      write(*,g) 'UNIQUE       : ', unique(flta,setorder=setorder),',',unique(fltb,setorder=setorder)
+      write(*,g) 'UNIQUE A     : ', unique(flta,setorder=setorder)
+      write(*,g) 'UNIQUE B     : ', unique(fltb,setorder=setorder)
       if(verbose)write(*,g) '-------------: ', 'Find the unique union of vectors A and B.'
       write(*,g) 'UNION        : ', union(flta, fltb, setorder=setorder)
       if(verbose)write(*,g) '-------------: ', 'Find the values common to both A and B.'
@@ -66,9 +67,35 @@ logical :: verbose
       if(verbose)write(*,g) '-------------: ', 'Find the values in A that are not in B.'
       write(*,g) 'SETDIFF      : ', setdiff(flta, fltb, setorder=setorder)
       if(verbose)write(*,g) '-------------: ', 'Determine which elements of A are also in B by position.'
-      write(*,g) 'ISMEMBER     : ', ismember(flta, b)
+      write(*,g) 'ISMEMBER     : ', ismember(flta, fltb)
       if(verbose)write(*,g) '-------------: ', 'Find values of A and B not in their intersection.'
       write(*,g) 'SETXOR       : ', setxor(flta, fltb, setorder=setorder)
+
+      case('double','doubleprecision')
+      dbla=rgets('a')
+      dblb=rgets('b')
+      setorder=sget('setorder')
+      verbose=lget('verbose')
+      if(size(dbla) == 0.and.size(dblb) == 0)then
+         datatype='integer'
+         cycle
+      endif
+      if(verbose)write(*,g) '-------------: ', 'Given the sets'
+      write(*,g) 'A            : ', dbla
+      write(*,g) 'B            : ', dblb
+      if(verbose)write(*,g) '-------------: ', 'Find the unique elements of vector A, then of B'
+      write(*,g) 'UNIQUE A     : ', unique(dbla,setorder=setorder)
+      write(*,g) 'UNIQUE B     : ', unique(dblb,setorder=setorder)
+      if(verbose)write(*,g) '-------------: ', 'Find the unique union of vectors A and B.'
+      write(*,g) 'UNION        : ', union(dbla, dblb, setorder=setorder)
+      if(verbose)write(*,g) '-------------: ', 'Find the values common to both A and B.'
+      write(*,g) 'INTERSECT    : ', intersect(dbla, dblb, setorder=setorder)
+      if(verbose)write(*,g) '-------------: ', 'Find the values in A that are not in B.'
+      write(*,g) 'SETDIFF      : ', setdiff(dbla, dblb, setorder=setorder)
+      if(verbose)write(*,g) '-------------: ', 'Determine which elements of A are also in B by position.'
+      write(*,g) 'ISMEMBER     : ', ismember(dbla, dblb)
+      if(verbose)write(*,g) '-------------: ', 'Find values of A and B not in their intersection.'
+      write(*,g) 'SETXOR       : ', setxor(dbla, dblb, setorder=setorder)
 
       case('character')
       stra=sgets('a')
@@ -83,7 +110,8 @@ logical :: verbose
       write(*,g) 'A            : ', stra
       write(*,g) 'B            : ', strb
       if(verbose)write(*,g) '-------------: ', 'Find the unique elements of vector A, then of B'
-      write(*,g) 'UNIQUE       : ', unique(stra,setorder=setorder),',',unique(strb,setorder=setorder)
+      write(*,g) 'UNIQUE A     : ', unique(stra,setorder=setorder)
+      write(*,g) 'UNIQUE B     : ', unique(strb,setorder=setorder)
       if(verbose)write(*,g) '-------------: ', 'Find the unique union of vectors A and B.'
       write(*,g) 'UNION        : ', union(stra, strb, setorder=setorder)
       if(verbose)write(*,g) '-------------: ', 'Find the values common to both A and B.'
@@ -105,7 +133,7 @@ $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK VARIABLE -varname help_text -file settheory.1.man
 NAME
    settheory(1f) - [M_sets:SETTHEORY] combine two sets of values
-   and display union, intersection, values found in both sets,
+   and displays union, intersection, values found in both sets,
    values found only in one set, ...
    (LICENSE:MIT)
 
@@ -115,20 +143,20 @@ SYNOPSIS
 
 DESCRIPTION
    settheory(1f) finds the union, intersection, and set differences of
-   two small sets of integers or strings and displays them
+   two small sets of numbers or strings and displays them
 
-   If any set is empty a simple example is run.
+   If both sets are empty a simple example is run.
 
 OPTIONS
-    -a SET_ONE       vector of whole numbers or strings comprising
+    -a SET_ONE       vector of numbers or strings comprising
                      set A. May be delimited by commas, spaces,
                      or colons. If spaces are used the set needs
                      quoted. If empty a test set is run.
-    -b SET_TWO       vector of whole numbers or strings comprising
+    -b SET_TWO       vector of numbers or strings comprising
                      set B. May be delimited by commas, spaces,
                      or colons. If spaces are used the set needs
                      quoted. If empty a test set is run.
-    --type DATATYPE       May be "integer","character" or "real".
+    --type DATATYPE       May be "integer","character","real" or "double".
                           Defaults to "character".
     --setorder ORDERTYPE  "sorted" or "stable". If "stable" the values
                           remain in the order input.
@@ -172,9 +200,15 @@ EXAMPLE
     ISMEMBER     :  1 0 1 0 0 0 1 0 1
     SETXOR       :  2 5 9 12 15 16 23 24 25 27
     # or
-    settheory -a '7 23 14 15 9 12 8 24 35' -b '2 5 7 8 14 16 25 35 27'
+    settheory \
+     -a '7 23 14 15 9 12 8 24 35' \
+     -b '2 5 7 8 14 16 25 35 27' \
+      --type integer
     # or
-    settheory -a 7:23:14:15:9:12:8:24:35 -b 2:5:7:8:14:16:25:35:27
+    settheory \
+     -a 7:23:14:15:9:12:8:24:35 \
+     -b 2:5:7:8:14:16:25:35:27 \
+     --type integer
 
 SEE ALSO
     diff(1),uniq(1),sort(1),comm(1),join(1)
