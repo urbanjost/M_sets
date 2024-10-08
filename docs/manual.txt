@@ -18,28 +18,27 @@ NAME
 
 
 SYNOPSIS
-  settheory -a INTEGER_SET_ONE -b INTEGER_SET_TWO [--type DATATYPE]
-  [--setorder ORDERTYPE] [--verbose]
+  settheory -a SET_ONE -b SET_TWO [--type DATATYPE] [--setorder ORDERTYPE]
+  [--verbose]
 
 DESCRIPTION
   settheory(1f) finds the union, intersection, and set differences of two
-  small sets of integers or strings and displays them
+  small sets of numbers or strings and displays them
 
-  If any set is empty a simple example is run.
+  If both sets are empty a simple example is run.
 
 OPTIONS
   -a SET_ONE
-    vector of whole numbers or strings comprising set A. May be delimited by
-    commas, spaces, or colons. If spaces are used the set needs quoted. If
-    empty a test set is run.
+    vector of numbers or strings comprising set A. May be delimited by commas,
+    spaces, or colons. If spaces are used the set needs quoted.
 
   -b SET_TWO
-    vector of whole numbers or strings comprising set B. May be delimited by
-    commas, spaces, or colons. If spaces are used the set needs quoted. If
-    empty a test set is run.
+    vector of numbers or strings comprising set B. May be delimited by commas,
+    spaces, or colons. If spaces are used the set needs quoted.
 
   --type DATATYPE
-    May be "integer" or "character". Defaults to "character".
+    May be "integer", "character", "real" or "double". Defaults to
+    "character".
 
   --setorder ORDERTYPE
     "sorted" or "stable". If "stable" the values remain in the order input.
@@ -74,7 +73,8 @@ EXAMPLE
       settheory -a one,two,three -b four,two,five,three
       A 	   :  one   two   three
       B 	   :  four  two   five	three
-      UNIQUE	   :  one   three two	, five	four  three two
+      UNIQUE A	   :  one   three two
+      UNIQUE B	   :  five  four  three two
       UNION	   :  five  four  one	three two
       INTERSECT    :  three two
       SETDIFF	   :  one
@@ -82,19 +82,24 @@ EXAMPLE
       SETXOR	   :  five  four  one
 
       settheory -a 7,23,14,15,9,12,8,24,35 -b 2,5,7,8,14,16,25,35,27 \
-		-type integer
+		--type integer
       A 	   :  7 23 14 15 9 12 8 24 35
       B 	   :  2 5 7 8 14 16 25 35 27
-      UNIQUE	   :  7 8 9 12 14 15 23 24 35 , 2 5 7 8 14 16 25 27 35
+      UNIQUE A	   :  7 8 9 12 14 15 23 24 35
+      UNIQUE B	   :  2 5 7 8 14 16 25 27 35
       UNION	   :  2 5 7 8 9 12 14 15 16 23 24 25 27 35
       INTERSECT    :  7 8 14 35
       SETDIFF	   :  9 12 15 23 24
       ISMEMBER	   :  1 0 1 0 0 0 1 0 1
       SETXOR	   :  2 5 9 12 15 16 23 24 25 27
       # or
-      settheory -a '7 23 14 15 9 12 8 24 35' -b '2 5 7 8 14 16 25 35 27'
+      settheory --type integer \
+      -a '7 23 14 15 9 12 8 24 35' \
+      -b '2 5 7 8 14 16 25 35 27'
       # or
-      settheory -a 7:23:14:15:9:12:8:24:35 -b 2:5:7:8:14:16:25:35:27
+      settheory --type integer \
+      -a 7:23:14:15:9:12:8:24:35 \
+      -b 2:5:7:8:14:16:25:35:27
 
 
 SEE ALSO
@@ -102,7 +107,7 @@ SEE ALSO
 
 
 
-			       October 05, 2024       settheory.1.man(1m_sets)
+			       October 08, 2024       settheory.1.man(1m_sets)
 ismember(3m_sets)					     ismember(3m_sets)
 
 
@@ -167,7 +172,7 @@ LICENSE
 
 
 
-			       October 05, 2024 	     ismember(3m_sets)
+			       October 08, 2024 	     ismember(3m_sets)
 M_sets(3m_sets) 					       M_sets(3m_sets)
 
 
@@ -192,15 +197,15 @@ DESCRIPTION
   M_set(3f) is a Fortran module comprising a small subset of set theory
   functions reminiscent of Matlab functions.
 
-  The functions currently only support vectors of integer and default
-  character type.
+  The functions currently support vectors of integer, default character, and
+  default real and doubleprecision type.
 
   float numbers (both kind=real32 and kind=real64) are allowed but "caveat
   emptor", as comparing floats for equality has issues. You may have to
   condition the float data by converting it to scaled integers or using
   intrinsics such as NEAREST(3f) to produce the desired results.
 
-  M_set(3f) primarily uses simple calls to the M_ordersort(3f) module to
+  M_set(3f) primarily uses simple calls to the M_orderpack(3f) module to
 
   provide the functionality. The functions
     are not otherwise tuned for performance and make loose use of memory
@@ -232,96 +237,125 @@ EXAMPLE
      program demo_M_sets
      use M_sets, only: &
      & unique, intersect, union, setdiff, ismember, setxor, issorted
-     character(len=*),parameter :: g='(*(g0,1x))'
-     integer,allocatable	:: A(:)
-     integer,allocatable	:: B(:)
-     integer,allocatable	:: C(:)
+     character(len=*),parameter :: all='(*(g0,1x))'
+     character(len=*),parameter :: nl=new_line('A')
+     integer, allocatable      :: A(:)
+     integer, allocatable      :: B(:)
+     integer, allocatable      :: C(:)
 
-	write(*,g) 'UNIQUE','Find the unique elements of vector A.'
-	 A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
-	 write(*,g) 'A=', A
-	 write(*,g) unique(A)
-	 write(*,g) unique(A, setOrder='stable')
-	write(*,g) 'UNION', 'Find the union of vectors A and B.'
-	 call setab( [5, 7, 1], [3, 1, 1] )
-	 write(*,g) union(A,B)
-	 call setab( [5, 5, 3], [1, 2, 5] )
-	 write(*,g) union(A, B, 'sorted')
-	 write(*,g) union(A, B, 'stable')
-	write(*,g) 'INTERSECT', 'Find the values common to both A and B.'
-	 call setab( [7, 1, 7, 7, 4], [7, 0, 4, 4, 0] )
-	 write(*,g) intersect(A, B)
-	 write(*,g) intersect(A, B, setOrder='stable')
-	write(*,g) 'SETDIFF','Find the values in A that are not in B.'
-	 call setab( [3, 6, 2, 1, 5, 1, 1], [2, 4, 6] )
-	 write(*,g) setdiff(A, B)
-	 call setab( [4, 1, 3, 2, 5], [2, 1])
-	 write(*,g) setdiff(A, B, 'sorted')
-	 write(*,g) setdiff(A, B, 'stable')
-	write(*,g) 'ISMEMBER', &
-	'Determine which elements of A are also in B.'
-	 call setab( [5,3,4,2], [2,4,4,4,6,8] )
-	 write(*,g) ismember(A,B)
-	write(*,g) 'SETXOR',&
-	'Find values of A and B not in their intersection.'
-	 call setab( [5,1,3,3,3], [4,1,2] )
-	 write(*,g) setxor(A,B)
-	 write(*,g) setxor(A,B,'stable')
+	A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
+	!
+	print all						    ,nl, &
+	'UNIQUE','Find the unique elements of vector A.'	    ,nl, &
+	'A=', A 						    ,nl, &
+	'sorted=',unique(A)					    ,nl, &
+	'stable=',unique(A, setOrder='stable')
 
-	 write(*,g) 'ISSSORTED',&
-	 'confirm whether array is sorted in ascending order or not'
-	 call setab([1,2,3,4,5],[5,4,3,2,1])
-	 write(*,g) issorted(A)
-	 write(*,g) issorted(B)
+	A=[5, 7, 1]
+	B=[3, 1, 1]
+	!
+	print all						    ,nl, &
+	'UNION', 'Find the union of vectors A and B.'		    ,nl, &
+	'A=', A 						    ,nl, &
+	'B=', B 						    ,nl, &
+	'sorted=',union(A, B, 'sorted') 			    ,nl, &
+	'stable=',union(A, B, 'stable')
 
-     contains
-     subroutine setab(ain,bin)
-     integer,intent(in) :: ain(:)
-     integer,intent(in) :: bin(:)
-	A=ain
-	B=bin
-	write(*,g) 'A=', A
-	write(*,g) 'B=', B
-     end subroutine setab
+	A=[7, 1, 7, 7, 4]
+	B=[7, 0, 4, 4, 0]
+	!
+	print all						    ,nl, &
+	'INTERSECT', 'Find the values common to both A and B.'	    ,nl, &
+	'A=', A 						    ,nl, &
+	'B=', B 						    ,nl, &
+	'sorted=',intersect(A, B)				    ,nl, &
+	'stable=',intersect(A, B, setOrder='stable')
+
+	A=[3, 6, 2, 1, 5, 1, 1]
+	B=[2, 4, 6]
+	!
+	print all						    ,nl, &
+	'SETDIFF','Find the values in A that are not in B.'	    ,nl, &
+	'A=', A 						    ,nl, &
+	'B=', B 						    ,nl, &
+	'sorted=',setdiff(A, B, 'sorted')			    ,nl, &
+	'stable=',setdiff(A, B, 'stable')
+
+	A=[5,3,4,2]
+	B=[2,4,4,4,6,8]
+	!
+	print all						    ,nl, &
+	'ISMEMBER','Determine which elements of A are also in B.'   ,nl, &
+	'A=', A 						    ,nl, &
+	'B=', B 						    ,nl, &
+	'in A and B=',ismember(A,B)
+
+	A=[5,1,3,3,3]
+	B=[4,1,2]
+	!
+	print all						    ,nl, &
+	'SETXOR'						       , &
+	'Find values of A and B not in their intersection.'	    ,nl, &
+	'A=', A 						    ,nl, &
+	'B=', B 						    ,nl, &
+	'sorted=',setxor(A,B)					    ,nl, &
+	'stable=',setxor(A,B,'stable')
+
+	A=[1,2,3,4,5]
+	B=[5,4,3,2,1]
+	!
+	print all						    ,nl, &
+	'ISSSORTED'						       , &
+	'confirm whether array is sorted in ascending order or not' ,nl, &
+	'A=', A 						    ,nl, &
+	'B=', B 						    ,nl, &
+	'is A sorted?',issorted(A)				    ,nl, &
+	'is B sorted?',issorted(B)
 
      end program demo_M_sets
 
   Results:
 
-   > UNIQUE Find the unique elements of vector A.
-   > A= 10 -10 0 1 2 3 3 2 1 -10
-   > -10 0 1 2 3 10
-   > 10 -10 0 1 2 3
-   > UNION Find the union of vectors A and B.
-   > A= 5 7 1
-   > B= 3 1 1
-   > 1 3 5 7
-   > A= 5 5 3
-   > B= 1 2 5
-   > 1 2 3 5
-   > 5 3 1 2
-   > INTERSECT Find the values common to both A and B.
-   > A= 7 1 7 7 4
-   > B= 7 0 4 4 0
-   > 4 7
-   > 7 4
-   > SETDIFF Find the values in A that are not in B.
-   > A= 3 6 2 1 5 1 1
-   > B= 2 4 6
-   > 1 3 5
-   > A= 4 1 3 2 5
-   > B= 2 1
-   > 3 4 5
-   > 4 3 5
-   > ISMEMBER Determine which elements of A are also in B.
-   > A= 5 3 4 2
-   > B= 2 4 4 4 6 8
-   > 0 0 1 1
-   > SETXOR Find values of A and B not in their intersection.
-   > A= 5 1 3 3 3
-   > B= 4 1 2
-   > 2 3 4 5
-   > 5 3 4 2
+   >
+   >  UNIQUE Find the unique elements of vector A.
+   >  A= 10 -10 0 1 2 3 3 2 1 -10
+   >  sorted= -10 0 1 2 3 10
+   >  stable= 10 -10 0 1 2 3
+   >
+   >  UNION Find the union of vectors A and B.
+   >  A= 5 7 1
+   >  B= 3 1 1
+   >  sorted= 1 3 5 7
+   >  stable= 5 7 1 3
+   >
+   >  INTERSECT Find the values common to both A and B.
+   >  A= 7 1 7 7 4
+   >  B= 7 0 4 4 0
+   >  sorted= 4 7
+   >  stable= 7 4
+   >
+   >  SETDIFF Find the values in A that are not in B.
+   >  A= 3 6 2 1 5 1 1
+   >  B= 2 4 6
+   >  sorted= 1 3 5
+   >  stable= 3 1 5
+   >
+   >  ISMEMBER Determine which elements of A are also in B.
+   >  A= 5 3 4 2
+   >  B= 2 4 4 4 6 8
+   >  in A and B= 0 0 1 1
+   >
+   >  SETXOR Find values of A and B not in their intersection.
+   >  A= 5 1 3 3 3
+   >  B= 4 1 2
+   >  sorted= 2 3 4 5
+   >  stable= 5 3 4 2
+   >
+   >  ISSSORTED confirm whether array is sorted in ascending order or not
+   >  A= 1 2 3 4 5
+   >  B= 5 4 3 2 1
+   >  is A sorted? 1
+   >  is B sorted? 0
 
 
 AUTHORS
@@ -332,7 +366,7 @@ LICENSE
 
 
 
-			       October 05, 2024 	       M_sets(3m_sets)
+			       October 08, 2024 	       M_sets(3m_sets)
 setdiff(3m_sets)					      setdiff(3m_sets)
 
 
@@ -395,7 +429,7 @@ LICENSE
 
 
 
-			       October 05, 2024 	      setdiff(3m_sets)
+			       October 08, 2024 	      setdiff(3m_sets)
 setxor(3m_sets) 					       setxor(3m_sets)
 
 
@@ -461,7 +495,7 @@ LICENSE
 
 
 
-			       October 05, 2024 	       setxor(3m_sets)
+			       October 08, 2024 	       setxor(3m_sets)
 union(3m_sets)							union(3m_sets)
 
 
@@ -530,7 +564,7 @@ LICENSE
 
 
 
-			       October 05, 2024 		union(3m_sets)
+			       October 08, 2024 		union(3m_sets)
 unique(3m_sets) 					       unique(3m_sets)
 
 
@@ -593,7 +627,7 @@ LICENSE
 
 
 
-			       October 05, 2024 	       unique(3m_sets)
+			       October 08, 2024 	       unique(3m_sets)
 issorted(3m_sets)					     issorted(3m_sets)
 
 
@@ -651,7 +685,7 @@ LICENSE
 
 
 
-			       October 05, 2024 	     issorted(3m_sets)
+			       October 08, 2024 	     issorted(3m_sets)
 intersect(3m_sets)					    intersect(3m_sets)
 
 
@@ -714,4 +748,4 @@ LICENSE
 
 
 
-			       October 05, 2024 	    intersect(3m_sets)
+			       October 08, 2024 	    intersect(3m_sets)

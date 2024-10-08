@@ -1,6 +1,6 @@
 program main
 use M_sets, only: unique, intersect, union, setdiff, ismember, setxor, issorted
-use M_CLI2, only: set_args, igets, sget, lget, sgets, rgets
+use M_CLI2, only: set_args, igets, sget, lget, sgets, rgets, dgets
 implicit none
 character(len=*),parameter   :: g='(*(g0,1x))'
 integer,allocatable          :: A(:)
@@ -17,6 +17,7 @@ logical :: verbose
    datatype=sget('type')
    do
       select case(datatype)
+
       case('integer')
       a=igets('a')
       b=igets('b')
@@ -72,8 +73,8 @@ logical :: verbose
       write(*,g) 'SETXOR       : ', setxor(flta, fltb, setorder=setorder)
 
       case('double','doubleprecision')
-      dbla=rgets('a')
-      dblb=rgets('b')
+      dbla=dgets('a')
+      dblb=dgets('b')
       setorder=sget('setorder')
       verbose=lget('verbose')
       if(size(dbla) == 0.and.size(dblb) == 0)then
@@ -132,7 +133,7 @@ subroutine setup()
 help_text=[ CHARACTER(LEN=128) :: &
 'NAME',&
 '   settheory(1f) - [M_sets:SETTHEORY] combine two sets of values',&
-'   and displays union, intersection, values found in both sets, ',&
+'   and display union, intersection, values found in both sets,  ',&
 '   values found only in one set, ...                            ',&
 '   (LICENSE:MIT)                                                ',&
 '                                                                ',&
@@ -155,70 +156,70 @@ help_text=[ CHARACTER(LEN=128) :: &
 '                     set B. May be delimited by commas, spaces,       ',&
 '                     or colons. If spaces are used the set needs      ',&
 '                     quoted.                                          ',&
-'    --type DATATYPE       May be "integer","character","real" or "double".',&
-'                          Defaults to "character".                        ',&
-'    --setorder ORDERTYPE  "sorted" or "stable". If "stable" the values    ',&
-'                          remain in the order input.                      ',&
-'    --verbose             add additional descriptive text                 ',&
-'    --version,-v          Print version information on standard output    ',&
-'                          then exit successfully.                         ',&
-'    --help,-h             Print usage information on standard output      ',&
-'                          then exit successfully.                         ',&
-'RESULTS                                                                   ',&
-'                                                                          ',&
-'  Outputs the results from the following calls to the M_set(3f) module    ',&
-'                                                                          ',&
-'   * unique(A,setOrder);unique(B,setOrder) - Unique values in each array  ',&
-'   * union(A,B,setOrder) - Set union of two arrays                        ',&
-'   * intersect(A,B,setOrder) - Set intersection of two arrays             ',&
-'   * setdiff(A,B,setOrder) - Set difference of two arrays                 ',&
-'   * ismember(A,B) - Array elements of set B that are members             ',&
-'                     of set A array                                       ',&
-'   * setxor(A,B,setOrder) - Set exclusive OR of two arrays                ',&
-'EXAMPLE                                                                   ',&
-'   Sample commands                                                        ',&
-'                                                                          ',&
-'    settheory -a one,two,three -b four,two,five,three                     ',&
-'    A            :  one   two   three                                     ',&
-'    B            :  four  two   five  three                               ',&
-'    UNIQUE A     :  one   three two                                       ',&
-'    UNIQUE B     :  five  four  three two                                 ',&
-'    UNION        :  five  four  one   three two                           ',&
-'    INTERSECT    :  three two                                             ',&
-'    SETDIFF      :  one                                                   ',&
-'    ISMEMBER     :  0 1 1                                                 ',&
-'    SETXOR       :  five  four  one                                       ',&
-'                                                                          ',&
-'    settheory -a 7,23,14,15,9,12,8,24,35 -b 2,5,7,8,14,16,25,35,27 \      ',&
-'              --type integer                                              ',&
-'    A            :  7 23 14 15 9 12 8 24 35                               ',&
-'    B            :  2 5 7 8 14 16 25 35 27                                ',&
-'    UNIQUE A     :  7 8 9 12 14 15 23 24 35                               ',&
-'    UNIQUE B     :  2 5 7 8 14 16 25 27 35                                ',&
-'    UNION        :  2 5 7 8 9 12 14 15 16 23 24 25 27 35                  ',&
-'    INTERSECT    :  7 8 14 35                                             ',&
-'    SETDIFF      :  9 12 15 23 24                                         ',&
-'    ISMEMBER     :  1 0 1 0 0 0 1 0 1                                     ',&
-'    SETXOR       :  2 5 9 12 15 16 23 24 25 27                            ',&
-'    # or                                                                  ',&
-'    settheory --type integer \                                            ',&
-'     -a ''7 23 14 15 9 12 8 24 35'' \                                     ',&
-'     -b ''2 5 7 8 14 16 25 35 27''                                        ',&
-'    # or                                                                  ',&
-'    settheory --type integer \                                            ',&
-'     -a 7:23:14:15:9:12:8:24:35 \                                         ',&
-'     -b 2:5:7:8:14:16:25:35:27                                            ',&
-'                                                                          ',&
-'SEE ALSO                                                                  ',&
-'    diff(1),uniq(1),sort(1),comm(1),join(1)                               ',&
+'    --type DATATYPE       May be "integer", "character", "real" or    ',&
+'                          "double". Defaults to "character".          ',&
+'    --setorder ORDERTYPE  "sorted" or "stable". If "stable" the values',&
+'                          remain in the order input.                  ',&
+'    --verbose             add additional descriptive text             ',&
+'    --version,-v          Print version information on standard output',&
+'                          then exit successfully.                     ',&
+'    --help,-h             Print usage information on standard output  ',&
+'                          then exit successfully.                     ',&
+'RESULTS                                                               ',&
+'                                                                      ',&
+'  Outputs the results from the following calls to the M_set(3f) module',&
+'                                                                      ',&
+'   * unique(A,setOrder);unique(B,setOrder) - Unique values in each array',&
+'   * union(A,B,setOrder) - Set union of two arrays                      ',&
+'   * intersect(A,B,setOrder) - Set intersection of two arrays           ',&
+'   * setdiff(A,B,setOrder) - Set difference of two arrays               ',&
+'   * ismember(A,B) - Array elements of set B that are members           ',&
+'                     of set A array                                     ',&
+'   * setxor(A,B,setOrder) - Set exclusive OR of two arrays              ',&
+'EXAMPLE                                                                 ',&
+'   Sample commands                                                      ',&
+'                                                                        ',&
+'    settheory -a one,two,three -b four,two,five,three                   ',&
+'    A            :  one   two   three                                   ',&
+'    B            :  four  two   five  three                             ',&
+'    UNIQUE A     :  one   three two                                     ',&
+'    UNIQUE B     :  five  four  three two                               ',&
+'    UNION        :  five  four  one   three two                         ',&
+'    INTERSECT    :  three two                                           ',&
+'    SETDIFF      :  one                                                 ',&
+'    ISMEMBER     :  0 1 1                                               ',&
+'    SETXOR       :  five  four  one                                     ',&
+'                                                                        ',&
+'    settheory -a 7,23,14,15,9,12,8,24,35 -b 2,5,7,8,14,16,25,35,27 \    ',&
+'              --type integer                                            ',&
+'    A            :  7 23 14 15 9 12 8 24 35                             ',&
+'    B            :  2 5 7 8 14 16 25 35 27                              ',&
+'    UNIQUE A     :  7 8 9 12 14 15 23 24 35                             ',&
+'    UNIQUE B     :  2 5 7 8 14 16 25 27 35                              ',&
+'    UNION        :  2 5 7 8 9 12 14 15 16 23 24 25 27 35                ',&
+'    INTERSECT    :  7 8 14 35                                           ',&
+'    SETDIFF      :  9 12 15 23 24                                       ',&
+'    ISMEMBER     :  1 0 1 0 0 0 1 0 1                                   ',&
+'    SETXOR       :  2 5 9 12 15 16 23 24 25 27                          ',&
+'    # or                                                                ',&
+'    settheory --type integer \                                          ',&
+'    -a ''7 23 14 15 9 12 8 24 35'' \                                    ',&
+'    -b ''2 5 7 8 14 16 25 35 27''                                       ',&
+'    # or                                                                ',&
+'    settheory --type integer \                                          ',&
+'    -a 7:23:14:15:9:12:8:24:35 \                                        ',&
+'    -b 2:5:7:8:14:16:25:35:27                                           ',&
+'                                                                        ',&
+'SEE ALSO                                                                ',&
+'    diff(1),uniq(1),sort(1),comm(1),join(1)                             ',&
 '']
 version_text=[ CHARACTER(LEN=128) :: &
 'PRODUCT:        GPF (General Purpose Fortran) utilities and examples',&
 'PROGRAM:        settheory(1f)                                       ',&
-'DESCRIPTION:    given two small vectors of intrinsic types find union, intersection, and setdiff',&
-'VERSION:        1.0, 2024-10-04                                                                 ',&
-'AUTHOR:         John S. Urban                                                                   ',&
-'LICENSE:        MIT                                                                             ',&
+'DESCRIPTION:    given two small vectors of intrinsic type find union, intersection, and set differences',&
+'VERSION:        1.0, 2024-10-04                                                                        ',&
+'AUTHOR:         John S. Urban                                                                          ',&
+'LICENSE:        MIT                                                                                    ',&
 '']
 end subroutine setup
 end program main

@@ -1,70 +1,318 @@
 <html>
 <head>
-<title></title>
-<meta name="keywords" content="Fortran, Fortran code, Fortran source code repository, Fortran library, Fortran archive,         " />
-<meta name="keywords" content="General Purpose Fortran, Fortran modules, Fortran examples                                       " />
-<meta name="keywords" content="Fortran Repository" />
-<meta name="keywords" content="Fortran Collection" />
+<meta name="Copyright" content="Images, text, datasets, and content (c) Copyright John S. Urban, 2002. All rights reserved.">
+<meta name="generator" content="vi(1)/vim(1)" />
+<meta name="description" content="@(#)M_sets::BOOK_M_sets: BOOK composed of pages for man(1) topic M_sets"/>
+<meta name="author"      content="urbanjs" />
+<meta name="date"        content="2024-10-08" />
+<meta name="keywords"    content="Fortran, Fortran code, source code repository, Fortran library, Fortran archive, source code" />
+<!--
+   Pick your favorite style sheet from among the eight offerings:
+   Chocolate, Midnight, Modernist, Oldstyle, Steely, Swiss, Traditional, and Ultramarine.
+   #!/bin/sh
+   for NAME in Chocolate Midnight Modernist Oldstyle Steely Swiss Traditional Ultramarine
+   do
+     curl --get http://www.w3.org/StyleSheets/Core/$NAME.css >StyleSheets/$NAME.css
+   done
+-->
 <link  rel="stylesheet"            href="StyleSheets/man.css"          type="text/css"  title="man"          />
-<style>
-body { background-color:#FFF; color:#333; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:1em; line-height:1.3em; }
-
-a,li span { color:#000; }
+<link  rel="alternate stylesheet"  href="StyleSheets/Simple.css"       type="text/css"  title="Simple"       />
+<link  rel="alternate stylesheet"  href="StyleSheets/fancy.css"        type="text/css"  title="Local"        />
+<link  rel="alternate stylesheet"  href="StyleSheets/Chocolate.css"    type="text/css"  title="Chocolate"    />
+<link  rel="alternate stylesheet"  href="StyleSheets/Midnight.css"     type="text/css"  title="Midnight"     />
+<link  rel="alternate stylesheet"  href="StyleSheets/Modernist.css"    type="text/css"  title="Modernist"    />
+<link  rel="alternate stylesheet"  href="StyleSheets/OldStyle.css"     type="text/css"  title="OldStyle"     />
+<link  rel="alternate stylesheet"  href="StyleSheets/Steely.css"       type="text/css"  title="Steely"       />
+<link  rel="alternate stylesheet"  href="StyleSheets/Swiss.css"        type="text/css"  title="Swiss"        />
+<link  rel="alternate stylesheet"  href="StyleSheets/Traditional.css"  type="text/css"  title="Traditional"  />
+<link  rel="alternate stylesheet"  href="StyleSheets/Ultramarine.css"  type="text/css"  title="Ultramarine"  />
+<!--
+<link  rel="alternate stylesheet"  href="StyleSheets/fortran.css"      type="text/css"  title="fortran"      />
+-->
+<style type="text/css">
+/*<![CDATA[*/
+/* ======================================================== */
+iframe {
+   width=0;
+   height=0;
+}
+/* ======================================================== */
+/* Start new page on printing */
+BR.newpage{
+   page-break-before:always
+}
+/* ======================================================== */
+pX {
+   font-family: "Lucida Console", Monaco, monospace
+}
+/* ======================================================== */
+div {
+   background-color: white;
+   /*
+   border-style: solid;
+   border-color: blue;
+   */
+}
+tbody {
+   background-color: white;
+   border-style: solid;
+   border-color: blue;
+}
+/* ======================================================== */
+summary{
+   background-color: white;
+}
+/* ======================================================== */
+body{
+   background-color: gray40;
+   margin-top:     1.58em;
+   margin-left:    8%;
+   margin-right:   4%;
+   margin-bottom:  1.58em;
+   padding-top:    0;
+   padding-left:   0;
+   padding-right:  0;
+   padding-bottom: 0;
+   border-top:     0;
+   border-left:    0;
+   border-bottom:  0;
+   border-right:   0;
+   width:  auto;
+} /* end body box */
+img{max-width: 55em}
+/* ======================================================== */
+/*]]>*/
+</style>
+<style> 
+px {font-family: "Lucida Console", Monaco, monospace}
+p { font-size:100%; line-height:1.1em; }
+body {xfont-style: sans-serif}
+body {
+color:#333; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:1em; line-height:1.3em; }
 a:visited { color:#666; }
-a:hover, a.nav:hover, a:hover math { background-color:#000; color:#FFF; }
-a.nav,a:link.nav, a:visited.nav { background-color:#FFF; color:#000; }
-
 h1,h2,h3,h4,h5,h6 { color:#333; font-family:georgia, verdana, sans-serif; }
-h1 { font-size:200%; line-height: 1.1em;color:#F33}
-h2 { font-size:173%; }
-h3 { font-size:144%; }
-h4 { font-size:120%; }
+h1 { font-size:150%; page-break-before:auto;background-color: #aaaaff}
+h2 { font-size:143%;color:teal; }
+h3 { font-size:134%;color:blue; }
+h4 { font-size:120%;color:gray; }
+img { max-width: 55em}
+p{ padding: 0;margin:0; }
+p{ padding-right:1.4em; }
+p{ padding-bottom:1em; }
+p{ padding-top:1em; }
+p{ whitespace: pre-wrap; }
 h5,h6 { font-size:100% }
-
-dt { font-size:108%; color:#00F;line-height: 2em;font-width:boldest;}
-
-table { border:double #000; border-collapse:collapse; }
-td { border:thin solid #888; margin: auto; padding: auto; border: auto;}
-td { padding-left: 1em; padding-right: 1em;}
+a.nav,a:link.nav, a:visited.nav { background-color:#FFF; color:#F00; }
+XXtable { border:double #000; border-collapse:collapse; }
+XXtable { border-collapse:collapse; }
+XXtd { border:thin solid #888; }
+XXtd { border:none; }
 li { margin-bottom:0.5em; }
-blockquote { display:block; font-size:90%; line-height:1.5em; margin:0 0 1.5em; padding:0 2.5em; }
-pre { background-color:#DDD; font-size:90%; overflow:auto; padding:1em; }
-xmp { background-color:#DCC; font-size:80%; display: block; font-family: monospace; white-space: pre; margin: 1em 0; }
-
-#Container { margin:0 10px; text-align:center; }
-#Content { border-top:none; margin:auto; padding:0.3em; text-align:left; width:100%; max-width:55em; }
+blockquote { display:block; font-size:100%; line-height:1.1em; margin:0 0 1.5em; padding:0 2.5em; }
+pre { background-color:#DDD; font-size:100%; overflow:auto; padding:1em; }
+a,li span { color:#000; }
+a:hover, a.nav:hover, a:hover math { background-color:#000; color:#FFF; }
+#Container { margin:0 10px; text-align:center; background-color: gray50}
+#Content { border-top:none; margin:auto; padding:0.3em; text-align:left; width:100%; max-width:55em; background:#FFF}
 span.webName { font-size:.5em; }
 textarea#content { font-size: 1em; line-height: 1.125; }
 h1#pageName { line-height:1em; margin:0.2em 0 0.2em 0; padding:0; }
-.property { color:#666; font-size:80%; }
+.property { color:#666; font-size:100%; }
 a.existingWikiWord[title]{ //border: 1px dashed #BBB; }
-.byline { color:#666; font-size:.8em; font-style:italic; margin-bottom:1em; padding-top:1px; }
-</style>
-</head>
-<body>
-<a href="http://www.urbanjost.altervista.org/LIBRARY/libGPF/GPF.html">[GPF Home Page]</a>
-<div id="Container">
-<div id="Content">
-<h1>M_sets man(3) pages</h1>
-<font size=-1>
-<script language="JavaScript">
-<!---//hide script from old browsers; automatically update modification date
-   document.write( "<i>Date last updated: " + document.lastModified + "</i>");
-//end hiding contents --->
+.byline { color:#666; font-size:1.0em; font-style:italic; margin-bottom:1em; padding-top:1px; } 
+</style> 
+
+<script language="JavaScript1.1"  type="text/javascript">
+// *** TO BE CUSTOMISED ***
+
+var style_cookie_name = "style" ;
+var style_cookie_duration = 30 ;
+
+// *** END OF CUSTOMISABLE SECTION ***
+
+function switch_style ( css_title )
+{
+// You may use this script on your site free of charge provided
+// you do not remote this notice or the URL below. Script from
+// http://www.thesitewizard.com/javascripts/change-style-sheets.shtml
+  var i, link_tag ;
+  for (i = 0, link_tag = document.getElementsByTagName("link") ;
+    i < link_tag.length ; i++ ) {
+    if ((link_tag[i].rel.indexOf( "stylesheet" ) != -1) &&
+      link_tag[i].title) {
+      link_tag[i].disabled = true ;
+      if (link_tag[i].title == css_title) {
+        link_tag[i].disabled = false ;
+      }
+    }
+    set_cookie( style_cookie_name, css_title,
+      style_cookie_duration );
+  }
+}
+function set_style_from_cookie()
+{
+  var css_title = get_cookie( style_cookie_name );
+  if (css_title.length) {
+    switch_style( css_title );
+  }
+}
+function set_cookie ( cookie_name, cookie_value,
+    lifespan_in_days, valid_domain )
+{
+    // http://www.thesitewizard.com/javascripts/cookies.shtml
+    var domain_string = valid_domain ?
+                       ("; domain=" + valid_domain) : '' ;
+    document.cookie = cookie_name +
+                       "=" + encodeURIComponent( cookie_value ) +
+                       "; max-age=" + 60 * 60 *
+                       24 * lifespan_in_days +
+                       "; path=/" + domain_string ;
+}
+function get_cookie ( cookie_name )
+{
+    // http://www.thesitewizard.com/javascripts/cookies.shtml
+    var cookie_string = document.cookie ;
+    if (cookie_string.length != 0) {
+        var cookie_value = cookie_string.match (
+                        '(^|;)[\s]*' +
+                        cookie_name +
+                        '=([^;]*)' );
+        return decodeURIComponent ( cookie_value[2] ) ;
+    }
+    return '' ;
+}
 </script>
-</font>
-<table border="1">
-<tr> <th>grouping</th> <th>page</th> <th>description</th> </tr>
-<tr><td style="background:#d0d3db;">M_sets::INTRO</td><td><a href="M_sets.3m_sets.html">M_sets</a></td><td> functions reminiscent of Matlab set functions</td></tr>
-<tr><td style="background:#fbe8d1;">M_sets</td><td><a href="intersect.3m_sets.html">intersect</a></td><td> Find the values common to both sets A and B</td></tr>
-<tr><td style="background:#fbe8d1;">M_sets</td><td><a href="ismember.3m_sets.html">ismember</a></td><td> Create a mask of A marking elements also in B</td></tr>
-<tr><td style="background:#fbe8d1;">M_sets</td><td><a href="issorted.3m_sets.html">issorted</a></td><td> Report if A is sorted in ascending order or not.</td></tr>
-<tr><td style="background:#fbe8d1;">M_sets</td><td><a href="setdiff.3m_sets.html">setdiff</a></td><td> Find the values in A that are not in B</td></tr>
-<tr><td style="background:#fbe8d1;">M_sets</td><td><a href="setxor.3m_sets.html">setxor</a></td><td> Find values of A and B not in both arrays</td></tr>
-<tr><td style="background:#fbe8d1;">M_sets</td><td><a href="union.3m_sets.html">union</a></td><td> Join two sets and removes duplicates of values</td></tr>
-<tr><td style="background:#fbe8d1;">M_sets</td><td><a href="unique.3m_sets.html">unique</a></td><td> return unique values in array A</td></tr>
-</table>
-</div>
+<style>
+/* ======================================================== */
+/* Start new page on printing */
+BR.newpage{
+   page-break-before:always
+}
+/* ======================================================== */
+</style>
+<!--
+-->
+
+<script language="JavaScript" type="text/javascript" src="M_sets.js"> </script>
+<script language="JavaScript1.1"  type="text/javascript">
+//<![CDATA[
+/* ============================================================================================================================== */
+/*
+   The following code merges a number of files like an include; so you
+   can have a single printable document created from many small files.
+   File references are NOT relative so a lot of things do not work as one
+   would hope.  IFRAME and JavaScript support are required.
+*/
+/* ============================================================================================================================== */
+FRAMECOUNT=0;
+FIRSTPASS=0;
+COLUMNS=0;
+/* ============================================================================================================================== */
+function baseName(str)
+{
+   var base = new String(str).substring(str.lastIndexOf('/') + 1);
+    if(base.lastIndexOf(".") != -1)
+        base = base.substring(0, base.lastIndexOf("."));
+   return base;
+}
+/* ============================================================================================================================== */
+function append(target){
+   if(FIRSTPASS == 0){
+      append_index(target);
+   }else{
+      append_doc(target);
+   }
+}
+/* ============================================================================================================================== */
+//alert('START 1');
+function append_index(target){
+   FRAMECOUNT=FRAMECOUNT+1;
+   if( COLUMNS == 5 ){
+	   document.write('</tr>\n');
+	   COLUMNS=0;
+   }
+   COLUMNS=COLUMNS+1;
+   if( COLUMNS == 1 ){
+	   document.write('<tr>\n');
+   }
+   document.write('<td><a href="#DOCUMENT'+ FRAMECOUNT  + '">' + baseName(baseName(target)) + '</a></td>\n');
+}
+/* ============================================================================================================================== */
+//alert('START');
+function append_doc(target){
+   FRAMECOUNT=FRAMECOUNT+1;
+   /* document.write('<xmp>');
+   */
+   document.write('<br class="newpage"/>');
+   document.write('<a name="DOCUMENT'+ FRAMECOUNT  + '"><a href="#TOP"> &nbsp;INDEX</a></a>\n');
+
+   document.write('<div id="display' + FRAMECOUNT + '"></div>');
+   document.write('<iframe width="0" height="0" id="buffer' + FRAMECOUNT + '" name="buffer' + FRAMECOUNT + '" src="' + target + '" ');
+   document.write('onload="copyIframe(');
+   document.write('\'buffer' + FRAMECOUNT + '\',');
+   document.write('\'display' + FRAMECOUNT + '\'');
+   document.write(')"></iframe>\n');
+   /* document.write('</xmp>');
+   */
+}
+/* ============================================================================================================================== */
+/*
+   on load of iframe displays body content of IFRAME document in DIV
+*/
+
+function copyIframe(iframeId, divId ) {
+    var CurrentDiv = document.getElementById? document.getElementById(divId): null;
+    if ( window.frames[iframeId] && CurrentDiv ) {
+       /* copy data in iframe to div */
+        CurrentDiv.innerHTML = window.frames[iframeId].document.body.innerHTML;
+        CurrentDiv.style.display = 'block';
+    }
+}
+/* ============================================================================================================================== */
+//alert('GOT HERE 2 END');
+/* ============================================================================================================================== */
+//]]>
+</script>
+<title></title>
+</head>
+<body onload="set_style_from_cookie()">
+<a name="TOP">&nbsp;</a>
+
+<details>
+<summary>shortcuts:</summary>
+<script language="JavaScript1.1"  type="text/javascript">
+document.write('<center><table border="4" >\n');
+document.write('<tbody>\n');
+loadthem();
+if (COLUMNS != 5 ){
+   document.write('</tr>\n');
+}
+document.write('</tbody>\n');
+document.write('</table></center>\n');
+document.write('<hr\n>');
+document.write('</details>');
+FIRSTPASS=1;
+FRAMECOUNT=0;
+loadthem();
+</script>
 </div>
 </body>
+<div>
+<form>
+Themes:
+<input  type="submit"  onclick="switch_style('man');return          false;"  name="theme"  value="man"          id="man">
+<input  type="submit"  onclick="switch_style('Simple');return       false;"  name="theme"  value="Simple"       id="Simple">
+<!--
+<input  type="submit"  onclick="switch_style('fortran');return      false;"  name="theme"  value="fortran"      id="fortran">
+-->
+<input  type="submit"  onclick="switch_style('Local');return        false;"  name="theme"  value="Local"        id="Local">
+<input  type="submit"  onclick="switch_style('Chocolate');return    false;"  name="theme"  value="Chocolate"    id="Chocolate">
+<input  type="submit"  onclick="switch_style('Midnight');return     false;"  name="theme"  value="Midnight"     id="Midnight">
+<input  type="submit"  onclick="switch_style('Modernist');return    false;"  name="theme"  value="Modernist"    id="Modernist">
+<input  type="submit"  onclick="switch_style('Oldstyle');return     false;"  name="theme"  value="Oldstyle"     id="Oldstyle">
+<input  type="submit"  onclick="switch_style('Steely');return       false;"  name="theme"  value="Steely"       id="Steely">
+<input  type="submit"  onclick="switch_style('Traditional');return  false;"  name="theme"  value="Traditional"  id="Traditional">
+<input  type="submit"  onclick="switch_style('Ultramarine');return  false;"  name="theme"  value="Ultramarine"  id="Ultramarine">
+</form>
+</div>
 </html>

@@ -21,15 +21,15 @@ module M_sets
 !! M_set(3f) is a Fortran module comprising a small subset of set theory
 !! functions reminiscent of Matlab functions.
 !!
-!! The functions currently only support vectors of integer and default
-!! character type.
+!! The functions currently support vectors of integer, default character,
+!! and default real and doubleprecision type.
 !!
 !! float numbers (both kind=real32 and kind=real64) are allowed but "caveat
 !! emptor", as comparing floats for equality has issues. You may have to
 !! condition the float data by converting it to scaled integers or using
 !! intrinsics such as NEAREST(3f) to produce the desired results.
 !!
-!! M_set(3f) primarily uses simple calls to the M_ordersort(3f) module to
+!! M_set(3f) primarily uses simple calls to the M_orderpack(3f) module to
 !! provide the functionality. The functions  are not otherwise tuned for
 !! performance and make loose use of memory allocation but are sufficient
 !! for most uses, simple to use, and familiar to a large base of users.
@@ -54,96 +54,125 @@ module M_sets
 !!    program demo_M_sets
 !!    use M_sets, only: &
 !!    & unique, intersect, union, setdiff, ismember, setxor, issorted
-!!    character(len=*),parameter :: g='(*(g0,1x))'
-!!    integer,allocatable        :: A(:)
-!!    integer,allocatable        :: B(:)
-!!    integer,allocatable        :: C(:)
+!!    character(len=*),parameter :: all='(*(g0,1x))'
+!!    character(len=*),parameter :: nl=new_line('A')
+!!    integer, allocatable      :: A(:)
+!!    integer, allocatable      :: B(:)
+!!    integer, allocatable      :: C(:)
 !!
-!!       write(*,g) 'UNIQUE','Find the unique elements of vector A.'
-!!        A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
-!!        write(*,g) 'A=', A
-!!        write(*,g) unique(A)
-!!        write(*,g) unique(A, setOrder='stable')
-!!       write(*,g) 'UNION', 'Find the union of vectors A and B.'
-!!        call setab( [5, 7, 1], [3, 1, 1] )
-!!        write(*,g) union(A,B)
-!!        call setab( [5, 5, 3], [1, 2, 5] )
-!!        write(*,g) union(A, B, 'sorted')
-!!        write(*,g) union(A, B, 'stable')
-!!       write(*,g) 'INTERSECT', 'Find the values common to both A and B.'
-!!        call setab( [7, 1, 7, 7, 4], [7, 0, 4, 4, 0] )
-!!        write(*,g) intersect(A, B)
-!!        write(*,g) intersect(A, B, setOrder='stable')
-!!       write(*,g) 'SETDIFF','Find the values in A that are not in B.'
-!!        call setab( [3, 6, 2, 1, 5, 1, 1], [2, 4, 6] )
-!!        write(*,g) setdiff(A, B)
-!!        call setab( [4, 1, 3, 2, 5], [2, 1])
-!!        write(*,g) setdiff(A, B, 'sorted')
-!!        write(*,g) setdiff(A, B, 'stable')
-!!       write(*,g) 'ISMEMBER', &
-!!       'Determine which elements of A are also in B.'
-!!        call setab( [5,3,4,2], [2,4,4,4,6,8] )
-!!        write(*,g) ismember(A,B)
-!!       write(*,g) 'SETXOR',&
-!!       'Find values of A and B not in their intersection.'
-!!        call setab( [5,1,3,3,3], [4,1,2] )
-!!        write(*,g) setxor(A,B)
-!!        write(*,g) setxor(A,B,'stable')
+!!       A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
+!!       !
+!!       print all                                                   ,nl, &
+!!       'UNIQUE','Find the unique elements of vector A.'            ,nl, &
+!!       'A=', A                                                     ,nl, &
+!!       'sorted=',unique(A)                                         ,nl, &
+!!       'stable=',unique(A, setOrder='stable')
 !!
-!!        write(*,g) 'ISSSORTED',&
-!!        'confirm whether array is sorted in ascending order or not'
-!!        call setab([1,2,3,4,5],[5,4,3,2,1])
-!!        write(*,g) issorted(A)
-!!        write(*,g) issorted(B)
+!!       A=[5, 7, 1]
+!!       B=[3, 1, 1]
+!!       !
+!!       print all                                                   ,nl, &
+!!       'UNION', 'Find the union of vectors A and B.'               ,nl, &
+!!       'A=', A                                                     ,nl, &
+!!       'B=', B                                                     ,nl, &
+!!       'sorted=',union(A, B, 'sorted')                             ,nl, &
+!!       'stable=',union(A, B, 'stable')
 !!
-!!    contains
-!!    subroutine setab(ain,bin)
-!!    integer,intent(in) :: ain(:)
-!!    integer,intent(in) :: bin(:)
-!!       A=ain
-!!       B=bin
-!!       write(*,g) 'A=', A
-!!       write(*,g) 'B=', B
-!!    end subroutine setab
+!!       A=[7, 1, 7, 7, 4]
+!!       B=[7, 0, 4, 4, 0]
+!!       !
+!!       print all                                                   ,nl, &
+!!       'INTERSECT', 'Find the values common to both A and B.'      ,nl, &
+!!       'A=', A                                                     ,nl, &
+!!       'B=', B                                                     ,nl, &
+!!       'sorted=',intersect(A, B)                                   ,nl, &
+!!       'stable=',intersect(A, B, setOrder='stable')
+!!
+!!       A=[3, 6, 2, 1, 5, 1, 1]
+!!       B=[2, 4, 6]
+!!       !
+!!       print all                                                   ,nl, &
+!!       'SETDIFF','Find the values in A that are not in B.'         ,nl, &
+!!       'A=', A                                                     ,nl, &
+!!       'B=', B                                                     ,nl, &
+!!       'sorted=',setdiff(A, B, 'sorted')                           ,nl, &
+!!       'stable=',setdiff(A, B, 'stable')
+!!
+!!       A=[5,3,4,2]
+!!       B=[2,4,4,4,6,8]
+!!       !
+!!       print all                                                   ,nl, &
+!!       'ISMEMBER','Determine which elements of A are also in B.'   ,nl, &
+!!       'A=', A                                                     ,nl, &
+!!       'B=', B                                                     ,nl, &
+!!       'in A and B=',ismember(A,B)
+!!
+!!       A=[5,1,3,3,3]
+!!       B=[4,1,2]
+!!       !
+!!       print all                                                   ,nl, &
+!!       'SETXOR'                                                       , &
+!!       'Find values of A and B not in their intersection.'         ,nl, &
+!!       'A=', A                                                     ,nl, &
+!!       'B=', B                                                     ,nl, &
+!!       'sorted=',setxor(A,B)                                       ,nl, &
+!!       'stable=',setxor(A,B,'stable')
+!!
+!!       A=[1,2,3,4,5]
+!!       B=[5,4,3,2,1]
+!!       !
+!!       print all                                                   ,nl, &
+!!       'ISSSORTED'                                                    , &
+!!       'confirm whether array is sorted in ascending order or not' ,nl, &
+!!       'A=', A                                                     ,nl, &
+!!       'B=', B                                                     ,nl, &
+!!       'is A sorted?',issorted(A)                                  ,nl, &
+!!       'is B sorted?',issorted(B)
 !!
 !!    end program demo_M_sets
 !!
 !! Results:
 !!
-!!  > UNIQUE Find the unique elements of vector A.
-!!  > A= 10 -10 0 1 2 3 3 2 1 -10
-!!  > -10 0 1 2 3 10
-!!  > 10 -10 0 1 2 3
-!!  > UNION Find the union of vectors A and B.
-!!  > A= 5 7 1
-!!  > B= 3 1 1
-!!  > 1 3 5 7
-!!  > A= 5 5 3
-!!  > B= 1 2 5
-!!  > 1 2 3 5
-!!  > 5 3 1 2
-!!  > INTERSECT Find the values common to both A and B.
-!!  > A= 7 1 7 7 4
-!!  > B= 7 0 4 4 0
-!!  > 4 7
-!!  > 7 4
-!!  > SETDIFF Find the values in A that are not in B.
-!!  > A= 3 6 2 1 5 1 1
-!!  > B= 2 4 6
-!!  > 1 3 5
-!!  > A= 4 1 3 2 5
-!!  > B= 2 1
-!!  > 3 4 5
-!!  > 4 3 5
-!!  > ISMEMBER Determine which elements of A are also in B.
-!!  > A= 5 3 4 2
-!!  > B= 2 4 4 4 6 8
-!!  > 0 0 1 1
-!!  > SETXOR Find values of A and B not in their intersection.
-!!  > A= 5 1 3 3 3
-!!  > B= 4 1 2
-!!  > 2 3 4 5
-!!  > 5 3 4 2
+!!  >
+!!  >  UNIQUE Find the unique elements of vector A.
+!!  >  A= 10 -10 0 1 2 3 3 2 1 -10
+!!  >  sorted= -10 0 1 2 3 10
+!!  >  stable= 10 -10 0 1 2 3
+!!  >
+!!  >  UNION Find the union of vectors A and B.
+!!  >  A= 5 7 1
+!!  >  B= 3 1 1
+!!  >  sorted= 1 3 5 7
+!!  >  stable= 5 7 1 3
+!!  >
+!!  >  INTERSECT Find the values common to both A and B.
+!!  >  A= 7 1 7 7 4
+!!  >  B= 7 0 4 4 0
+!!  >  sorted= 4 7
+!!  >  stable= 7 4
+!!  >
+!!  >  SETDIFF Find the values in A that are not in B.
+!!  >  A= 3 6 2 1 5 1 1
+!!  >  B= 2 4 6
+!!  >  sorted= 1 3 5
+!!  >  stable= 3 1 5
+!!  >
+!!  >  ISMEMBER Determine which elements of A are also in B.
+!!  >  A= 5 3 4 2
+!!  >  B= 2 4 4 4 6 8
+!!  >  in A and B= 0 0 1 1
+!!  >
+!!  >  SETXOR Find values of A and B not in their intersection.
+!!  >  A= 5 1 3 3 3
+!!  >  B= 4 1 2
+!!  >  sorted= 2 3 4 5
+!!  >  stable= 5 3 4 2
+!!  >
+!!  >  ISSSORTED confirm whether array is sorted in ascending order or not
+!!  >  A= 1 2 3 4 5
+!!  >  B= 5 4 3 2 1
+!!  >  is A sorted? 1
+!!  >  is B sorted? 0
 !!
 !!##AUTHORS
 !!    John S. Urban, 2023-07-20
@@ -287,11 +316,11 @@ contains
 !!##LICENSE
 !!    CC0-1.0
 !-----------------------------------------------------------------------------------------------------------------------------------
-function unique_c(A, setOrder) result(result)
+function unique_c(A, setOrder) result(answer)
 ! C = unique(A) returns the same data as in A, but with no repetitions. C is in sorted order.
 character(len=*), intent(in)           :: A(:)
 character(len=*), intent(in), optional :: setOrder
-character(len=:), allocatable          :: result(:)
+character(len=:), allocatable          :: answer(:)
 character(len=:), allocatable          :: setOrder_
 integer                                :: nuni
    if (present(setOrder)) then
@@ -299,13 +328,13 @@ integer                                :: nuni
    else
       setOrder_ = 'sorted'
    endif
-   result = A
-   call unique_(result, nuni)
-   result = result(:nuni)
+   answer = A
+   call unique_(answer, nuni)
+   answer = answer(:nuni)
    select case (lower(setOrder_))
    case ('stable')
    case ('sorted')
-      call sort_(result)
+      call sort_(answer)
    case default
       stop '*unique* unknown setOrder '//setOrder_//' allowed are "stable" and "sorted"'
    end select
@@ -375,17 +404,17 @@ end function unique_c
 !!##LICENSE
 !!    CC0-1.0
 !-----------------------------------------------------------------------------------------------------------------------------------
-function union_c(A, B, setOrder) result(result)
+function union_c(A, B, setOrder) result(answer)
 ! C = union(A,B) returns the combined data from A and B with no repetitions. C is in sorted order.
 character(len=*), intent(in)           :: A(:)
 character(len=*), intent(in)           :: B(:)
 character(len=*), intent(in), optional :: setOrder
-character(len=:), allocatable          :: result(:)
+character(len=:), allocatable          :: answer(:)
 character(len=:), allocatable          :: kludge(:)
 integer                                :: longest
 longest=max(len(a),len(b))
    kludge = [character(len=longest) :: A, B]
-   result = unique(kludge, setOrder)
+   answer = unique(kludge, setOrder)
 end function union_c
 !>
 !!##NAME
@@ -445,24 +474,24 @@ end function union_c
 !!##LICENSE
 !!    CC0-1.0
 !-----------------------------------------------------------------------------------------------------------------------------------
-function intersect_c(A, B, setOrder) result(result)
+function intersect_c(A, B, setOrder) result(answer)
 ! C = intersect(A,B) returns the data common to both A and B, with no repetitions. C is in sorted order by default
 character(len=*), intent(in)           :: A(:)
 character(len=*), intent(in)           :: B(:)
 character(len=*), intent(in), optional :: setOrder
-character(len=:), allocatable          :: result(:)
+character(len=:), allocatable          :: answer(:)
 integer, allocatable                   :: iwrk(:)
 character(len=:), allocatable          :: kludge(:)
 integer                                :: longest
    longest=max(len(A),len(B))
-   result = [character(len=longest) :: unique(A, setOrder), unique(B, setOrder)]
+   answer = [character(len=longest) :: unique(A, setOrder), unique(B, setOrder)]
    if (allocated(iwrk)) deallocate (iwrk)
-   allocate (iwrk(size(result)))
-   call occurrences_(result, iwrk)
+   allocate (iwrk(size(answer)))
+   call occurrences_(answer, iwrk)
    !--------------------------------
-   !result= unique(pack(result//'',iwrk.gt.1),setOrder) ! add //' ' to avoid gfortran 13.1.0-8 bug
-   kludge=pack(result//'',iwrk.gt.1)
-   result = unique(kludge, setOrder)
+   !answer= unique(pack(answer//'',iwrk > 1),setOrder) ! add //' ' to avoid gfortran 13.1.0-8 bug
+   kludge=pack(answer//'',iwrk > 1)
+   answer = unique(kludge, setOrder)
    !--------------------------------
 end function intersect_c
 !>
@@ -523,24 +552,24 @@ end function intersect_c
 !!##LICENSE
 !!    CC0-1.0
 !-----------------------------------------------------------------------------------------------------------------------------------
-function setdiff_c(A, B, setOrder) result(result)
+function setdiff_c(A, B, setOrder) result(answer)
 ! C = setdiff(A,B) returns the data in A that is not in B, with no repetitions. C is in sorted order by default.
 character(len=*), intent(in)           :: a(:)
 character(len=*), intent(in)           :: b(:)
 character(len=*), intent(in), optional :: setOrder
-character(len=:), allocatable          :: result(:),kludge(:)
+character(len=:), allocatable          :: answer(:),kludge(:)
 integer         , allocatable          :: iwrk(:)
 integer                                :: longest
-   result = unique(b, setOrder='stable')
+   answer = unique(b, setOrder='stable')
    longest=max(len(a),len(b))
-   result = [character(len=longest) :: unique(a, setOrder='stable'), result, result] ! potentially a lot of memory
+   answer = [character(len=longest) :: unique(a, setOrder='stable'), answer, answer] ! potentially a lot of memory
    if (allocated(iwrk)) deallocate (iwrk)
-   allocate ( iwrk(size(result)))
-   call occurrences_(result, iwrk)
+   allocate ( iwrk(size(answer)))
+   call occurrences_(answer, iwrk)
    !--------------------------------
-   !result = unique(pack(result, iwrk .eq. 1), setOrder)
-   kludge = pack(result//'', iwrk .eq. 1)
-   result = unique(kludge, setOrder)
+   !answer = unique(pack(answer, iwrk  ==  1), setOrder)
+   kludge = pack(answer//'', iwrk  ==  1)
+   answer = unique(kludge, setOrder)
    !--------------------------------
 
 end function setdiff_c
@@ -551,7 +580,7 @@ end function setdiff_c
 !!##SYNOPSIS
 !!
 !!
-!!    C=ismember(A,B)
+!!    ismember(A,B)
 !!
 !!##DESCRIPTION
 !!
@@ -606,11 +635,11 @@ end function setdiff_c
 !!##LICENSE
 !!    CC0-1.0
 !-----------------------------------------------------------------------------------------------------------------------------------
-function ismember_c(A, B) result(result)
+function ismember_c(A, B) result(answer)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 character(len=*), intent(in)   :: a(:)
 character(len=*), intent(in)   :: b(:)
-integer         , allocatable  :: result(:)
+integer         , allocatable  :: answer(:)
 integer         , allocatable  :: iwrk1(:)
 integer         , allocatable  :: iwrk2(:)
 character(len=:), allocatable  :: cwrk1(:)
@@ -625,8 +654,8 @@ integer                        :: longest
    allocate (iwrk1(size(cwrk1)))
    call occurrences_(cwrk1, iwrk1)
    call occurrences_(a, iwrk2)
-   result=iwrk1(:inums)-iwrk2
-   result=merge(0,1,result.eq.0)
+   answer=iwrk1(:inums)-iwrk2
+   answer=merge(0,1,answer == 0)
 
 end function ismember_c
 !>
@@ -690,14 +719,14 @@ end function ismember_c
 !!##LICENSE
 !!    CC0-1.0
 !-----------------------------------------------------------------------------------------------------------------------------------
-function setxor_c(A, B, setOrder) result(result)
+function setxor_c(A, B, setOrder) result(answer)
 ! C = setxor(A,B,setOrder) returns the data of A and B that are not in their intersection
 !                          (the symmetric difference), with no repetitions. That is, setxor returns the
 !                          data that occurs in A or B, but not both. C is in sorted order.
 character(len=*), intent(in)           :: a(:)
 character(len=*), intent(in)           :: b(:)
 character(len=*), intent(in), optional :: setOrder
-character(len=:), allocatable          :: result(:), kludge(:)
+character(len=:), allocatable          :: answer(:), kludge(:)
 integer         , allocatable          :: iwrk1(:)
 integer         , allocatable          :: iwrk2(:)
 integer         , allocatable          :: iwrk3(:)
@@ -706,10 +735,10 @@ integer                                :: longest
    inums=size(a)
    longest=max(len(a),len(b))
 
-   result = [character(len=longest) ::  a, b ] ! potentially a lot of memory
+   answer = [character(len=longest) ::  a, b ] ! potentially a lot of memory
    if (allocated(iwrk1)) deallocate (iwrk1)
-   allocate (iwrk1(size(result)))
-   call occurrences_(result, iwrk1)
+   allocate (iwrk1(size(answer)))
+   call occurrences_(answer, iwrk1)
 
    if (allocated(iwrk2)) deallocate (iwrk2)
    allocate (iwrk2(size(a)))
@@ -721,8 +750,8 @@ integer                                :: longest
 
    iwrk1=iwrk1-[iwrk2,iwrk3]
 
-   kludge=pack(result//'',iwrk1.eq.0)
-   result=unique(kludge,setOrder)
+   kludge=pack(answer//'',iwrk1 == 0)
+   answer=unique(kludge,setOrder)
 
 end function setxor_c
 !>
@@ -782,15 +811,15 @@ end function setxor_c
 !!##LICENSE
 !!    CC0-1.0
 !-----------------------------------------------------------------------------------------------------------------------------------
-function issorted_c(A) result(result)
+function issorted_c(A) result(answer)
 ! TF = issorted(A) returns the logical scalar 1 (true) when the elements of A are listed in ascending order and 0 (false) otherwise.
 character(len=*), intent(in) :: A(:)
-integer                      :: result
+integer                      :: answer
 integer                      :: i
-result=1
+answer=1
 do i=1,size(a)-1
-   if(A(i).gt.A(i+1))then
-      result=0
+   if(A(i) > A(i+1))then
+      answer=0
       exit
    endif
 enddo
@@ -803,24 +832,28 @@ character(*), intent(in)    :: str
 character(len(str))         :: string
 integer                     :: i
 integer,parameter           :: diff = iachar('A')-iachar('a')
+
    string = str
+
    do concurrent (i = 1:len_trim(str))                ! step thru each letter in the string in specified range
+
       select case (str(i:i))
       case ('A':'Z')
          string(i:i) = achar(iachar(str(i:i))-diff)   ! change letter to miniscule
       case default
       end select
+
    enddo
 
 end function lower
 
 
 
-function unique_int8(A, setOrder) result(result)
+function unique_int8(A, setOrder) result(answer)
 ! C = unique(A) returns the same data as in A, but with no repetitions. C is in sorted order.
 integer(kind=int8), intent(in)                    :: A(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int8),allocatable      :: result(:)
+integer(kind=int8),allocatable      :: answer(:)
 integer,allocatable                    :: indices(:)
 character(len=:), allocatable          :: setOrder_
 integer                                :: nuni
@@ -829,102 +862,101 @@ integer                                :: nuni
       setOrder_ = setOrder
    else
       setOrder_ = 'sorted'
-   end if
-   result = A
+   endif
+   answer = A
    select case (lower(setOrder_))
    case ('stable')
-      call unique_(result, nuni)
-      result = result(:nuni)
+      call unique_(answer, nuni)
+      answer = answer(:nuni)
    case ('sorted')
       if (allocated(indices)) deallocate (indices)
       allocate (indices(size(A)))
       call rank_unique_(A, indices, nuni)
-      result = A(indices(:nuni))
+      answer = A(indices(:nuni))
    case default
       stop '*unique* unknown setOrder '//setOrder_//'allowed are "stable" and "sorted"'
    end select
 end function unique_int8
 
-function union_int8(A, B, setOrder) result(result)
+function union_int8(A, B, setOrder) result(answer)
 ! C = union(A,B) returns the combined data from A and B with no repetitions. C is in sorted order.
 integer(kind=int8),intent(in)         :: A(:)
 integer(kind=int8),intent(in)         :: B(:)
 character(len=*),intent(in), optional  :: setOrder
-integer(kind=int8),allocatable        :: result(:)
-   result = unique([A, B], setOrder)
+integer(kind=int8),allocatable        :: answer(:)
+   answer = unique([A, B], setOrder)
 end function union_int8
 
-function intersect_int8(A, B, setOrder) result(result)
+function intersect_int8(A, B, setOrder) result(answer)
 ! C = intersect(A,B) returns the data common to both A and B, with no repetitions. C is in sorted order by default
 integer(kind=int8), intent(in)                    :: A(:)
 integer(kind=int8), intent(in)                    :: B(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int8), allocatable                   :: result(:)
+integer(kind=int8), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk(:)
-   result = [unique(A, setOrder), unique(B, setOrder)]
+   answer = [unique(A, setOrder), unique(B, setOrder)]
    if (allocated(iwrk)) deallocate (iwrk)
-   allocate (iwrk(size(result)))
-   call occurrences_(result, iwrk)
-   result = unique(pack(result, iwrk .gt. 1), setOrder)
+   allocate (iwrk(size(answer)))
+   call occurrences_(answer, iwrk)
+   answer = unique(pack(answer, iwrk  >  1), setOrder)
 end function intersect_int8
 
-function setdiff_int8(A, B, setOrder) result(result)
+function setdiff_int8(A, B, setOrder) result(answer)
 ! C = setdiff(A,B) returns the data in A that is not in B, with no repetitions. C is in sorted order by default.
 integer(kind=int8), intent(in)                    :: a(:)
 integer(kind=int8), intent(in)                    :: b(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int8), allocatable                   :: result(:)
+integer(kind=int8), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk(:)
-   result = unique(b, setOrder='stable')
-   result = [unique(a, setOrder='stable'), result, result] ! potentially a lot of memory
+   answer = unique(b, setOrder='stable')
+   answer = [unique(a, setOrder='stable'), answer, answer] ! potentially a lot of memory
    if (allocated(iwrk)) deallocate (iwrk)
-   allocate (iwrk(size(result)))
-   call occurrences_(result, iwrk)
-   result = unique(pack(result, iwrk .eq. 1), setOrder)
+   allocate (iwrk(size(answer)))
+   call occurrences_(answer, iwrk)
+   answer = unique(pack(answer, iwrk  ==  1), setOrder)
 
 end function setdiff_int8
 
-function ismember_int8(A, B) result(result)
+function ismember_int8(A, B) result(answer)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 integer(kind=int8), intent(in)   :: a(:)
 integer(kind=int8), intent(in)   :: b(:)
-integer, allocatable                :: ab(:)
-integer, allocatable                :: result(:)
+integer(kind=int8), allocatable  :: ab(:)
+integer, allocatable                :: answer(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
    inums=size(a)
    ab = [ a, unique(b) ] ! potentially a lot of memory
+   if (allocated(iwrk2)) deallocate (iwrk2)
+   allocate (iwrk2(size(a)))
    if (allocated(iwrk1)) deallocate (iwrk1)
    allocate (iwrk1(size(ab)))
    call occurrences_(ab, iwrk1)
-   if (allocated(ab) ) deallocate(ab)
-   if (allocated(iwrk2)) deallocate (iwrk2)
-   allocate (iwrk2(size(a)))
    call occurrences_(a, iwrk2)
-   result=iwrk1(:inums)-iwrk2
-   result=merge(0,1,result.eq.0)
+   answer=iwrk1(:inums)-iwrk2
+   answer=merge(0,1,answer == 0)
 
 end function ismember_int8
 
-function setxor_int8(A, B, setOrder) result(result)
+function setxor_int8(A, B, setOrder) result(answer)
 ! C = setxor(A,B,setOrder) returns the data of A and B that are not in their intersection
 !                          (the symmetric difference), with no repetitions. That is, setxor returns the
 !                          data that occurs in A or B, but not both. C is in sorted order.
 integer(kind=int8), intent(in)                    :: a(:)
 integer(kind=int8), intent(in)                    :: b(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int8), allocatable                   :: result(:)
+integer(kind=int8), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk1(:)
 integer, allocatable                                 :: iwrk2(:)
 integer, allocatable                                 :: iwrk3(:)
 integer                                :: inums
    inums=size(a)
 
-   result = [ a, b ] ! potentially a lot of memory
+   answer = [ a, b ] ! potentially a lot of memory
    if (allocated(iwrk1)) deallocate (iwrk1)
-   allocate (iwrk1(size(result)))
-   call occurrences_(result, iwrk1)
+   allocate (iwrk1(size(answer)))
+   call occurrences_(answer, iwrk1)
 
    if (allocated(iwrk2)) deallocate (iwrk2)
    allocate (iwrk2(size(a)))
@@ -936,30 +968,30 @@ integer                                :: inums
 
    iwrk1=iwrk1-[iwrk2,iwrk3]
 
-   result=pack(result,iwrk1.eq.0)
-   result=unique(result,setOrder)
+   answer=pack(answer,iwrk1 == 0)
+   answer=unique(answer,setOrder)
 
 end function setxor_int8
 
-function issorted_int8(A) result(result)
+function issorted_int8(A) result(answer)
 ! TF = issorted(A) returns the logical scalar 1 (true) when the elements of A are listed in ascending order and 0 (false) otherwise.
 integer(kind=int8), intent(in) :: A(:)
-integer(kind=int8)             :: result
+integer(kind=int8)             :: answer
 integer             :: i
-result=1
+answer=1
 do i=1,size(a)-1
-   if(A(i).gt.A(i+1))then
-      result=0
+   if(A(i) > A(i+1))then
+      answer=0
       exit
    endif
 enddo
 end function issorted_int8
 
-function unique_int16(A, setOrder) result(result)
+function unique_int16(A, setOrder) result(answer)
 ! C = unique(A) returns the same data as in A, but with no repetitions. C is in sorted order.
 integer(kind=int16), intent(in)                    :: A(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int16),allocatable      :: result(:)
+integer(kind=int16),allocatable      :: answer(:)
 integer,allocatable                    :: indices(:)
 character(len=:), allocatable          :: setOrder_
 integer                                :: nuni
@@ -968,102 +1000,101 @@ integer                                :: nuni
       setOrder_ = setOrder
    else
       setOrder_ = 'sorted'
-   end if
-   result = A
+   endif
+   answer = A
    select case (lower(setOrder_))
    case ('stable')
-      call unique_(result, nuni)
-      result = result(:nuni)
+      call unique_(answer, nuni)
+      answer = answer(:nuni)
    case ('sorted')
       if (allocated(indices)) deallocate (indices)
       allocate (indices(size(A)))
       call rank_unique_(A, indices, nuni)
-      result = A(indices(:nuni))
+      answer = A(indices(:nuni))
    case default
       stop '*unique* unknown setOrder '//setOrder_//'allowed are "stable" and "sorted"'
    end select
 end function unique_int16
 
-function union_int16(A, B, setOrder) result(result)
+function union_int16(A, B, setOrder) result(answer)
 ! C = union(A,B) returns the combined data from A and B with no repetitions. C is in sorted order.
 integer(kind=int16),intent(in)         :: A(:)
 integer(kind=int16),intent(in)         :: B(:)
 character(len=*),intent(in), optional  :: setOrder
-integer(kind=int16),allocatable        :: result(:)
-   result = unique([A, B], setOrder)
+integer(kind=int16),allocatable        :: answer(:)
+   answer = unique([A, B], setOrder)
 end function union_int16
 
-function intersect_int16(A, B, setOrder) result(result)
+function intersect_int16(A, B, setOrder) result(answer)
 ! C = intersect(A,B) returns the data common to both A and B, with no repetitions. C is in sorted order by default
 integer(kind=int16), intent(in)                    :: A(:)
 integer(kind=int16), intent(in)                    :: B(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int16), allocatable                   :: result(:)
+integer(kind=int16), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk(:)
-   result = [unique(A, setOrder), unique(B, setOrder)]
+   answer = [unique(A, setOrder), unique(B, setOrder)]
    if (allocated(iwrk)) deallocate (iwrk)
-   allocate (iwrk(size(result)))
-   call occurrences_(result, iwrk)
-   result = unique(pack(result, iwrk .gt. 1), setOrder)
+   allocate (iwrk(size(answer)))
+   call occurrences_(answer, iwrk)
+   answer = unique(pack(answer, iwrk  >  1), setOrder)
 end function intersect_int16
 
-function setdiff_int16(A, B, setOrder) result(result)
+function setdiff_int16(A, B, setOrder) result(answer)
 ! C = setdiff(A,B) returns the data in A that is not in B, with no repetitions. C is in sorted order by default.
 integer(kind=int16), intent(in)                    :: a(:)
 integer(kind=int16), intent(in)                    :: b(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int16), allocatable                   :: result(:)
+integer(kind=int16), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk(:)
-   result = unique(b, setOrder='stable')
-   result = [unique(a, setOrder='stable'), result, result] ! potentially a lot of memory
+   answer = unique(b, setOrder='stable')
+   answer = [unique(a, setOrder='stable'), answer, answer] ! potentially a lot of memory
    if (allocated(iwrk)) deallocate (iwrk)
-   allocate (iwrk(size(result)))
-   call occurrences_(result, iwrk)
-   result = unique(pack(result, iwrk .eq. 1), setOrder)
+   allocate (iwrk(size(answer)))
+   call occurrences_(answer, iwrk)
+   answer = unique(pack(answer, iwrk  ==  1), setOrder)
 
 end function setdiff_int16
 
-function ismember_int16(A, B) result(result)
+function ismember_int16(A, B) result(answer)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 integer(kind=int16), intent(in)   :: a(:)
 integer(kind=int16), intent(in)   :: b(:)
-integer, allocatable                :: ab(:)
-integer, allocatable                :: result(:)
+integer(kind=int16), allocatable  :: ab(:)
+integer, allocatable                :: answer(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
    inums=size(a)
    ab = [ a, unique(b) ] ! potentially a lot of memory
+   if (allocated(iwrk2)) deallocate (iwrk2)
+   allocate (iwrk2(size(a)))
    if (allocated(iwrk1)) deallocate (iwrk1)
    allocate (iwrk1(size(ab)))
    call occurrences_(ab, iwrk1)
-   if (allocated(ab) ) deallocate(ab)
-   if (allocated(iwrk2)) deallocate (iwrk2)
-   allocate (iwrk2(size(a)))
    call occurrences_(a, iwrk2)
-   result=iwrk1(:inums)-iwrk2
-   result=merge(0,1,result.eq.0)
+   answer=iwrk1(:inums)-iwrk2
+   answer=merge(0,1,answer == 0)
 
 end function ismember_int16
 
-function setxor_int16(A, B, setOrder) result(result)
+function setxor_int16(A, B, setOrder) result(answer)
 ! C = setxor(A,B,setOrder) returns the data of A and B that are not in their intersection
 !                          (the symmetric difference), with no repetitions. That is, setxor returns the
 !                          data that occurs in A or B, but not both. C is in sorted order.
 integer(kind=int16), intent(in)                    :: a(:)
 integer(kind=int16), intent(in)                    :: b(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int16), allocatable                   :: result(:)
+integer(kind=int16), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk1(:)
 integer, allocatable                                 :: iwrk2(:)
 integer, allocatable                                 :: iwrk3(:)
 integer                                :: inums
    inums=size(a)
 
-   result = [ a, b ] ! potentially a lot of memory
+   answer = [ a, b ] ! potentially a lot of memory
    if (allocated(iwrk1)) deallocate (iwrk1)
-   allocate (iwrk1(size(result)))
-   call occurrences_(result, iwrk1)
+   allocate (iwrk1(size(answer)))
+   call occurrences_(answer, iwrk1)
 
    if (allocated(iwrk2)) deallocate (iwrk2)
    allocate (iwrk2(size(a)))
@@ -1075,30 +1106,30 @@ integer                                :: inums
 
    iwrk1=iwrk1-[iwrk2,iwrk3]
 
-   result=pack(result,iwrk1.eq.0)
-   result=unique(result,setOrder)
+   answer=pack(answer,iwrk1 == 0)
+   answer=unique(answer,setOrder)
 
 end function setxor_int16
 
-function issorted_int16(A) result(result)
+function issorted_int16(A) result(answer)
 ! TF = issorted(A) returns the logical scalar 1 (true) when the elements of A are listed in ascending order and 0 (false) otherwise.
 integer(kind=int16), intent(in) :: A(:)
-integer(kind=int16)             :: result
+integer(kind=int16)             :: answer
 integer             :: i
-result=1
+answer=1
 do i=1,size(a)-1
-   if(A(i).gt.A(i+1))then
-      result=0
+   if(A(i) > A(i+1))then
+      answer=0
       exit
    endif
 enddo
 end function issorted_int16
 
-function unique_int32(A, setOrder) result(result)
+function unique_int32(A, setOrder) result(answer)
 ! C = unique(A) returns the same data as in A, but with no repetitions. C is in sorted order.
 integer(kind=int32), intent(in)                    :: A(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int32),allocatable      :: result(:)
+integer(kind=int32),allocatable      :: answer(:)
 integer,allocatable                    :: indices(:)
 character(len=:), allocatable          :: setOrder_
 integer                                :: nuni
@@ -1107,102 +1138,101 @@ integer                                :: nuni
       setOrder_ = setOrder
    else
       setOrder_ = 'sorted'
-   end if
-   result = A
+   endif
+   answer = A
    select case (lower(setOrder_))
    case ('stable')
-      call unique_(result, nuni)
-      result = result(:nuni)
+      call unique_(answer, nuni)
+      answer = answer(:nuni)
    case ('sorted')
       if (allocated(indices)) deallocate (indices)
       allocate (indices(size(A)))
       call rank_unique_(A, indices, nuni)
-      result = A(indices(:nuni))
+      answer = A(indices(:nuni))
    case default
       stop '*unique* unknown setOrder '//setOrder_//'allowed are "stable" and "sorted"'
    end select
 end function unique_int32
 
-function union_int32(A, B, setOrder) result(result)
+function union_int32(A, B, setOrder) result(answer)
 ! C = union(A,B) returns the combined data from A and B with no repetitions. C is in sorted order.
 integer(kind=int32),intent(in)         :: A(:)
 integer(kind=int32),intent(in)         :: B(:)
 character(len=*),intent(in), optional  :: setOrder
-integer(kind=int32),allocatable        :: result(:)
-   result = unique([A, B], setOrder)
+integer(kind=int32),allocatable        :: answer(:)
+   answer = unique([A, B], setOrder)
 end function union_int32
 
-function intersect_int32(A, B, setOrder) result(result)
+function intersect_int32(A, B, setOrder) result(answer)
 ! C = intersect(A,B) returns the data common to both A and B, with no repetitions. C is in sorted order by default
 integer(kind=int32), intent(in)                    :: A(:)
 integer(kind=int32), intent(in)                    :: B(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int32), allocatable                   :: result(:)
+integer(kind=int32), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk(:)
-   result = [unique(A, setOrder), unique(B, setOrder)]
+   answer = [unique(A, setOrder), unique(B, setOrder)]
    if (allocated(iwrk)) deallocate (iwrk)
-   allocate (iwrk(size(result)))
-   call occurrences_(result, iwrk)
-   result = unique(pack(result, iwrk .gt. 1), setOrder)
+   allocate (iwrk(size(answer)))
+   call occurrences_(answer, iwrk)
+   answer = unique(pack(answer, iwrk  >  1), setOrder)
 end function intersect_int32
 
-function setdiff_int32(A, B, setOrder) result(result)
+function setdiff_int32(A, B, setOrder) result(answer)
 ! C = setdiff(A,B) returns the data in A that is not in B, with no repetitions. C is in sorted order by default.
 integer(kind=int32), intent(in)                    :: a(:)
 integer(kind=int32), intent(in)                    :: b(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int32), allocatable                   :: result(:)
+integer(kind=int32), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk(:)
-   result = unique(b, setOrder='stable')
-   result = [unique(a, setOrder='stable'), result, result] ! potentially a lot of memory
+   answer = unique(b, setOrder='stable')
+   answer = [unique(a, setOrder='stable'), answer, answer] ! potentially a lot of memory
    if (allocated(iwrk)) deallocate (iwrk)
-   allocate (iwrk(size(result)))
-   call occurrences_(result, iwrk)
-   result = unique(pack(result, iwrk .eq. 1), setOrder)
+   allocate (iwrk(size(answer)))
+   call occurrences_(answer, iwrk)
+   answer = unique(pack(answer, iwrk  ==  1), setOrder)
 
 end function setdiff_int32
 
-function ismember_int32(A, B) result(result)
+function ismember_int32(A, B) result(answer)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 integer(kind=int32), intent(in)   :: a(:)
 integer(kind=int32), intent(in)   :: b(:)
-integer, allocatable                :: ab(:)
-integer, allocatable                :: result(:)
+integer(kind=int32), allocatable  :: ab(:)
+integer, allocatable                :: answer(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
    inums=size(a)
    ab = [ a, unique(b) ] ! potentially a lot of memory
+   if (allocated(iwrk2)) deallocate (iwrk2)
+   allocate (iwrk2(size(a)))
    if (allocated(iwrk1)) deallocate (iwrk1)
    allocate (iwrk1(size(ab)))
    call occurrences_(ab, iwrk1)
-   if (allocated(ab) ) deallocate(ab)
-   if (allocated(iwrk2)) deallocate (iwrk2)
-   allocate (iwrk2(size(a)))
    call occurrences_(a, iwrk2)
-   result=iwrk1(:inums)-iwrk2
-   result=merge(0,1,result.eq.0)
+   answer=iwrk1(:inums)-iwrk2
+   answer=merge(0,1,answer == 0)
 
 end function ismember_int32
 
-function setxor_int32(A, B, setOrder) result(result)
+function setxor_int32(A, B, setOrder) result(answer)
 ! C = setxor(A,B,setOrder) returns the data of A and B that are not in their intersection
 !                          (the symmetric difference), with no repetitions. That is, setxor returns the
 !                          data that occurs in A or B, but not both. C is in sorted order.
 integer(kind=int32), intent(in)                    :: a(:)
 integer(kind=int32), intent(in)                    :: b(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int32), allocatable                   :: result(:)
+integer(kind=int32), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk1(:)
 integer, allocatable                                 :: iwrk2(:)
 integer, allocatable                                 :: iwrk3(:)
 integer                                :: inums
    inums=size(a)
 
-   result = [ a, b ] ! potentially a lot of memory
+   answer = [ a, b ] ! potentially a lot of memory
    if (allocated(iwrk1)) deallocate (iwrk1)
-   allocate (iwrk1(size(result)))
-   call occurrences_(result, iwrk1)
+   allocate (iwrk1(size(answer)))
+   call occurrences_(answer, iwrk1)
 
    if (allocated(iwrk2)) deallocate (iwrk2)
    allocate (iwrk2(size(a)))
@@ -1214,30 +1244,30 @@ integer                                :: inums
 
    iwrk1=iwrk1-[iwrk2,iwrk3]
 
-   result=pack(result,iwrk1.eq.0)
-   result=unique(result,setOrder)
+   answer=pack(answer,iwrk1 == 0)
+   answer=unique(answer,setOrder)
 
 end function setxor_int32
 
-function issorted_int32(A) result(result)
+function issorted_int32(A) result(answer)
 ! TF = issorted(A) returns the logical scalar 1 (true) when the elements of A are listed in ascending order and 0 (false) otherwise.
 integer(kind=int32), intent(in) :: A(:)
-integer(kind=int32)             :: result
+integer(kind=int32)             :: answer
 integer             :: i
-result=1
+answer=1
 do i=1,size(a)-1
-   if(A(i).gt.A(i+1))then
-      result=0
+   if(A(i) > A(i+1))then
+      answer=0
       exit
    endif
 enddo
 end function issorted_int32
 
-function unique_int64(A, setOrder) result(result)
+function unique_int64(A, setOrder) result(answer)
 ! C = unique(A) returns the same data as in A, but with no repetitions. C is in sorted order.
 integer(kind=int64), intent(in)                    :: A(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int64),allocatable      :: result(:)
+integer(kind=int64),allocatable      :: answer(:)
 integer,allocatable                    :: indices(:)
 character(len=:), allocatable          :: setOrder_
 integer                                :: nuni
@@ -1246,102 +1276,101 @@ integer                                :: nuni
       setOrder_ = setOrder
    else
       setOrder_ = 'sorted'
-   end if
-   result = A
+   endif
+   answer = A
    select case (lower(setOrder_))
    case ('stable')
-      call unique_(result, nuni)
-      result = result(:nuni)
+      call unique_(answer, nuni)
+      answer = answer(:nuni)
    case ('sorted')
       if (allocated(indices)) deallocate (indices)
       allocate (indices(size(A)))
       call rank_unique_(A, indices, nuni)
-      result = A(indices(:nuni))
+      answer = A(indices(:nuni))
    case default
       stop '*unique* unknown setOrder '//setOrder_//'allowed are "stable" and "sorted"'
    end select
 end function unique_int64
 
-function union_int64(A, B, setOrder) result(result)
+function union_int64(A, B, setOrder) result(answer)
 ! C = union(A,B) returns the combined data from A and B with no repetitions. C is in sorted order.
 integer(kind=int64),intent(in)         :: A(:)
 integer(kind=int64),intent(in)         :: B(:)
 character(len=*),intent(in), optional  :: setOrder
-integer(kind=int64),allocatable        :: result(:)
-   result = unique([A, B], setOrder)
+integer(kind=int64),allocatable        :: answer(:)
+   answer = unique([A, B], setOrder)
 end function union_int64
 
-function intersect_int64(A, B, setOrder) result(result)
+function intersect_int64(A, B, setOrder) result(answer)
 ! C = intersect(A,B) returns the data common to both A and B, with no repetitions. C is in sorted order by default
 integer(kind=int64), intent(in)                    :: A(:)
 integer(kind=int64), intent(in)                    :: B(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int64), allocatable                   :: result(:)
+integer(kind=int64), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk(:)
-   result = [unique(A, setOrder), unique(B, setOrder)]
+   answer = [unique(A, setOrder), unique(B, setOrder)]
    if (allocated(iwrk)) deallocate (iwrk)
-   allocate (iwrk(size(result)))
-   call occurrences_(result, iwrk)
-   result = unique(pack(result, iwrk .gt. 1), setOrder)
+   allocate (iwrk(size(answer)))
+   call occurrences_(answer, iwrk)
+   answer = unique(pack(answer, iwrk  >  1), setOrder)
 end function intersect_int64
 
-function setdiff_int64(A, B, setOrder) result(result)
+function setdiff_int64(A, B, setOrder) result(answer)
 ! C = setdiff(A,B) returns the data in A that is not in B, with no repetitions. C is in sorted order by default.
 integer(kind=int64), intent(in)                    :: a(:)
 integer(kind=int64), intent(in)                    :: b(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int64), allocatable                   :: result(:)
+integer(kind=int64), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk(:)
-   result = unique(b, setOrder='stable')
-   result = [unique(a, setOrder='stable'), result, result] ! potentially a lot of memory
+   answer = unique(b, setOrder='stable')
+   answer = [unique(a, setOrder='stable'), answer, answer] ! potentially a lot of memory
    if (allocated(iwrk)) deallocate (iwrk)
-   allocate (iwrk(size(result)))
-   call occurrences_(result, iwrk)
-   result = unique(pack(result, iwrk .eq. 1), setOrder)
+   allocate (iwrk(size(answer)))
+   call occurrences_(answer, iwrk)
+   answer = unique(pack(answer, iwrk  ==  1), setOrder)
 
 end function setdiff_int64
 
-function ismember_int64(A, B) result(result)
+function ismember_int64(A, B) result(answer)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 integer(kind=int64), intent(in)   :: a(:)
 integer(kind=int64), intent(in)   :: b(:)
-integer, allocatable                :: ab(:)
-integer, allocatable                :: result(:)
+integer(kind=int64), allocatable  :: ab(:)
+integer, allocatable                :: answer(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
    inums=size(a)
    ab = [ a, unique(b) ] ! potentially a lot of memory
+   if (allocated(iwrk2)) deallocate (iwrk2)
+   allocate (iwrk2(size(a)))
    if (allocated(iwrk1)) deallocate (iwrk1)
    allocate (iwrk1(size(ab)))
    call occurrences_(ab, iwrk1)
-   if (allocated(ab) ) deallocate(ab)
-   if (allocated(iwrk2)) deallocate (iwrk2)
-   allocate (iwrk2(size(a)))
    call occurrences_(a, iwrk2)
-   result=iwrk1(:inums)-iwrk2
-   result=merge(0,1,result.eq.0)
+   answer=iwrk1(:inums)-iwrk2
+   answer=merge(0,1,answer == 0)
 
 end function ismember_int64
 
-function setxor_int64(A, B, setOrder) result(result)
+function setxor_int64(A, B, setOrder) result(answer)
 ! C = setxor(A,B,setOrder) returns the data of A and B that are not in their intersection
 !                          (the symmetric difference), with no repetitions. That is, setxor returns the
 !                          data that occurs in A or B, but not both. C is in sorted order.
 integer(kind=int64), intent(in)                    :: a(:)
 integer(kind=int64), intent(in)                    :: b(:)
 character(len=*), intent(in), optional :: setOrder
-integer(kind=int64), allocatable                   :: result(:)
+integer(kind=int64), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk1(:)
 integer, allocatable                                 :: iwrk2(:)
 integer, allocatable                                 :: iwrk3(:)
 integer                                :: inums
    inums=size(a)
 
-   result = [ a, b ] ! potentially a lot of memory
+   answer = [ a, b ] ! potentially a lot of memory
    if (allocated(iwrk1)) deallocate (iwrk1)
-   allocate (iwrk1(size(result)))
-   call occurrences_(result, iwrk1)
+   allocate (iwrk1(size(answer)))
+   call occurrences_(answer, iwrk1)
 
    if (allocated(iwrk2)) deallocate (iwrk2)
    allocate (iwrk2(size(a)))
@@ -1353,30 +1382,30 @@ integer                                :: inums
 
    iwrk1=iwrk1-[iwrk2,iwrk3]
 
-   result=pack(result,iwrk1.eq.0)
-   result=unique(result,setOrder)
+   answer=pack(answer,iwrk1 == 0)
+   answer=unique(answer,setOrder)
 
 end function setxor_int64
 
-function issorted_int64(A) result(result)
+function issorted_int64(A) result(answer)
 ! TF = issorted(A) returns the logical scalar 1 (true) when the elements of A are listed in ascending order and 0 (false) otherwise.
 integer(kind=int64), intent(in) :: A(:)
-integer(kind=int64)             :: result
+integer(kind=int64)             :: answer
 integer             :: i
-result=1
+answer=1
 do i=1,size(a)-1
-   if(A(i).gt.A(i+1))then
-      result=0
+   if(A(i) > A(i+1))then
+      answer=0
       exit
    endif
 enddo
 end function issorted_int64
 
-function unique_real32(A, setOrder) result(result)
+function unique_real32(A, setOrder) result(answer)
 ! C = unique(A) returns the same data as in A, but with no repetitions. C is in sorted order.
 real(kind=real32), intent(in)                    :: A(:)
 character(len=*), intent(in), optional :: setOrder
-real(kind=real32),allocatable      :: result(:)
+real(kind=real32),allocatable      :: answer(:)
 integer,allocatable                    :: indices(:)
 character(len=:), allocatable          :: setOrder_
 integer                                :: nuni
@@ -1385,102 +1414,101 @@ integer                                :: nuni
       setOrder_ = setOrder
    else
       setOrder_ = 'sorted'
-   end if
-   result = A
+   endif
+   answer = A
    select case (lower(setOrder_))
    case ('stable')
-      call unique_(result, nuni)
-      result = result(:nuni)
+      call unique_(answer, nuni)
+      answer = answer(:nuni)
    case ('sorted')
       if (allocated(indices)) deallocate (indices)
       allocate (indices(size(A)))
       call rank_unique_(A, indices, nuni)
-      result = A(indices(:nuni))
+      answer = A(indices(:nuni))
    case default
       stop '*unique* unknown setOrder '//setOrder_//'allowed are "stable" and "sorted"'
    end select
 end function unique_real32
 
-function union_real32(A, B, setOrder) result(result)
+function union_real32(A, B, setOrder) result(answer)
 ! C = union(A,B) returns the combined data from A and B with no repetitions. C is in sorted order.
 real(kind=real32),intent(in)         :: A(:)
 real(kind=real32),intent(in)         :: B(:)
 character(len=*),intent(in), optional  :: setOrder
-real(kind=real32),allocatable        :: result(:)
-   result = unique([A, B], setOrder)
+real(kind=real32),allocatable        :: answer(:)
+   answer = unique([A, B], setOrder)
 end function union_real32
 
-function intersect_real32(A, B, setOrder) result(result)
+function intersect_real32(A, B, setOrder) result(answer)
 ! C = intersect(A,B) returns the data common to both A and B, with no repetitions. C is in sorted order by default
 real(kind=real32), intent(in)                    :: A(:)
 real(kind=real32), intent(in)                    :: B(:)
 character(len=*), intent(in), optional :: setOrder
-real(kind=real32), allocatable                   :: result(:)
+real(kind=real32), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk(:)
-   result = [unique(A, setOrder), unique(B, setOrder)]
+   answer = [unique(A, setOrder), unique(B, setOrder)]
    if (allocated(iwrk)) deallocate (iwrk)
-   allocate (iwrk(size(result)))
-   call occurrences_(result, iwrk)
-   result = unique(pack(result, iwrk .gt. 1), setOrder)
+   allocate (iwrk(size(answer)))
+   call occurrences_(answer, iwrk)
+   answer = unique(pack(answer, iwrk  >  1), setOrder)
 end function intersect_real32
 
-function setdiff_real32(A, B, setOrder) result(result)
+function setdiff_real32(A, B, setOrder) result(answer)
 ! C = setdiff(A,B) returns the data in A that is not in B, with no repetitions. C is in sorted order by default.
 real(kind=real32), intent(in)                    :: a(:)
 real(kind=real32), intent(in)                    :: b(:)
 character(len=*), intent(in), optional :: setOrder
-real(kind=real32), allocatable                   :: result(:)
+real(kind=real32), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk(:)
-   result = unique(b, setOrder='stable')
-   result = [unique(a, setOrder='stable'), result, result] ! potentially a lot of memory
+   answer = unique(b, setOrder='stable')
+   answer = [unique(a, setOrder='stable'), answer, answer] ! potentially a lot of memory
    if (allocated(iwrk)) deallocate (iwrk)
-   allocate (iwrk(size(result)))
-   call occurrences_(result, iwrk)
-   result = unique(pack(result, iwrk .eq. 1), setOrder)
+   allocate (iwrk(size(answer)))
+   call occurrences_(answer, iwrk)
+   answer = unique(pack(answer, iwrk  ==  1), setOrder)
 
 end function setdiff_real32
 
-function ismember_real32(A, B) result(result)
+function ismember_real32(A, B) result(answer)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 real(kind=real32), intent(in)   :: a(:)
 real(kind=real32), intent(in)   :: b(:)
-integer, allocatable                :: ab(:)
-integer, allocatable                :: result(:)
+real(kind=real32), allocatable  :: ab(:)
+integer, allocatable                :: answer(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
    inums=size(a)
    ab = [ a, unique(b) ] ! potentially a lot of memory
+   if (allocated(iwrk2)) deallocate (iwrk2)
+   allocate (iwrk2(size(a)))
    if (allocated(iwrk1)) deallocate (iwrk1)
    allocate (iwrk1(size(ab)))
    call occurrences_(ab, iwrk1)
-   if (allocated(ab) ) deallocate(ab)
-   if (allocated(iwrk2)) deallocate (iwrk2)
-   allocate (iwrk2(size(a)))
    call occurrences_(a, iwrk2)
-   result=iwrk1(:inums)-iwrk2
-   result=merge(0,1,result.eq.0)
+   answer=iwrk1(:inums)-iwrk2
+   answer=merge(0,1,answer == 0)
 
 end function ismember_real32
 
-function setxor_real32(A, B, setOrder) result(result)
+function setxor_real32(A, B, setOrder) result(answer)
 ! C = setxor(A,B,setOrder) returns the data of A and B that are not in their intersection
 !                          (the symmetric difference), with no repetitions. That is, setxor returns the
 !                          data that occurs in A or B, but not both. C is in sorted order.
 real(kind=real32), intent(in)                    :: a(:)
 real(kind=real32), intent(in)                    :: b(:)
 character(len=*), intent(in), optional :: setOrder
-real(kind=real32), allocatable                   :: result(:)
+real(kind=real32), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk1(:)
 integer, allocatable                                 :: iwrk2(:)
 integer, allocatable                                 :: iwrk3(:)
 integer                                :: inums
    inums=size(a)
 
-   result = [ a, b ] ! potentially a lot of memory
+   answer = [ a, b ] ! potentially a lot of memory
    if (allocated(iwrk1)) deallocate (iwrk1)
-   allocate (iwrk1(size(result)))
-   call occurrences_(result, iwrk1)
+   allocate (iwrk1(size(answer)))
+   call occurrences_(answer, iwrk1)
 
    if (allocated(iwrk2)) deallocate (iwrk2)
    allocate (iwrk2(size(a)))
@@ -1492,30 +1520,30 @@ integer                                :: inums
 
    iwrk1=iwrk1-[iwrk2,iwrk3]
 
-   result=pack(result,iwrk1.eq.0)
-   result=unique(result,setOrder)
+   answer=pack(answer,iwrk1 == 0)
+   answer=unique(answer,setOrder)
 
 end function setxor_real32
 
-function issorted_real32(A) result(result)
+function issorted_real32(A) result(answer)
 ! TF = issorted(A) returns the logical scalar 1 (true) when the elements of A are listed in ascending order and 0 (false) otherwise.
 real(kind=real32), intent(in) :: A(:)
-real(kind=real32)             :: result
+real(kind=real32)             :: answer
 integer             :: i
-result=1
+answer=1
 do i=1,size(a)-1
-   if(A(i).gt.A(i+1))then
-      result=0
+   if(A(i) > A(i+1))then
+      answer=0
       exit
    endif
 enddo
 end function issorted_real32
 
-function unique_real64(A, setOrder) result(result)
+function unique_real64(A, setOrder) result(answer)
 ! C = unique(A) returns the same data as in A, but with no repetitions. C is in sorted order.
 real(kind=real64), intent(in)                    :: A(:)
 character(len=*), intent(in), optional :: setOrder
-real(kind=real64),allocatable      :: result(:)
+real(kind=real64),allocatable      :: answer(:)
 integer,allocatable                    :: indices(:)
 character(len=:), allocatable          :: setOrder_
 integer                                :: nuni
@@ -1524,102 +1552,101 @@ integer                                :: nuni
       setOrder_ = setOrder
    else
       setOrder_ = 'sorted'
-   end if
-   result = A
+   endif
+   answer = A
    select case (lower(setOrder_))
    case ('stable')
-      call unique_(result, nuni)
-      result = result(:nuni)
+      call unique_(answer, nuni)
+      answer = answer(:nuni)
    case ('sorted')
       if (allocated(indices)) deallocate (indices)
       allocate (indices(size(A)))
       call rank_unique_(A, indices, nuni)
-      result = A(indices(:nuni))
+      answer = A(indices(:nuni))
    case default
       stop '*unique* unknown setOrder '//setOrder_//'allowed are "stable" and "sorted"'
    end select
 end function unique_real64
 
-function union_real64(A, B, setOrder) result(result)
+function union_real64(A, B, setOrder) result(answer)
 ! C = union(A,B) returns the combined data from A and B with no repetitions. C is in sorted order.
 real(kind=real64),intent(in)         :: A(:)
 real(kind=real64),intent(in)         :: B(:)
 character(len=*),intent(in), optional  :: setOrder
-real(kind=real64),allocatable        :: result(:)
-   result = unique([A, B], setOrder)
+real(kind=real64),allocatable        :: answer(:)
+   answer = unique([A, B], setOrder)
 end function union_real64
 
-function intersect_real64(A, B, setOrder) result(result)
+function intersect_real64(A, B, setOrder) result(answer)
 ! C = intersect(A,B) returns the data common to both A and B, with no repetitions. C is in sorted order by default
 real(kind=real64), intent(in)                    :: A(:)
 real(kind=real64), intent(in)                    :: B(:)
 character(len=*), intent(in), optional :: setOrder
-real(kind=real64), allocatable                   :: result(:)
+real(kind=real64), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk(:)
-   result = [unique(A, setOrder), unique(B, setOrder)]
+   answer = [unique(A, setOrder), unique(B, setOrder)]
    if (allocated(iwrk)) deallocate (iwrk)
-   allocate (iwrk(size(result)))
-   call occurrences_(result, iwrk)
-   result = unique(pack(result, iwrk .gt. 1), setOrder)
+   allocate (iwrk(size(answer)))
+   call occurrences_(answer, iwrk)
+   answer = unique(pack(answer, iwrk  >  1), setOrder)
 end function intersect_real64
 
-function setdiff_real64(A, B, setOrder) result(result)
+function setdiff_real64(A, B, setOrder) result(answer)
 ! C = setdiff(A,B) returns the data in A that is not in B, with no repetitions. C is in sorted order by default.
 real(kind=real64), intent(in)                    :: a(:)
 real(kind=real64), intent(in)                    :: b(:)
 character(len=*), intent(in), optional :: setOrder
-real(kind=real64), allocatable                   :: result(:)
+real(kind=real64), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk(:)
-   result = unique(b, setOrder='stable')
-   result = [unique(a, setOrder='stable'), result, result] ! potentially a lot of memory
+   answer = unique(b, setOrder='stable')
+   answer = [unique(a, setOrder='stable'), answer, answer] ! potentially a lot of memory
    if (allocated(iwrk)) deallocate (iwrk)
-   allocate (iwrk(size(result)))
-   call occurrences_(result, iwrk)
-   result = unique(pack(result, iwrk .eq. 1), setOrder)
+   allocate (iwrk(size(answer)))
+   call occurrences_(answer, iwrk)
+   answer = unique(pack(answer, iwrk  ==  1), setOrder)
 
 end function setdiff_real64
 
-function ismember_real64(A, B) result(result)
+function ismember_real64(A, B) result(answer)
 ! C = ismember(A,B) returns an array containing 1 (true) where the data in A is found in B. Elsewhere, the array contains 0
 real(kind=real64), intent(in)   :: a(:)
 real(kind=real64), intent(in)   :: b(:)
-integer, allocatable                :: ab(:)
-integer, allocatable                :: result(:)
+real(kind=real64), allocatable  :: ab(:)
+integer, allocatable                :: answer(:)
 integer, allocatable                :: iwrk1(:)
 integer, allocatable                :: iwrk2(:)
 integer                             :: inums
    inums=size(a)
    ab = [ a, unique(b) ] ! potentially a lot of memory
+   if (allocated(iwrk2)) deallocate (iwrk2)
+   allocate (iwrk2(size(a)))
    if (allocated(iwrk1)) deallocate (iwrk1)
    allocate (iwrk1(size(ab)))
    call occurrences_(ab, iwrk1)
-   if (allocated(ab) ) deallocate(ab)
-   if (allocated(iwrk2)) deallocate (iwrk2)
-   allocate (iwrk2(size(a)))
    call occurrences_(a, iwrk2)
-   result=iwrk1(:inums)-iwrk2
-   result=merge(0,1,result.eq.0)
+   answer=iwrk1(:inums)-iwrk2
+   answer=merge(0,1,answer == 0)
 
 end function ismember_real64
 
-function setxor_real64(A, B, setOrder) result(result)
+function setxor_real64(A, B, setOrder) result(answer)
 ! C = setxor(A,B,setOrder) returns the data of A and B that are not in their intersection
 !                          (the symmetric difference), with no repetitions. That is, setxor returns the
 !                          data that occurs in A or B, but not both. C is in sorted order.
 real(kind=real64), intent(in)                    :: a(:)
 real(kind=real64), intent(in)                    :: b(:)
 character(len=*), intent(in), optional :: setOrder
-real(kind=real64), allocatable                   :: result(:)
+real(kind=real64), allocatable                   :: answer(:)
 integer, allocatable                                 :: iwrk1(:)
 integer, allocatable                                 :: iwrk2(:)
 integer, allocatable                                 :: iwrk3(:)
 integer                                :: inums
    inums=size(a)
 
-   result = [ a, b ] ! potentially a lot of memory
+   answer = [ a, b ] ! potentially a lot of memory
    if (allocated(iwrk1)) deallocate (iwrk1)
-   allocate (iwrk1(size(result)))
-   call occurrences_(result, iwrk1)
+   allocate (iwrk1(size(answer)))
+   call occurrences_(answer, iwrk1)
 
    if (allocated(iwrk2)) deallocate (iwrk2)
    allocate (iwrk2(size(a)))
@@ -1631,20 +1658,20 @@ integer                                :: inums
 
    iwrk1=iwrk1-[iwrk2,iwrk3]
 
-   result=pack(result,iwrk1.eq.0)
-   result=unique(result,setOrder)
+   answer=pack(answer,iwrk1 == 0)
+   answer=unique(answer,setOrder)
 
 end function setxor_real64
 
-function issorted_real64(A) result(result)
+function issorted_real64(A) result(answer)
 ! TF = issorted(A) returns the logical scalar 1 (true) when the elements of A are listed in ascending order and 0 (false) otherwise.
 real(kind=real64), intent(in) :: A(:)
-real(kind=real64)             :: result
+real(kind=real64)             :: answer
 integer             :: i
-result=1
+answer=1
 do i=1,size(a)-1
-   if(A(i).gt.A(i+1))then
-      result=0
+   if(A(i) > A(i+1))then
+      answer=0
       exit
    endif
 enddo
