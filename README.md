@@ -13,13 +13,13 @@ M_set(3f) is a Fortran module comprising a small group of set-theory
 functions reminiscent of related Matlab procedures.
 
 M_set(3f) is intended to be built with and used by fpm(1) projects.
-It requires the M_orderpack(3f) as a dependency, which is of course
+It requires M_orderpack(3f) as a dependency, which is of course
 taken care of automatically via fpm(1).
 
 Currently the allowed sets are vectors of integer numbers or arrays
 of character variables. real numbers are allowed but "caveat emptor",
 as comparing floats for equality has issues. You may have to condition
-the float date by converting it to scaled integers or using intrinsics
+the float data by converting it to scaled integers or using intrinsics
 such as NEAREST(3f) to produce the desired results.
 
 <!--
@@ -46,97 +46,129 @@ adequate for the vast majority of cases.
    program demo_M_sets
    use M_sets, only: &
    & unique, intersect, union, setdiff, ismember, setxor, issorted
-   character(len=*),parameter :: g='(*(g0,1x))'
+   character(len=*),parameter :: all='(*(g0,1x))'
+   character(len=*),parameter :: nl=new_line('A')
    integer, allocatable      :: A(:)
    integer, allocatable      :: B(:)
    integer, allocatable      :: C(:)
 
-      write(*,g) 'UNIQUE','Find the unique elements of vector A.'
-       A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
-       write(*,g) 'A=', A
-       write(*,g) unique(A)
-       write(*,g) unique(A, setOrder='stable')
-      write(*,g) 'UNION', 'Find the union of vectors A and B.'
-       call setab( [5, 7, 1], [3, 1, 1] )
-       write(*,g) union(A,B)
-       call setab( [5, 5, 3], [1, 2, 5] )
-       write(*,g) union(A, B, 'sorted')
-       write(*,g) union(A, B, 'stable')
-      write(*,g) 'INTERSECT', 'Find the values common to both A and B.'
-       call setab( [7, 1, 7, 7, 4], [7, 0, 4, 4, 0] )
-       write(*,g) intersect(A, B)
-       write(*,g) intersect(A, B, setOrder='stable')
-      write(*,g) 'SETDIFF','Find the values in A that are not in B.'
-       call setab( [3, 6, 2, 1, 5, 1, 1], [2, 4, 6] )
-       write(*,g) setdiff(A, B)
-       call setab( [4, 1, 3, 2, 5], [2, 1])
-       write(*,g) setdiff(A, B, 'sorted')
-       write(*,g) setdiff(A, B, 'stable')
-      write(*,g) 'ISMEMBER', &
-      'Determine which elements of A are also in B.'
-       call setab( [5,3,4,2], [2,4,4,4,6,8] )
-       write(*,g) ismember(A,B)
-      write(*,g) 'SETXOR',&
-      'Find values of A and B not in their intersection.'
-       call setab( [5,1,3,3,3], [4,1,2] )
-       write(*,g) setxor(A,B)
-       write(*,g) setxor(A,B,'stable')
+      A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
+      !
+      print all                                                   ,nl, &
+      'UNIQUE','Find the unique elements of vector A.'            ,nl, &
+      'A=', A                                                     ,nl, &
+      'sorted=',unique(A)                                         ,nl, &
+      'stable=',unique(A, setOrder='stable')
 
-       write(*,g) 'ISSSORTED',&
-       'confirm whether array is sorted in ascending order or not'
-       call setab([1,2,3,4,5],[5,4,3,2,1])
-       write(*,g) issorted(A)
-       write(*,g) issorted(B)
+      A=[5, 7, 1]
+      B=[3, 1, 1]
+      !
+      print all                                                   ,nl, &
+      'UNION', 'Find the union of vectors A and B.'               ,nl, &
+      'A=', A                                                     ,nl, &
+      'B=', B                                                     ,nl, &
+      'sorted=',union(A, B, 'sorted')                             ,nl, &
+      'stable=',union(A, B, 'stable')
 
-   contains
-   subroutine setab(ain,bin)
-   integer,intent(in) :: ain(:)
-   integer,intent(in) :: bin(:)
-      A=ain
-      B=bin
-      write(*,g) 'A=', A
-      write(*,g) 'B=', B
-   end subroutine setab
+      A=[7, 1, 7, 7, 4]
+      B=[7, 0, 4, 4, 0]
+      !
+      print all                                                   ,nl, &
+      'INTERSECT', 'Find the values common to both A and B.'      ,nl, &
+      'A=', A                                                     ,nl, &
+      'B=', B                                                     ,nl, &
+      'sorted=',intersect(A, B)                                   ,nl, &
+      'stable=',intersect(A, B, setOrder='stable')
+
+      A=[3, 6, 2, 1, 5, 1, 1]
+      B=[2, 4, 6]
+      !
+      print all                                                   ,nl, &
+      'SETDIFF','Find the values in A that are not in B.'         ,nl, &
+      'A=', A                                                     ,nl, &
+      'B=', B                                                     ,nl, &
+      'sorted=',setdiff(A, B, 'sorted')                           ,nl, &
+      'stable=',setdiff(A, B, 'stable')
+
+      A=[5,3,4,2]
+      B=[2,4,4,4,6,8]
+      !
+      print all                                                   ,nl, &
+      'ISMEMBER','Determine which elements of A are also in B.'   ,nl, &
+      'A=', A                                                     ,nl, &
+      'B=', B                                                     ,nl, &
+      'in A and B=',ismember(A,B)
+
+      A=[5,1,3,3,3]
+      B=[4,1,2]
+      !
+      print all                                                   ,nl, &
+      'SETXOR'                                                       , &
+      'Find values of A and B not in their intersection.'         ,nl, &
+      'A=', A                                                     ,nl, &
+      'B=', B                                                     ,nl, &
+      'sorted=',setxor(A,B)                                       ,nl, &
+      'stable=',setxor(A,B,'stable')
+
+      A=[1,2,3,4,5]
+      B=[5,4,3,2,1]
+      !
+      print all                                                   ,nl, &
+      'ISSSORTED'                                                    , &
+      'confirm whether array is sorted in ascending order or not' ,nl, &
+      'A=', A                                                     ,nl, &
+      'B=', B                                                     ,nl, &
+      'is A sorted?',issorted(A)                                  ,nl, &
+      'is B sorted?',issorted(B)
 
    end program demo_M_sets
 ```
+<!--
+123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+-->
 
 Results:
 ```text
- > UNIQUE Find the unique elements of vector A.
- > A= 10 -10 0 1 2 3 3 2 1 -10
- > -10 0 1 2 3 10
- > 10 -10 0 1 2 3
- > UNION Find the union of vectors A and B.
- > A= 5 7 1
- > B= 3 1 1
- > 1 3 5 7
- > A= 5 5 3
- > B= 1 2 5
- > 1 2 3 5
- > 5 3 1 2
- > INTERSECT Find the values common to both A and B.
- > A= 7 1 7 7 4
- > B= 7 0 4 4 0
- > 4 7
- > 7 4
- > SETDIFF Find the values in A that are not in B.
- > A= 3 6 2 1 5 1 1
- > B= 2 4 6
- > 1 3 5
- > A= 4 1 3 2 5
- > B= 2 1
- > 3 4 5
- > 4 3 5
- > ISMEMBER Determine which elements of A are also in B.
- > A= 5 3 4 2
- > B= 2 4 4 4 6 8
- > 0 0 1 1
- > SETXOR Find values of A and B not in their intersection.
- > A= 5 1 3 3 3
- > B= 4 1 2
- > 2 3 4 5
- > 5 3 4 2
+ >
+ >  UNIQUE Find the unique elements of vector A.
+ >  A= 10 -10 0 1 2 3 3 2 1 -10
+ >  sorted= -10 0 1 2 3 10
+ >  stable= 10 -10 0 1 2 3
+ >
+ >  UNION Find the union of vectors A and B.
+ >  A= 5 7 1
+ >  B= 3 1 1
+ >  sorted= 1 3 5 7
+ >  stable= 5 7 1 3
+ >
+ >  INTERSECT Find the values common to both A and B.
+ >  A= 7 1 7 7 4
+ >  B= 7 0 4 4 0
+ >  sorted= 4 7
+ >  stable= 7 4
+ >
+ >  SETDIFF Find the values in A that are not in B.
+ >  A= 3 6 2 1 5 1 1
+ >  B= 2 4 6
+ >  sorted= 1 3 5
+ >  stable= 3 1 5
+ >
+ >  ISMEMBER Determine which elements of A are also in B.
+ >  A= 5 3 4 2
+ >  B= 2 4 4 4 6 8
+ >  in A and B= 0 0 1 1
+ >
+ >  SETXOR Find values of A and B not in their intersection.
+ >  A= 5 1 3 3 3
+ >  B= 4 1 2
+ >  sorted= 2 3 4 5
+ >  stable= 5 3 4 2
+ >
+ >  ISSSORTED confirm whether array is sorted in ascending order or not
+ >  A= 1 2 3 4 5
+ >  B= 5 4 3 2 1
+ >  is A sorted? 1
+ >  is B sorted? 0
 ```
 <!--
 ## Building the module using make![gmake](docs/images/gnu.gif)
