@@ -2,7 +2,7 @@
 # [M_sets](https://urbanjost.github.io/M_sets/man3.html)
 
 ## Name
-   **M_sets**(3f) - functions reminiscent of Matlab set functions
+   **M_sets**(3f) - Fortran functions reminiscent of Matlab set functions
 
 ## Description
 
@@ -261,3 +261,4 @@ documents, and man-pages.
 ## See also ![-](docs/images/demos.gif)
    * [M_orderpack](https://github.com/urbanjost/M_orderpack)
    * [M_random](https://github.com/urbanjost/M_random)
+   * [Fortran Package Manager](https://github.com/fortran-lang/fpm)
