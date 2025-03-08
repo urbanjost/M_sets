@@ -16,11 +16,11 @@ M_set(3f) is intended to be built with and used by fpm(1) projects.
 It requires M_orderpack(3f) as a dependency, which is of course
 taken care of automatically via fpm(1).
 
-Currently the allowed sets are vectors of integer numbers or arrays
-of character variables. real numbers are allowed but "caveat emptor",
-as comparing floats for equality has issues. You may have to condition
-the float data by converting it to scaled integers or using intrinsics
-such as NEAREST(3f) to produce the desired results.
+Currently the allowed sets are vectors of **integer** numbers or arrays
+of **character** variables. **real** numbers are allowed but "caveat
+emptor", as comparing floats for equality has issues. You may have to
+condition the float data by converting it to scaled integers or using
+intrinsics such as NEAREST(3f) to produce the desired results.
 
 <!--
 M_sets(3f) basically uses some simple calls to the M_orderpack(3f)
@@ -237,9 +237,9 @@ documents, and man-pages.
      all those HTML descriptions of the man-pages into a single
      [book](https://urbanjost.github.io/M_sets/BOOK_M_sets.html).
 
-   - ![man-pages](docs/images/manpages.gif) are the de-facto standard
-     method of providing procedure descriptions on Unix, GNU/Linux,
-     OpenBSD, Cygwin, WLS, and other ULS (Unix-Like Systems)
+   - ![man-pages](docs/images/manpages.gif) man-pages are the de-facto
+     standard method of providing procedure descriptions on Unix,
+     GNU/Linux, OpenBSD, Cygwin, WLS, and other ULS (Unix-Like Systems)
 
      Installation can vary depending on whether you are installing
      personal copies or as an administrator, but man-pages are well suited
