@@ -1,6 +1,7 @@
      program demo_M_sets
      use M_sets, only: &
-     & unique, intersect, union, setdiff, ismember, setxor, issorted
+     & unique, intersect, union, setdiff, setxor, bool, &
+     & ismember, issorted, isequal
      character(len=*),parameter :: all='(*(g0,1x))'
      character(len=*),parameter :: nl=new_line('A')
      integer, allocatable      :: A(:)
@@ -75,5 +76,27 @@
         'B=', B                                                     ,nl, &
         'is A sorted?',issorted(A)                                  ,nl, &
         'is B sorted?',issorted(B)
+
+        A=[1,2,3,4,5]
+        B=[1,2,3,4,5]
+        !
+        print all                                                   ,nl, &
+        'ISEQUAL'                                                     , &
+        'confirm whether sets have same elements in same order    ' ,nl, &
+        'A=', A                                                     ,nl, &
+        'B=', B                                                     ,nl, &
+        'is A equal to B?',isequal(A,B)                             ,nl, &
+        'is B equal to -B?',isequal(A,-B)
+
+        A=[1,2,3,4,5]
+        B=[5,2,3,4,1]
+        !
+        print all                                                   ,nl, &
+        'BOOL'                                                         , &
+        'if logical expression is true, 0 if false.'                ,nl, &
+        'A=', A                                                     ,nl, &
+        'B=', B                                                     ,nl, &
+        'is A(i) = B(i) ?',bool(A==B)                               ,nl, &
+        'how many elements are the same?',sum(bool(A==B))
 
      end program demo_M_sets

@@ -19,11 +19,24 @@ and usage changes.
    - [ ] registered in fpm(1) repository
 
 ---
+**2025-05-10**  John S. Urban  <https://github.com/urbanjost>
+### :green_circle: ADD:
+   - add isequal(3f) function
+---
+**2025-01-03**  John S. Urban  <https://github.com/urbanjost>
+### :green_circle: ADD:
+   - add bool(3f) function
+   - draft support for float values
+---
+**2024-10-08**  John S. Urban  <https://github.com/urbanjost>
+### :red_circle: FIX:
+   - correct ismember for non-whole numbers
+   - ismember should always be integer
+---
 **2024-09-04**  John S. Urban  <https://github.com/urbanjost>
 
 ### :green_circle: ADD:
    - allow character string data
----
 ---
 **2023-07-20**  John S. Urban  <https://github.com/urbanjost>
 

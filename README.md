@@ -2,7 +2,7 @@
 # [M_sets](https://urbanjost.github.io/M_sets/man3.html)
 
 ## Name
-   **M_sets**(3f) - Fortran functions reminiscent of Matlab set functions
+   **M_sets**(3f) - functions reminiscent of Matlab set functions
 
 ## Description
 
@@ -16,16 +16,18 @@ M_set(3f) is intended to be built with and used by fpm(1) projects.
 It requires M_orderpack(3f) as a dependency, which is of course
 taken care of automatically via fpm(1).
 
-Currently the allowed sets are vectors of **integer** numbers or arrays
-of **character** variables. **real** numbers are allowed but "caveat
-emptor", as comparing floats for equality has issues. You may have to
-condition the float data by converting it to scaled integers or using
-intrinsics such as NEAREST(3f) to produce the desired results.
+Currently the allowed sets are vectors of integer numbers or arrays
+of character variables. real numbers are allowed but "caveat emptor",
+as comparing floats for equality has issues. You may have to condition
+the float data by converting it to scaled integers or using intrinsics
+such as NEAREST(3f) to produce the desired results.
 
 <!--
 M_sets(3f) basically uses some simple calls to the M_orderpack(3f)
 module that make loose use of memory allocation and space, but are
 adequate for the vast majority of cases.
+
+ -- unions, intersection, and set membership.
 -->
 
 ## Functions
@@ -36,16 +38,21 @@ adequate for the vast majority of cases.
  + ismember(A,B,setOrder)  - Create a mask of A marking elements also in B
  + setxor(A,B,setOrder)    - Find values of A and B not in both arrays
  + issorted(A)             - Determine if array is already sorted
+ + bool(expr)              - returns 1 if expression is TRUE, else returns 0.
 
  The subsequent data may be produced sorted, or left in the order
  encountered.
+
+ They (currently) select elements and do not return index locations. Since
+ they already internally heavily depend on a multiplicity subroutine
+ that might be unexpectedly easy to add, though.
 
 ## Example
 
 ```fortran
    program demo_M_sets
    use M_sets, only: &
-   & unique, intersect, union, setdiff, ismember, setxor, issorted
+   & unique, intersect, union, setdiff, ismember, setxor, issorted, bool
    character(len=*),parameter :: all='(*(g0,1x))'
    character(len=*),parameter :: nl=new_line('A')
    integer, allocatable      :: A(:)
@@ -237,9 +244,9 @@ documents, and man-pages.
      all those HTML descriptions of the man-pages into a single
      [book](https://urbanjost.github.io/M_sets/BOOK_M_sets.html).
 
-   - ![man-pages](docs/images/manpages.gif) man-pages are the de-facto
-     standard method of providing procedure descriptions on Unix,
-     GNU/Linux, OpenBSD, Cygwin, WLS, and other ULS (Unix-Like Systems)
+   - ![man-pages](docs/images/manpages.gif) are the de-facto standard
+     method of providing procedure descriptions on Unix, GNU/Linux,
+     OpenBSD, Cygwin, WLS, and other ULS (Unix-Like Systems)
 
      Installation can vary depending on whether you are installing
      personal copies or as an administrator, but man-pages are well suited
@@ -261,4 +268,3 @@ documents, and man-pages.
 ## See also ![-](docs/images/demos.gif)
    * [M_orderpack](https://github.com/urbanjost/M_orderpack)
    * [M_random](https://github.com/urbanjost/M_random)
-   * [Fortran Package Manager](https://github.com/fortran-lang/fpm)

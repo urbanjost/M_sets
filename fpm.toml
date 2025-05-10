@@ -42,7 +42,7 @@ homepage = "https://github.com/urbanjost/M_sets.git"
 [[executable]]
    name="settheory"
    source-dir="app"
-   main="main.f90"
+   main="settheory.f90"
    [executable.dependencies]
    M_CLI2 = { git = "https://github.com/urbanjost/M_CLI2.git" }
    #M_CLI2 = { namespace = "GPF" }
