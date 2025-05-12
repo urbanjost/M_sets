@@ -42,7 +42,7 @@ for most uses, simple to use, and familiar to a large base of users.
  + ismember(A,B,setOrder)  - Create a mask of A marking elements also in B
  + setxor(A,B,setOrder)    - Find values of A and B not in both arrays
  + issorted(A)             - Determine if array is already sorted
- + isequal(A,B)             -Determine if two sets are equal
+ + isequal(A,B)             -Determine if two sets are equal with a tolerance
  + bool(expr)              - 1 if logical expression is true, 0 if false.
 
  The subsequent data may be produced sorted, or left in the order
@@ -228,7 +228,8 @@ public :: setxor    ! C = setxor(A,B,setOrder)      returns the data of A and B 
                     !                               (the symmetric difference), with no repetitions. That is, setxor returns the
                     !                               data that occurs in A or B, but not both. C is in sorted order.
 public :: issorted  ! C = issorted(A)               determine if A is in ascending order or not
-public :: isequal   ! C = isequal(A,B)              determine if set A has same element values in same order as B
+public :: isequal   ! C = isequal(A,B,tolerance)    determine if set A has same element values in same order as B to 
+                    !                               within a tolerance
 public :: bool      ! C = bool(logical_expression)  1 if logical expression is true, 0 if false.
 
 $PARCEL MODULARIZE
@@ -909,11 +910,12 @@ NAME
 
 SYNOPSIS
 
-   isequal(A,B)
+   isequal(A,B,TOLERANCE)
 
      character(len=:)intent(in) :: A,B
        or
      integer|real|complex(in) :: A,B
+     real,optional            :: TOLERANCE
 
 DESCRIPTION
 
@@ -926,10 +928,13 @@ DESCRIPTION
 
 OPTIONS
 
-    A     input array to compare against
-    B     input array to compare to A
+    A          input array to compare against
+    B          input array to compare to A
+    TOLERANCE  for numeric values consider the corresponding elements
+               of A and B equal if they are equal within the specified
+	       tolerance.
 
-    A and B are of the same type and kind.
+    A,B and TOLERANCE are of the same type and kind.
 
 RETURNS
 
@@ -972,21 +977,37 @@ LICENSE
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $PARCEL isequal_TEMPLATE
-function isequal_${KIND}(A,B) result(answer)
+function isequal_${KIND}(A,B,TOLERANCE) result(answer)
 ! TF = isequal(A) returns the logical scalar 1 (true) when the elements of A are identical to elementsof B or  0 (false) otherwise.
-${TYPE}(kind=${KIND}), intent(in) :: A(:)
-${TYPE}(kind=${KIND}), intent(in) :: B(:)
-integer                           :: answer
-integer                           :: i
+${TYPE}(kind=${KIND}), intent(in)           :: A(:)
+${TYPE}(kind=${KIND}), intent(in)           :: B(:)
+${TYPE}(kind=${KIND}), intent(in), optional :: TOLERANCE
+${TYPE}(kind=${KIND})                       :: DELTA
+integer                                     :: answer
+integer                                     :: i
 answer=1
+if(present(tolerance))then
+   delta=tolerance
+else
+   delta=0
+endif
 if(size(A).eq.size(B))then
    ! A merge() might not short-circuit or make copies?
-   do i=1,size(A)
-      if(A(i) /= B(i))then
-         answer=0
-         exit
-      endif
-   enddo
+   if(delta.eq.0)then
+      do i=1,size(A)
+         if(A(i) /= B(i))then
+            answer=0
+            exit
+         endif
+      enddo
+   else
+      do i=1,size(A)
+         if(abs(A(i)- B(i)).gt.delta)then
+            answer=0
+            exit
+         endif
+      enddo
+   endif
 else
    answer=0
 endif

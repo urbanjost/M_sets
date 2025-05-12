@@ -19,10 +19,6 @@ and usage changes.
    - [ ] registered in fpm(1) repository
 
 ---
-**2025-05-10**  John S. Urban  <https://github.com/urbanjost>
-### :green_circle: ADD:
-   - add isequal(3f) function
----
 **2025-01-03**  John S. Urban  <https://github.com/urbanjost>
 ### :green_circle: ADD:
    - add bool(3f) function

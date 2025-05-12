@@ -106,7 +106,7 @@ EXAMPLES
 SEE ALSO
   diff(1),uniq(1),sort(1),comm(1),join(1)
 
-				 May 09, 2025	      settheory.1.man(1m_sets)
+				 May 11, 2025	      settheory.1.man(1m_sets)
 intersect(3m_sets)					    intersect(3m_sets)
 
 NAME
@@ -163,7 +163,7 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 09, 2025		    intersect(3m_sets)
+				 May 11, 2025		    intersect(3m_sets)
 ismember(3m_sets)					     ismember(3m_sets)
 
 NAME
@@ -222,7 +222,7 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 09, 2025		     ismember(3m_sets)
+				 May 11, 2025		     ismember(3m_sets)
 issorted(3m_sets)					     issorted(3m_sets)
 
 NAME
@@ -277,7 +277,7 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 09, 2025		     issorted(3m_sets)
+				 May 11, 2025		     issorted(3m_sets)
 union(3m_sets)							union(3m_sets)
 
 NAME
@@ -340,7 +340,7 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 09, 2025			union(3m_sets)
+				 May 11, 2025			union(3m_sets)
 unique(3m_sets) 					       unique(3m_sets)
 
 NAME
@@ -397,7 +397,7 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 09, 2025		       unique(3m_sets)
+				 May 11, 2025		       unique(3m_sets)
 M_sets(3m_sets) 					       M_sets(3m_sets)
 
 NAME
@@ -447,7 +447,7 @@ DESCRIPTION
 
     •  issorted(A) - Determine if array is already sorted
 
-    •  isequal(A,B) -Determine if two sets are equal
+    •  isequal(A,B) -Determine if two sets are equal with a tolerance
 
     •  bool(expr) - 1 if logical expression is true, 0 if false.
 
@@ -615,7 +615,7 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 09, 2025		       M_sets(3m_sets)
+				 May 11, 2025		       M_sets(3m_sets)
 setdiff(3m_sets)					      setdiff(3m_sets)
 
 NAME
@@ -672,7 +672,7 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 09, 2025		      setdiff(3m_sets)
+				 May 11, 2025		      setdiff(3m_sets)
 setxor(3m_sets) 					       setxor(3m_sets)
 
 NAME
@@ -732,18 +732,19 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 09, 2025		       setxor(3m_sets)
+				 May 11, 2025		       setxor(3m_sets)
 isequal(3m_sets)					      isequal(3m_sets)
 
 NAME
   isequal(3f) - [M_sets] Report if vector A is equal to vector B
 
 SYNOPSIS
-  isequal(A,B)
+  isequal(A,B,TOLERANCE)
 
        character(len=:)intent(in) :: A,B
 	 or
        integer|real|complex(in) :: A,B
+       real,optional		:: TOLERANCE
 
 DESCRIPTION
   Report if A is equal to B. Equality is defined as the same element values in
@@ -760,7 +761,11 @@ OPTIONS
 
   B input array to compare to A
 
-  A and B are of the same type and kind.
+  TOLERANCE
+    for numeric values consider the corresponding elements of A and B equal if
+    they are equal within the specified tolerance.
+
+  A,B and TOLERANCE are of the same type and kind.
 
 RETURNS
   1 if input array A is to array B, 0 otherwise
@@ -799,7 +804,7 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 09, 2025		      isequal(3m_sets)
+				 May 11, 2025		      isequal(3m_sets)
 bool(3m_sets)							 bool(3m_sets)
 
 NAME
@@ -853,4 +858,4 @@ AUTHOR
 LICENSE
   CC0-1.0
 
-				 May 09, 2025			 bool(3m_sets)
+				 May 11, 2025			 bool(3m_sets)

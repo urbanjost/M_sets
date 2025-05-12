@@ -42,7 +42,7 @@ module M_sets
 !!  + ismember(A,B,setOrder)  - Create a mask of A marking elements also in B
 !!  + setxor(A,B,setOrder)    - Find values of A and B not in both arrays
 !!  + issorted(A)             - Determine if array is already sorted
-!!  + isequal(A,B)             -Determine if two sets are equal
+!!  + isequal(A,B)             -Determine if two sets are equal with a tolerance
 !!  + bool(expr)              - 1 if logical expression is true, 0 if false.
 !!
 !!  The subsequent data may be produced sorted, or left in the order
@@ -227,7 +227,8 @@ public :: setxor    ! C = setxor(A,B,setOrder)      returns the data of A and B 
                     !                               (the symmetric difference), with no repetitions. That is, setxor returns the
                     !                               data that occurs in A or B, but not both. C is in sorted order.
 public :: issorted  ! C = issorted(A)               determine if A is in ascending order or not
-public :: isequal   ! C = isequal(A,B)              determine if set A has same element values in same order as B
+public :: isequal   ! C = isequal(A,B,tolerance)    determine if set A has same element values in same order as B to
+                    !                               within a tolerance
 public :: bool      ! C = bool(logical_expression)  1 if logical expression is true, 0 if false.
 
 
@@ -810,11 +811,12 @@ end function setxor_c
 !!##SYNOPSIS
 !!
 !!
-!!    isequal(A,B)
+!!    isequal(A,B,TOLERANCE)
 !!
 !!      character(len=:)intent(in) :: A,B
 !!        or
 !!      integer|real|complex(in) :: A,B
+!!      real,optional            :: TOLERANCE
 !!
 !!##DESCRIPTION
 !!
@@ -827,10 +829,13 @@ end function setxor_c
 !!
 !!##OPTIONS
 !!
-!!     A     input array to compare against
-!!     B     input array to compare to A
+!!     A          input array to compare against
+!!     B          input array to compare to A
+!!     TOLERANCE  for numeric values consider the corresponding elements
+!!                of A and B equal if they are equal within the specified
+!!                tolerance.
 !!
-!!     A and B are of the same type and kind.
+!!     A,B and TOLERANCE are of the same type and kind.
 !!
 !!##RETURNS
 !!
@@ -1128,21 +1133,37 @@ do i=1,size(a)-1
 enddo
 end function issorted_int8
 
-function isequal_int8(A,B) result(answer)
+function isequal_int8(A,B,TOLERANCE) result(answer)
 ! TF = isequal(A) returns the logical scalar 1 (true) when the elements of A are identical to elementsof B or  0 (false) otherwise.
-integer(kind=int8), intent(in) :: A(:)
-integer(kind=int8), intent(in) :: B(:)
-integer                           :: answer
-integer                           :: i
+integer(kind=int8), intent(in)           :: A(:)
+integer(kind=int8), intent(in)           :: B(:)
+integer(kind=int8), intent(in), optional :: TOLERANCE
+integer(kind=int8)                       :: DELTA
+integer                                     :: answer
+integer                                     :: i
 answer=1
+if(present(tolerance))then
+   delta=tolerance
+else
+   delta=0
+endif
 if(size(A).eq.size(B))then
    ! A merge() might not short-circuit or make copies?
-   do i=1,size(A)
-      if(A(i) /= B(i))then
-         answer=0
-         exit
-      endif
-   enddo
+   if(delta.eq.0)then
+      do i=1,size(A)
+         if(A(i) /= B(i))then
+            answer=0
+            exit
+         endif
+      enddo
+   else
+      do i=1,size(A)
+         if(abs(A(i)- B(i)).gt.delta)then
+            answer=0
+            exit
+         endif
+      enddo
+   endif
 else
    answer=0
 endif
@@ -1286,21 +1307,37 @@ do i=1,size(a)-1
 enddo
 end function issorted_int16
 
-function isequal_int16(A,B) result(answer)
+function isequal_int16(A,B,TOLERANCE) result(answer)
 ! TF = isequal(A) returns the logical scalar 1 (true) when the elements of A are identical to elementsof B or  0 (false) otherwise.
-integer(kind=int16), intent(in) :: A(:)
-integer(kind=int16), intent(in) :: B(:)
-integer                           :: answer
-integer                           :: i
+integer(kind=int16), intent(in)           :: A(:)
+integer(kind=int16), intent(in)           :: B(:)
+integer(kind=int16), intent(in), optional :: TOLERANCE
+integer(kind=int16)                       :: DELTA
+integer                                     :: answer
+integer                                     :: i
 answer=1
+if(present(tolerance))then
+   delta=tolerance
+else
+   delta=0
+endif
 if(size(A).eq.size(B))then
    ! A merge() might not short-circuit or make copies?
-   do i=1,size(A)
-      if(A(i) /= B(i))then
-         answer=0
-         exit
-      endif
-   enddo
+   if(delta.eq.0)then
+      do i=1,size(A)
+         if(A(i) /= B(i))then
+            answer=0
+            exit
+         endif
+      enddo
+   else
+      do i=1,size(A)
+         if(abs(A(i)- B(i)).gt.delta)then
+            answer=0
+            exit
+         endif
+      enddo
+   endif
 else
    answer=0
 endif
@@ -1444,21 +1481,37 @@ do i=1,size(a)-1
 enddo
 end function issorted_int32
 
-function isequal_int32(A,B) result(answer)
+function isequal_int32(A,B,TOLERANCE) result(answer)
 ! TF = isequal(A) returns the logical scalar 1 (true) when the elements of A are identical to elementsof B or  0 (false) otherwise.
-integer(kind=int32), intent(in) :: A(:)
-integer(kind=int32), intent(in) :: B(:)
-integer                           :: answer
-integer                           :: i
+integer(kind=int32), intent(in)           :: A(:)
+integer(kind=int32), intent(in)           :: B(:)
+integer(kind=int32), intent(in), optional :: TOLERANCE
+integer(kind=int32)                       :: DELTA
+integer                                     :: answer
+integer                                     :: i
 answer=1
+if(present(tolerance))then
+   delta=tolerance
+else
+   delta=0
+endif
 if(size(A).eq.size(B))then
    ! A merge() might not short-circuit or make copies?
-   do i=1,size(A)
-      if(A(i) /= B(i))then
-         answer=0
-         exit
-      endif
-   enddo
+   if(delta.eq.0)then
+      do i=1,size(A)
+         if(A(i) /= B(i))then
+            answer=0
+            exit
+         endif
+      enddo
+   else
+      do i=1,size(A)
+         if(abs(A(i)- B(i)).gt.delta)then
+            answer=0
+            exit
+         endif
+      enddo
+   endif
 else
    answer=0
 endif
@@ -1602,21 +1655,37 @@ do i=1,size(a)-1
 enddo
 end function issorted_int64
 
-function isequal_int64(A,B) result(answer)
+function isequal_int64(A,B,TOLERANCE) result(answer)
 ! TF = isequal(A) returns the logical scalar 1 (true) when the elements of A are identical to elementsof B or  0 (false) otherwise.
-integer(kind=int64), intent(in) :: A(:)
-integer(kind=int64), intent(in) :: B(:)
-integer                           :: answer
-integer                           :: i
+integer(kind=int64), intent(in)           :: A(:)
+integer(kind=int64), intent(in)           :: B(:)
+integer(kind=int64), intent(in), optional :: TOLERANCE
+integer(kind=int64)                       :: DELTA
+integer                                     :: answer
+integer                                     :: i
 answer=1
+if(present(tolerance))then
+   delta=tolerance
+else
+   delta=0
+endif
 if(size(A).eq.size(B))then
    ! A merge() might not short-circuit or make copies?
-   do i=1,size(A)
-      if(A(i) /= B(i))then
-         answer=0
-         exit
-      endif
-   enddo
+   if(delta.eq.0)then
+      do i=1,size(A)
+         if(A(i) /= B(i))then
+            answer=0
+            exit
+         endif
+      enddo
+   else
+      do i=1,size(A)
+         if(abs(A(i)- B(i)).gt.delta)then
+            answer=0
+            exit
+         endif
+      enddo
+   endif
 else
    answer=0
 endif
@@ -1760,21 +1829,37 @@ do i=1,size(a)-1
 enddo
 end function issorted_real32
 
-function isequal_real32(A,B) result(answer)
+function isequal_real32(A,B,TOLERANCE) result(answer)
 ! TF = isequal(A) returns the logical scalar 1 (true) when the elements of A are identical to elementsof B or  0 (false) otherwise.
-real(kind=real32), intent(in) :: A(:)
-real(kind=real32), intent(in) :: B(:)
-integer                           :: answer
-integer                           :: i
+real(kind=real32), intent(in)           :: A(:)
+real(kind=real32), intent(in)           :: B(:)
+real(kind=real32), intent(in), optional :: TOLERANCE
+real(kind=real32)                       :: DELTA
+integer                                     :: answer
+integer                                     :: i
 answer=1
+if(present(tolerance))then
+   delta=tolerance
+else
+   delta=0
+endif
 if(size(A).eq.size(B))then
    ! A merge() might not short-circuit or make copies?
-   do i=1,size(A)
-      if(A(i) /= B(i))then
-         answer=0
-         exit
-      endif
-   enddo
+   if(delta.eq.0)then
+      do i=1,size(A)
+         if(A(i) /= B(i))then
+            answer=0
+            exit
+         endif
+      enddo
+   else
+      do i=1,size(A)
+         if(abs(A(i)- B(i)).gt.delta)then
+            answer=0
+            exit
+         endif
+      enddo
+   endif
 else
    answer=0
 endif
@@ -1918,21 +2003,37 @@ do i=1,size(a)-1
 enddo
 end function issorted_real64
 
-function isequal_real64(A,B) result(answer)
+function isequal_real64(A,B,TOLERANCE) result(answer)
 ! TF = isequal(A) returns the logical scalar 1 (true) when the elements of A are identical to elementsof B or  0 (false) otherwise.
-real(kind=real64), intent(in) :: A(:)
-real(kind=real64), intent(in) :: B(:)
-integer                           :: answer
-integer                           :: i
+real(kind=real64), intent(in)           :: A(:)
+real(kind=real64), intent(in)           :: B(:)
+real(kind=real64), intent(in), optional :: TOLERANCE
+real(kind=real64)                       :: DELTA
+integer                                     :: answer
+integer                                     :: i
 answer=1
+if(present(tolerance))then
+   delta=tolerance
+else
+   delta=0
+endif
 if(size(A).eq.size(B))then
    ! A merge() might not short-circuit or make copies?
-   do i=1,size(A)
-      if(A(i) /= B(i))then
-         answer=0
-         exit
-      endif
-   enddo
+   if(delta.eq.0)then
+      do i=1,size(A)
+         if(A(i) /= B(i))then
+            answer=0
+            exit
+         endif
+      enddo
+   else
+      do i=1,size(A)
+         if(abs(A(i)- B(i)).gt.delta)then
+            answer=0
+            exit
+         endif
+      enddo
+   endif
 else
    answer=0
 endif

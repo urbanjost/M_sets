@@ -76,12 +76,13 @@ isequal(3f) - [M_sets] Report if vector A is equal to vector B
 </A>
 <BLOCKQUOTE>
 <P>
-isequal(A,B)
+isequal(A,B,TOLERANCE)
 <P>
 <PRE>
      character(len=:)intent(in) :: A,B
        or
      integer|real|complex(in) :: A,B
+     real,optional            :: TOLERANCE
 <P>
 </PRE>
 </BLOCKQUOTE>
@@ -121,7 +122,13 @@ input array to compare against
 <B>B</B> </TD><TD valign=bottom>
 input array to compare to A
 </TD></TR>
-<TR></TR></TABLE>A and B are of the same type and kind.
+<TR valign=top><TD colspan=2>
+<B>TOLERANCE</B> </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
+for numeric values consider the corresponding elements
+of A and B equal if they are equal within the specified
+tolerance.
+</TD></TR>
+<TR></TR></TABLE>A,B and TOLERANCE are of the same type and kind.
 </BLOCKQUOTE>
 <A name=4>
 
