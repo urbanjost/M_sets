@@ -1,0 +1,309 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="sorting and ordering procedures in Fortran">
+    <meta name="author" content="Michel Olagnon" >
+    <link rel="icon" href="../favicon.png">
+
+    <title>ismember &ndash; M_sets</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <link href="../css/fontawesome.min.css" rel="stylesheet">
+    <link href="../css/brands.min.css" rel="stylesheet">
+    <link href="../css/regular.min.css" rel="stylesheet">
+    <link href="../css/solid.min.css" rel="stylesheet">
+    <link href="../css/v4-font-face.min.css" rel="stylesheet">
+    <link href="../css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async
+            integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw=" crossorigin="anonymous"></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="../css/local.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html">M_sets </a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon">
+          </button>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/programs.html">Programs</a>
+                </li>
+            </ul>
+              <div class="d-flex align-items-end flex-grow-1">
+                <form action="../search.html" role="search" class="ms-auto">
+                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                </form>
+              </div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>ismember
+      <small>Interface</small>
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline" style="margin-bottom:0px;display:inline">
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title="<p> 0.8% of total for procedures.</p>Including implementation: 24 statements,  6.3% of total for procedures.">3 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/M_sets.F90"> Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/m_sets.f90.html'>M_sets.F90</a></li>
+                <li class="breadcrumb-item"><a href='../module/m_sets.html'>M_sets</a></li>
+            <li class="breadcrumb-item active" aria-current="page">ismember</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Enable Bootstrap tooltips
+    (function () {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    })();
+  </script>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
+        <div id="sidebar">
+      <h3>Contents</h3>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#modprocs-0"
+         aria-expanded="false" aria-controls="modprocs-0">
+         <h4 class="card-header bg-primary text-white">Module Procedures</h4>
+      </a>
+      <div id="modprocs-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../interface/ismember.html#moduleprocedure-ismember_c">ismember_c</a>
+        </div>
+      </div>
+    </div>
+
+  
+
+
+  </div>
+
+    </div>
+
+    <div class="col-md-9" id='text'>
+      <h2>public interface ismember</h2>
+      
+
+
+
+        <h2>Module Procedures</h2>
+            <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-ismember_c"></span> <h3>private  function ismember_c(a, b) result(answer)  
+</h3></div>
+    <div class="card-body">
+        <h2 id="name">NAME</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">ismember</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">Create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">mask</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">marking</span><span class="w"> </span><span class="n">elements</span><span class="w"> </span><span class="n">also</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">B</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="synopsis">SYNOPSIS</h2>
+<div class="codehilite"><pre><span></span><code>ismember(A,B)
+</code></pre></div>
+
+<h2 id="description">DESCRIPTION</h2>
+<p>Identifies elements of the first set that are members of the second set
+ as well.</p>
+<p>The returned array is a mask of the first array containing a 1
+ (aka. &ldquo;true&rdquo;) where the data in A is found in B. Elsewhere, the array
+ contains 0 (aka. &ldquo;false&rdquo;).</p>
+<h2 id="options">OPTIONS</h2>
+<div class="codehilite"><pre><span></span><code> A         input array
+ B         input array of values to find in vector A.
+</code></pre></div>
+
+<h2 id="returns">RETURNS</h2>
+<div class="codehilite"><pre><span></span><code> A mask of array A with a 1 at locations where the value in that
+ position in A is also a value that occurs in B, and with a 0 at
+ locations where that value in A was not found in B.
+</code></pre></div>
+
+<h2 id="examples">EXAMPLES</h2>
+<p>sample program:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_ismember</span>
+<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">ismember</span>
+<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
+<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
+<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">ISMEMBER</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">Determine which elements of A are also in B.</span><span class="s1">&#39;</span>
+
+    <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">2</span>]
+    <span class="nv">B</span><span class="o">=</span>[<span class="mi">2</span>,<span class="mi">4</span>,<span class="mi">4</span>,<span class="mi">4</span>,<span class="mi">6</span>,<span class="mi">8</span>]
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">ismember</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>
+
+<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_ismember</span>
+</code></pre></div>
+
+<p>Results:</p>
+<blockquote>
+<p>ISMEMBER Determine which elements of A are also in B.
+A= 5 3 4 2
+B= 2 4 4 4 6 8
+0 0 1 1</p>
+</blockquote>
+<h2 id="authors">AUTHORS</h2>
+<div class="codehilite"><pre><span></span><code>John S. Urban, 2023-07-20
+</code></pre></div>
+
+<h2 id="license">LICENSE</h2>
+<div class="codehilite"><pre><span></span><code>CC0-1.0
+</code></pre></div>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a~2"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>a</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b~2"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>b</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer, allocatable, (:)</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+</div>
+  </div>
+      <hr>
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              M_sets
+ was developed by Michel Olagnon<br>              &copy; 2025 
+</p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+ on 2025-07-11 01:10 +0000             </p>
+          </div>
+        </div>
+        <br>
+      </div> <!-- /container -->
+    </footer>
+  </body>
+</html>

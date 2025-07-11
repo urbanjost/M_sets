@@ -1,0 +1,1961 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="sorting and ordering procedures in Fortran">
+    <meta name="author" content="Michel Olagnon" >
+    <link rel="icon" href="../favicon.png">
+
+    <title>M_sets &ndash; M_sets</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <link href="../css/fontawesome.min.css" rel="stylesheet">
+    <link href="../css/brands.min.css" rel="stylesheet">
+    <link href="../css/regular.min.css" rel="stylesheet">
+    <link href="../css/solid.min.css" rel="stylesheet">
+    <link href="../css/v4-font-face.min.css" rel="stylesheet">
+    <link href="../css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async
+            integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw=" crossorigin="anonymous"></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="../css/local.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html">M_sets </a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon">
+          </button>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/programs.html">Programs</a>
+                </li>
+            </ul>
+              <div class="d-flex align-items-end flex-grow-1">
+                <form action="../search.html" role="search" class="ms-auto">
+                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                </form>
+              </div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>M_sets
+      <small>Module</small>
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline" style="margin-bottom:0px;display:inline">
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title="100.0% of total for modules and submodules.">1263 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/M_sets.F90"> Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/m_sets.f90.html'>M_sets.F90</a></li>
+            <li class="breadcrumb-item active" aria-current="page">M_sets</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Enable Bootstrap tooltips
+    (function () {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    })();
+  </script>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+        <div id="sidebar">
+      <h3>Contents</h3>
+  
+  
+  
+  
+  
+  
+  
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#inters-0"
+         aria-expanded="false" aria-controls="inters-0">
+         <h4 class="card-header bg-primary text-white">Interfaces</h4>
+      </a>
+      <div id="inters-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../module/m_sets.html#interface-bool">bool</a>
+            <a class="list-group-item" href="../module/m_sets.html#interface-intersect">intersect</a>
+            <a class="list-group-item" href="../module/m_sets.html#interface-isequal">isequal</a>
+            <a class="list-group-item" href="../module/m_sets.html#interface-ismember">ismember</a>
+            <a class="list-group-item" href="../module/m_sets.html#interface-issorted">issorted</a>
+            <a class="list-group-item" href="../module/m_sets.html#interface-setdiff">setdiff</a>
+            <a class="list-group-item" href="../module/m_sets.html#interface-setxor">setxor</a>
+            <a class="list-group-item" href="../module/m_sets.html#interface-union">union</a>
+            <a class="list-group-item" href="../module/m_sets.html#interface-unique">unique</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+  </div>
+
+    </div>
+
+    <div class="col-md-9" id='text'>
+      <h2 id="name">NAME</h2>
+<div class="codehilite"><pre><span></span><code>M_sets(3f) - [M_sets::INTRO] functions reminiscent of Matlab set
+functions
+</code></pre></div>
+
+<h2 id="synopsis">SYNOPSIS</h2>
+<div class="codehilite"><pre><span></span><code><span class="k">Proc</span><span class="nv">edure</span><span class="w"> </span><span class="nv">names</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="nv">syntax</span><span class="p">:</span><span class="w"></span>
+
+<span class="w"> </span><span class="nf">use</span><span class="w"> </span><span class="nv">M_sets</span><span class="p">,</span><span class="w"> </span><span class="nv">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
+<span class="w"> </span><span class="err">&amp;</span><span class="w"> </span><span class="nf">union</span><span class="p">,</span><span class="w"> </span><span class="nv">unique</span><span class="p">,</span><span class="w"> </span><span class="nv">intersect</span><span class="p">,</span><span class="w"> </span><span class="nv">setdiff</span><span class="p">,</span><span class="w"> </span><span class="nv">ismember</span><span class="p">,</span><span class="w"> </span><span class="nv">setxor</span><span class="w"></span>
+<span class="w"> </span><span class="nf">use</span><span class="w"> </span><span class="nv">M_sets</span><span class="p">,</span><span class="w"> </span><span class="nv">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
+<span class="w"> </span><span class="err">&amp;</span><span class="w"> </span><span class="nf">issorted</span><span class="p">,</span><span class="w"> </span><span class="nv">isequal</span><span class="p">,</span><span class="w"> </span><span class="nv">bool</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="description">DESCRIPTION</h2>
+<p>Set operations compare the elements in two sets to find commonalities
+ or differences. This includes Unions, Intersections, and Membership.</p>
+<p>M_set(3f) is a Fortran module comprising a small subset of set theory
+ functions reminiscent of Matlab functions.</p>
+<p>The functions currently support vectors of integer, default character,
+ and default real and doubleprecision type.</p>
+<p>float numbers (both kind=real32 and kind=real64) are allowed but &ldquo;caveat
+ emptor&rdquo;, as comparing floats for equality has issues. You may have to
+ condition the float data by converting it to scaled integers or using
+ intrinsics such as NEAREST(3f) to produce the desired results.</p>
+<p>M_set(3f) primarily uses simple calls to the M_orderpack(3f) module to
+ provide the functionality. The functions are not otherwise tuned for
+ performance and make loose use of memory allocation but are sufficient
+ for most uses, simple to use, and familiar to a large base of users.</p>
+<p>## Functions
+  + union(A,B,setOrder)     - Join two sets and remove duplicates of values
+  + unique(A,setOrder)      - Remove duplicates of values from a set
+  + intersect(A,B,setOrder) - Find the values common to both A and B
+  + setdiff(A,B,setOrder)   - Find the values in A that are not in B
+  + ismember(A,B,setOrder)  - Create a mask of A marking elements also in B
+  + setxor(A,B,setOrder)    - Find values of A and B not in both arrays
+  + issorted(A)             - Determine if array is already sorted
+  + isequal(A,B)             -Determine if two sets are equal with a tolerance
+  + bool(expr)              - 1 if logical expression is true, 0 if false.</p>
+<p>The subsequent data may be produced sorted, or left in the order
+  encountered.</p>
+<h2 id="examples">EXAMPLES</h2>
+<p>sample program:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_M_sets</span>
+<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="o">&amp;</span>
+<span class="o">&amp;</span> <span class="nv">unique</span>, <span class="nv">intersect</span>, <span class="nv">union</span>, <span class="nv">setdiff</span>, <span class="nv">setxor</span>, <span class="nv">bool</span>, <span class="o">&amp;</span>
+<span class="o">&amp;</span> <span class="nv">ismember</span>, <span class="nv">issorted</span>, <span class="nv">isequal</span>
+<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">all</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
+<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">nl</span><span class="o">=</span><span class="nv">new_line</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">A</span><span class="s1">&#39;</span><span class="ss">)</span>
+<span class="nv">integer</span>, <span class="nv">allocatable</span>      :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
+<span class="nv">integer</span>, <span class="nv">allocatable</span>      :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+<span class="nv">integer</span>, <span class="nv">allocatable</span>      :: <span class="nv">C</span><span class="ss">(</span>:<span class="ss">)</span>
+
+   <span class="nv">A</span> <span class="o">=</span> [<span class="mi">10</span>, <span class="o">-</span><span class="mi">10</span>, <span class="mi">0</span>, <span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>, <span class="o">-</span><span class="mi">10</span>]
+   <span class="o">!</span>
+   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">UNIQUE</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find the unique elements of vector A.</span><span class="s1">&#39;</span>            ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">sorted=</span><span class="s1">&#39;</span>,<span class="nv">unique</span><span class="ss">(</span><span class="nv">A</span><span class="ss">)</span>                                         ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">stable=</span><span class="s1">&#39;</span>,<span class="nv">unique</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">setOrder</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+
+   <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>, <span class="mi">7</span>, <span class="mi">1</span>]
+   <span class="nv">B</span><span class="o">=</span>[<span class="mi">3</span>, <span class="mi">1</span>, <span class="mi">1</span>]
+   <span class="o">!</span>
+   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">UNION</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">Find the union of vectors A and B.</span><span class="s1">&#39;</span>               ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">sorted=</span><span class="s1">&#39;</span>,<span class="nv">union</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="s1">&#39;</span><span class="s">sorted</span><span class="s1">&#39;</span><span class="ss">)</span>                             ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">stable=</span><span class="s1">&#39;</span>,<span class="nv">union</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+
+   <span class="nv">A</span><span class="o">=</span>[<span class="mi">7</span>, <span class="mi">1</span>, <span class="mi">7</span>, <span class="mi">7</span>, <span class="mi">4</span>]
+   <span class="nv">B</span><span class="o">=</span>[<span class="mi">7</span>, <span class="mi">0</span>, <span class="mi">4</span>, <span class="mi">4</span>, <span class="mi">0</span>]
+   <span class="o">!</span>
+   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">INTERSECT</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">Find the values common to both A and B.</span><span class="s1">&#39;</span>      ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">sorted=</span><span class="s1">&#39;</span>,<span class="nv">intersect</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span><span class="ss">)</span>                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">stable=</span><span class="s1">&#39;</span>,<span class="nv">intersect</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="nv">setOrder</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+
+   <span class="nv">A</span><span class="o">=</span>[<span class="mi">3</span>, <span class="mi">6</span>, <span class="mi">2</span>, <span class="mi">1</span>, <span class="mi">5</span>, <span class="mi">1</span>, <span class="mi">1</span>]
+   <span class="nv">B</span><span class="o">=</span>[<span class="mi">2</span>, <span class="mi">4</span>, <span class="mi">6</span>]
+   <span class="o">!</span>
+   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">SETDIFF</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find the values in A that are not in B.</span><span class="s1">&#39;</span>         ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">sorted=</span><span class="s1">&#39;</span>,<span class="nv">setdiff</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="s1">&#39;</span><span class="s">sorted</span><span class="s1">&#39;</span><span class="ss">)</span>                           ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">stable=</span><span class="s1">&#39;</span>,<span class="nv">setdiff</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+
+   <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">2</span>]
+   <span class="nv">B</span><span class="o">=</span>[<span class="mi">2</span>,<span class="mi">4</span>,<span class="mi">4</span>,<span class="mi">4</span>,<span class="mi">6</span>,<span class="mi">8</span>]
+   <span class="o">!</span>
+   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">ISMEMBER</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Determine which elements of A are also in B.</span><span class="s1">&#39;</span>   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">in A and B=</span><span class="s1">&#39;</span>,<span class="nv">ismember</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>
+
+   <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>,<span class="mi">1</span>,<span class="mi">3</span>,<span class="mi">3</span>,<span class="mi">3</span>]
+   <span class="nv">B</span><span class="o">=</span>[<span class="mi">4</span>,<span class="mi">1</span>,<span class="mi">2</span>]
+   <span class="o">!</span>
+   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">SETXOR</span><span class="s1">&#39;</span>                                                       , <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">Find values of A and B not in their intersection.</span><span class="s1">&#39;</span>         ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">sorted=</span><span class="s1">&#39;</span>,<span class="nv">setxor</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>                                       ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">stable=</span><span class="s1">&#39;</span>,<span class="nv">setxor</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span>,<span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+
+   <span class="nv">A</span><span class="o">=</span>[<span class="mi">1</span>,<span class="mi">2</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">5</span>]
+   <span class="nv">B</span><span class="o">=</span>[<span class="mi">5</span>,<span class="mi">4</span>,<span class="mi">3</span>,<span class="mi">2</span>,<span class="mi">1</span>]
+   <span class="o">!</span>
+   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">ISSSORTED</span><span class="s1">&#39;</span>                                                    , <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">confirm whether array is sorted in ascending order or not</span><span class="s1">&#39;</span> ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">is A sorted?</span><span class="s1">&#39;</span>,<span class="nv">issorted</span><span class="ss">(</span><span class="nv">A</span><span class="ss">)</span>                                  ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">is B sorted?</span><span class="s1">&#39;</span>,<span class="nv">issorted</span><span class="ss">(</span><span class="nv">B</span><span class="ss">)</span>
+
+   <span class="nv">A</span><span class="o">=</span>[<span class="mi">1</span>,<span class="mi">2</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">5</span>]
+   <span class="nv">B</span><span class="o">=</span>[<span class="mi">1</span>,<span class="mi">2</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">5</span>]
+   <span class="o">!</span>
+   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">ISEQUAL</span><span class="s1">&#39;</span>                                                     , <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">confirm whether sets have same elements in same order    </span><span class="s1">&#39;</span> ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">is A equal to B?</span><span class="s1">&#39;</span>,<span class="nv">isequal</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>                             ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">is B equal to -B?</span><span class="s1">&#39;</span>,<span class="nv">isequal</span><span class="ss">(</span><span class="nv">A</span>,<span class="o">-</span><span class="nv">B</span><span class="ss">)</span>
+
+   <span class="nv">A</span><span class="o">=</span>[<span class="mi">1</span>,<span class="mi">2</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">5</span>]
+   <span class="nv">B</span><span class="o">=</span>[<span class="mi">5</span>,<span class="mi">2</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">1</span>]
+   <span class="o">!</span>
+   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">BOOL</span><span class="s1">&#39;</span>                                                         , <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">if logical expression is true, 0 if false.</span><span class="s1">&#39;</span>                ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">is A(i) = B(i) ?</span><span class="s1">&#39;</span>,<span class="nv">bool</span><span class="ss">(</span><span class="nv">A</span><span class="o">==</span><span class="nv">B</span><span class="ss">)</span>                               ,<span class="nv">nl</span>, <span class="o">&amp;</span>
+   <span class="s1">&#39;</span><span class="s">how many elements are the same?</span><span class="s1">&#39;</span>,<span class="nv">sum</span><span class="ss">(</span><span class="nv">bool</span><span class="ss">(</span><span class="nv">A</span><span class="o">==</span><span class="nv">B</span><span class="ss">))</span>
+
+<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_M_sets</span>
+</code></pre></div>
+
+<p>Results:</p>
+<blockquote>
+<p>UNIQUE Find the unique elements of vector A.
+ A= 10 -10 0 1 2 3 3 2 1 -10
+ sorted= -10 0 1 2 3 10
+ stable= 10 -10 0 1 2 3</p>
+<p>UNION Find the union of vectors A and B.
+ A= 5 7 1
+ B= 3 1 1
+ sorted= 1 3 5 7
+ stable= 5 7 1 3</p>
+<p>INTERSECT Find the values common to both A and B.
+ A= 7 1 7 7 4
+ B= 7 0 4 4 0
+ sorted= 4 7
+ stable= 7 4</p>
+<p>SETDIFF Find the values in A that are not in B.
+ A= 3 6 2 1 5 1 1
+ B= 2 4 6
+ sorted= 1 3 5
+ stable= 3 1 5</p>
+<p>ISMEMBER Determine which elements of A are also in B.
+ A= 5 3 4 2
+ B= 2 4 4 4 6 8
+ in A and B= 0 0 1 1</p>
+<p>SETXOR Find values of A and B not in their intersection.
+ A= 5 1 3 3 3
+ B= 4 1 2
+ sorted= 2 3 4 5
+ stable= 5 3 4 2</p>
+<p>ISSSORTED confirm whether array is sorted in ascending order or not
+ A= 1 2 3 4 5
+ B= 5 4 3 2 1
+ is A sorted? 1
+ is B sorted? 0</p>
+<p>BOOL if logical expression is true, 0 if false.
+ A= 1 2 3 4 5
+ B= 5 2 3 4 1
+ is A(i) = B(i) ? 0 1 1 1 0
+ how many elements are the same? 3</p>
+</blockquote>
+<h2 id="authors">AUTHORS</h2>
+<div class="codehilite"><pre><span></span><code>John S. Urban, 2023-07-20
+</code></pre></div>
+
+<h2 id="license">LICENSE</h2>
+<div class="codehilite"><pre><span></span><code>CC0-1.0
+</code></pre></div>
+<br>          <div class="card mb-4">
+      <h3 class="card-header card-title bg-light">Uses</h3>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <ul class="list-inline">
+                  <li class="list-inline-item">M_orderpack</li>
+                  <li class="list-inline-item"><a href='http://fortranwiki.org/fortran/show/iso_fortran_env'>iso_fortran_env</a></li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+      
+      <br>
+
+
+
+
+        <section>
+          <h2>Interfaces</h2>
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-bool"></span>
+      <h3>public        interface <a href='../interface/bool.html'>bool</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function bool_expr(expr)  
+
+    </h3>
+  <h2 id="name">NAME</h2>
+<div class="codehilite"><pre><span></span><code><span class="nv">bool</span><span class="ss">(</span><span class="mi">3</span><span class="nv">f</span><span class="ss">)</span> <span class="o">-</span> [<span class="nv">M_sets</span>::<span class="nv">LOGICAL</span>] <span class="nv">returns</span> <span class="nv">One</span> <span class="k">if</span> <span class="nv">expression</span> <span class="nv">is</span> <span class="nv">TRUE</span>,
+<span class="k">else</span> <span class="nv">returns</span> <span class="nv">Zero</span>.
+<span class="ss">(</span><span class="nv">LICENSE</span>:<span class="nv">PD</span><span class="ss">)</span>
+</code></pre></div>
+
+<h2 id="synopsis">SYNOPSIS</h2>
+<div class="codehilite"><pre><span></span><code>pure elemental integer function bool(expr)
+
+ logical,intent(in) :: expr
+   or
+ character(len=:)intent(in) :: expr
+   or
+ integer|real|complex(in) :: expr
+</code></pre></div>
+
+<h2 id="description">DESCRIPTION</h2>
+<div class="codehilite"><pre><span></span><code>bool(3f) returns an integer 1 given a true logical expression.
+</code></pre></div>
+
+<h2 id="options">OPTIONS</h2>
+<p>expr  A logical expression. If any other intrinsic type a blank string is
+       TRUE as well as 0. 0.0, and (0.0,0.0). Non-zero numeric values
+       and non-blank or non-null strings are FALSE.</p>
+<h2 id="returns">RETURNS</h2>
+<p>The result is a default INTEGER value of 1 if the expression is TRUE,
+   and a 0 otherwise.</p>
+<h2 id="examples">EXAMPLES</h2>
+<p>Sample usage:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_bool</span>
+<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">bool</span>
+<span class="nv">implicit</span> <span class="nv">none</span>
+   <span class="nv">write</span> <span class="ss">(</span><span class="o">*</span>, <span class="o">*</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">is 10 &lt; 20 ?</span><span class="s1">&#39;</span>, <span class="nv">bool</span><span class="ss">(</span><span class="mi">10</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="ss">)</span>
+   <span class="nv">write</span> <span class="ss">(</span><span class="o">*</span>, <span class="o">*</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">elemental</span><span class="s1">&#39;</span>, <span class="nv">bool</span><span class="ss">(</span>[<span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">1</span>, <span class="mi">3</span> <span class="o">==</span> <span class="mi">4</span>, <span class="mi">10</span> <span class="o">&lt;</span> <span class="mi">5</span>, <span class="mi">100</span> <span class="o">&gt;</span> <span class="mi">50</span>]<span class="ss">)</span>
+   <span class="k">if</span> <span class="ss">(</span><span class="nv">sum</span><span class="ss">(</span><span class="nv">bool</span><span class="ss">(</span>[<span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">1</span>, <span class="mi">3</span> <span class="o">==</span> <span class="mi">4</span>, <span class="mi">10</span> <span class="o">&lt;</span> <span class="mi">5</span>, <span class="mi">100</span> <span class="o">&gt;</span> <span class="mi">50</span>]<span class="ss">))</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="ss">)</span> <span class="k">then</span>
+      <span class="nv">write</span> <span class="ss">(</span><span class="o">*</span>, <span class="o">*</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">two or more are true</span><span class="s1">&#39;</span>
+   <span class="k">endif</span>
+<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_bool</span>
+</code></pre></div>
+
+<p>Results:</p>
+<div class="codehilite"><pre><span></span><code> &gt; is 10 &lt; 20 ? 1
+ &gt; elemental 1 0 0 1
+ &gt; two or more are true
+</code></pre></div>
+
+<h2 id="author">AUTHOR</h2>
+<div class="codehilite"><pre><span></span><code>John S. Urban
+</code></pre></div>
+
+<h2 id="license">LICENSE</h2>
+<div class="codehilite"><pre><span></span><code>CC0-1.0
+</code></pre></div>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-expr"></span>
+              logical,
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>expr</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function bool_int8(int)  
+
+    </h3>
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-int"></span>
+              integer(kind=int8),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>int</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function bool_int16(int)  
+
+    </h3>
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-int~2"></span>
+              integer(kind=int16),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>int</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function bool_int32(int)  
+
+    </h3>
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-int~3"></span>
+              integer(kind=int32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>int</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function bool_int64(int)  
+
+    </h3>
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-int~4"></span>
+              integer(kind=int64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>int</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function bool_float32(float)  
+
+    </h3>
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-float"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>float</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function bool_float64(float)  
+
+    </h3>
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-float~2"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>float</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function bool_complex32(val)  
+
+    </h3>
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-val"></span>
+              complex(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>val</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function bool_complex64(val)  
+
+    </h3>
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-val~2"></span>
+              complex(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>val</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function bool_char(string)  
+
+    </h3>
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-string~2"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>string</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-intersect"></span>
+      <h3>public        interface <a href='../interface/intersect.html'>intersect</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private  function intersect_c(A, B, setOrder) result(answer)  
+
+    </h3>
+  <h2 id="name">NAME</h2>
+<div class="codehilite"><pre><span></span><code><span class="ow">intersect</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Find</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="n">common</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">both</span><span class="w"> </span><span class="k">sets</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">B</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="synopsis">SYNOPSIS</h2>
+<div class="codehilite"><pre><span></span><code>intersect(A,B, setOrder)
+</code></pre></div>
+
+<h2 id="description">DESCRIPTION</h2>
+<p>The values that occur at least once in each set are returned.</p>
+<p>That is, intersect(3f) returns the data common to both A and B, with
+ no repetitions.</p>
+<h2 id="options">OPTIONS</h2>
+<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>         <span class="nv">input</span> <span class="nv">array</span>
+ <span class="nv">B</span>         <span class="nv">input</span> <span class="nv">array</span>
+ <span class="nv">setOrder</span>  <span class="nv">May</span> <span class="nv">be</span> <span class="s2">&quot;</span><span class="s">sort</span><span class="s2">&quot;</span> <span class="nv">or</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span>. <span class="k">If</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span> <span class="nv">the</span> <span class="nv">values</span> <span class="nv">are</span>
+           <span class="nv">returned</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">order</span> <span class="nv">discovered</span>. <span class="nv">The</span> <span class="nv">default</span> <span class="nv">is</span>
+           <span class="s2">&quot;</span><span class="s">sorted</span><span class="s2">&quot;</span>, <span class="nv">which</span> <span class="nv">returns</span> <span class="nv">the</span> <span class="nv">data</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span>.
+</code></pre></div>
+
+<h2 id="examples">EXAMPLES</h2>
+<p>sample program:</p>
+<p>program demo_intersect
+   use M_sets, only: unique, intersect, union, setdiff, ismember, setxor
+   character(len=<em>),parameter :: g=&rsquo;(</em>(g0,1x))&rsquo;
+   integer, allocatable       :: A(:)
+   integer, allocatable       :: B(:)</p>
+<div class="codehilite"><pre><span></span><code>  write(*,g) &#39;INTERSECT&#39;, &#39;Find the values common to both A and B.&#39;
+   A=[7, 1, 7, 7, 4]
+   B=[7, 0, 4, 4, 0]
+   write(*,g) &#39;A=&#39;, A
+   write(*,g) &#39;B=&#39;, B
+   write(*,g) intersect(A, B)
+   write(*,g) intersect(A, B, setOrder=&#39;stable&#39;)
+</code></pre></div>
+
+<p>end program demo_intersect</p>
+<p>Results:</p>
+<blockquote>
+<p>INTERSECT Find the values common to both A and B.
+A= 7 1 7 7 4
+B= 7 0 4 4 0
+4 7
+7 4</p>
+</blockquote>
+<h2 id="authors">AUTHORS</h2>
+<div class="codehilite"><pre><span></span><code>John S. Urban, 2023-07-20
+</code></pre></div>
+
+<h2 id="license">LICENSE</h2>
+<div class="codehilite"><pre><span></span><code>CC0-1.0
+</code></pre></div>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a~4"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>A</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b~2"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>B</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-setorder~3"></span>
+              character(len=*),
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>setOrder</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>character(len=:), allocatable, (:)</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-isequal"></span>
+      <h3>public        interface <a href='../interface/isequal.html'>isequal</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private  function isequal_c(A, B) result(answer)  
+
+    </h3>
+  <h2 id="name">NAME</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">isequal</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Report</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">B</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="synopsis">SYNOPSIS</h2>
+<div class="codehilite"><pre><span></span><code>isequal(A,B,TOLERANCE)
+
+  character(len=:)intent(in) :: A,B
+    or
+  integer|real|complex(in) :: A,B
+  real,optional            :: TOLERANCE
+</code></pre></div>
+
+<h2 id="description">DESCRIPTION</h2>
+<div class="codehilite"><pre><span></span><code><span class="nv">Report</span> <span class="k">if</span> <span class="nv">A</span> <span class="nv">is</span> <span class="nv">equal</span> <span class="nv">to</span> <span class="nv">B</span>. <span class="nv">Equality</span> <span class="nv">is</span> <span class="nv">defined</span> <span class="nv">as</span> <span class="nv">the</span> <span class="nv">same</span> <span class="nv">element</span>
+<span class="nv">values</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">same</span> <span class="nv">order</span>.
+
+<span class="nv">A</span> <span class="mi">1</span> <span class="ss">(</span><span class="nv">true</span><span class="ss">)</span> <span class="nv">is</span> <span class="nv">returned</span> <span class="nv">when</span> <span class="nv">the</span> <span class="nv">elements</span> <span class="nv">of</span> <span class="nv">A</span> <span class="nv">have</span> <span class="nv">a</span> <span class="nv">one</span><span class="o">-</span><span class="nv">to</span><span class="o">-</span><span class="nv">one</span>
+<span class="nv">correspondence</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">elements</span> <span class="nv">of</span> <span class="nv">B</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">same</span> <span class="nv">values</span> <span class="nv">in</span> <span class="nv">the</span>
+<span class="nv">same</span> <span class="nv">order</span>.  <span class="mi">0</span> <span class="ss">(</span><span class="nv">false</span><span class="ss">)</span> <span class="nv">is</span> <span class="nv">returned</span> <span class="nv">otherwise</span>.
+</code></pre></div>
+
+<h2 id="options">OPTIONS</h2>
+<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>          <span class="nv">input</span> <span class="nv">array</span> <span class="nv">to</span> <span class="nv">compare</span> <span class="nv">against</span>
+ <span class="nv">B</span>          <span class="nv">input</span> <span class="nv">array</span> <span class="nv">to</span> <span class="nv">compare</span> <span class="nv">to</span> <span class="nv">A</span>
+ <span class="nv">TOLERANCE</span>  <span class="k">for</span> <span class="nv">numeric</span> <span class="nv">values</span> <span class="nv">consider</span> <span class="nv">the</span> <span class="nv">corresponding</span> <span class="nv">elements</span>
+            <span class="nv">of</span> <span class="nv">A</span> <span class="nv">and</span> <span class="nv">B</span> <span class="nv">equal</span> <span class="k">if</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">equal</span> <span class="nv">within</span> <span class="nv">the</span> <span class="nv">specified</span>
+            <span class="nv">tolerance</span>.
+
+ <span class="nv">A</span>,<span class="nv">B</span> <span class="nv">and</span> <span class="nv">TOLERANCE</span> <span class="nv">are</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">same</span> <span class="nv">type</span> <span class="nv">and</span> <span class="nv">kind</span>.
+</code></pre></div>
+
+<h2 id="returns">RETURNS</h2>
+<div class="codehilite"><pre><span></span><code> <span class="mi">1</span> <span class="k">if</span> <span class="nv">input</span> <span class="nv">array</span> <span class="nv">A</span> <span class="nv">is</span> <span class="nv">to</span> <span class="nv">array</span> <span class="nv">B</span>, <span class="mi">0</span> <span class="nv">otherwise</span>
+</code></pre></div>
+
+<h2 id="examples">EXAMPLES</h2>
+<p>sample program:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_isequal</span>
+<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">isequal</span>
+<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
+<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
+<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+
+<span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">isequal</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find if A is equal to B. </span><span class="s1">&#39;</span>
+    <span class="nv">A</span> <span class="o">=</span> [<span class="mi">10</span>, <span class="o">-</span><span class="mi">10</span>, <span class="mi">0</span>, <span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>,<span class="o">-</span><span class="mi">10</span>]
+    <span class="nv">B</span> <span class="o">=</span> [<span class="mi">10</span>, <span class="o">-</span><span class="mi">10</span>, <span class="mi">0</span>, <span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>, <span class="mi">10</span>]
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">isequal</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>
+<span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">isequal</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find if A is equal to A. </span><span class="s1">&#39;</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">isequal</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">A</span><span class="ss">)</span>
+
+<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_isequal</span>
+</code></pre></div>
+
+<p>Results:</p>
+<blockquote>
+<p>isequal Find the isequal elements of vector A.
+A= 10 -10 0 1 2 3 3 2 1 -10
+0
+A= -10 10 100 201
+1</p>
+</blockquote>
+<h2 id="authors">AUTHORS</h2>
+<div class="codehilite"><pre><span></span><code>John S. Urban, 2023-07-20
+</code></pre></div>
+
+<h2 id="license">LICENSE</h2>
+<div class="codehilite"><pre><span></span><code>CC0-1.0
+</code></pre></div>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a~5"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>A</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b~3"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>B</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-ismember"></span>
+      <h3>public        interface <a href='../interface/ismember.html'>ismember</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private  function ismember_c(a, b) result(answer)  
+
+    </h3>
+  <h2 id="name">NAME</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">ismember</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">Create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">mask</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">marking</span><span class="w"> </span><span class="n">elements</span><span class="w"> </span><span class="n">also</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">B</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="synopsis">SYNOPSIS</h2>
+<div class="codehilite"><pre><span></span><code>ismember(A,B)
+</code></pre></div>
+
+<h2 id="description">DESCRIPTION</h2>
+<p>Identifies elements of the first set that are members of the second set
+ as well.</p>
+<p>The returned array is a mask of the first array containing a 1
+ (aka. &ldquo;true&rdquo;) where the data in A is found in B. Elsewhere, the array
+ contains 0 (aka. &ldquo;false&rdquo;).</p>
+<h2 id="options">OPTIONS</h2>
+<div class="codehilite"><pre><span></span><code> A         input array
+ B         input array of values to find in vector A.
+</code></pre></div>
+
+<h2 id="returns">RETURNS</h2>
+<div class="codehilite"><pre><span></span><code> A mask of array A with a 1 at locations where the value in that
+ position in A is also a value that occurs in B, and with a 0 at
+ locations where that value in A was not found in B.
+</code></pre></div>
+
+<h2 id="examples">EXAMPLES</h2>
+<p>sample program:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_ismember</span>
+<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">ismember</span>
+<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
+<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
+<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">ISMEMBER</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">Determine which elements of A are also in B.</span><span class="s1">&#39;</span>
+
+    <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">2</span>]
+    <span class="nv">B</span><span class="o">=</span>[<span class="mi">2</span>,<span class="mi">4</span>,<span class="mi">4</span>,<span class="mi">4</span>,<span class="mi">6</span>,<span class="mi">8</span>]
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">ismember</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>
+
+<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_ismember</span>
+</code></pre></div>
+
+<p>Results:</p>
+<blockquote>
+<p>ISMEMBER Determine which elements of A are also in B.
+A= 5 3 4 2
+B= 2 4 4 4 6 8
+0 0 1 1</p>
+</blockquote>
+<h2 id="authors">AUTHORS</h2>
+<div class="codehilite"><pre><span></span><code>John S. Urban, 2023-07-20
+</code></pre></div>
+
+<h2 id="license">LICENSE</h2>
+<div class="codehilite"><pre><span></span><code>CC0-1.0
+</code></pre></div>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a~2"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>a</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b~2"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>b</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer, allocatable, (:)</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-issorted"></span>
+      <h3>public        interface <a href='../interface/issorted.html'>issorted</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private  function issorted_c(A) result(answer)  
+
+    </h3>
+  <h2 id="name">NAME</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">issorted</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Report</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">sorted</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">ascending</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="ow">not</span><span class="p">.</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="synopsis">SYNOPSIS</h2>
+<div class="codehilite"><pre><span></span><code>issorted(A)
+
+  character(len=:)intent(in) :: A
+    or
+  integer|real|complex(in) :: A
+</code></pre></div>
+
+<h2 id="description">DESCRIPTION</h2>
+<div class="codehilite"><pre><span></span><code><span class="nv">Report</span> <span class="k">if</span> <span class="nv">A</span> <span class="nv">is</span> <span class="nv">sorted</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span> <span class="nv">or</span> <span class="nv">not</span>. <span class="nv">A</span> <span class="mi">1</span> <span class="ss">(</span><span class="nv">true</span><span class="ss">)</span> <span class="nv">is</span>
+<span class="nv">returned</span> <span class="nv">when</span> <span class="nv">the</span> <span class="nv">elements</span> <span class="nv">of</span> <span class="nv">A</span> <span class="nv">are</span> <span class="nv">listed</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span> <span class="nv">and</span> <span class="mi">0</span>
+<span class="ss">(</span><span class="nv">false</span><span class="ss">)</span> <span class="nv">otherwise</span>.
+</code></pre></div>
+
+<h2 id="options">OPTIONS</h2>
+<div class="codehilite"><pre><span></span><code> A         input array to test
+</code></pre></div>
+
+<h2 id="returns">RETURNS</h2>
+<div class="codehilite"><pre><span></span><code> <span class="mi">1</span> <span class="k">if</span> <span class="nv">input</span> <span class="nv">array</span> <span class="nv">A</span> <span class="nv">is</span> <span class="nv">sorted</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span>, <span class="mi">0</span> <span class="nv">otherwise</span>
+</code></pre></div>
+
+<h2 id="examples">EXAMPLES</h2>
+<p>sample program:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_issorted</span>
+<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">issorted</span>
+<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
+<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
+
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">ISSORTED</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find the issorted elements of vector A.</span><span class="s1">&#39;</span>
+    <span class="nv">A</span> <span class="o">=</span> [<span class="mi">10</span>, <span class="o">-</span><span class="mi">10</span>, <span class="mi">0</span>, <span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>, <span class="o">-</span><span class="mi">10</span>]
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">issorted</span><span class="ss">(</span><span class="nv">A</span><span class="ss">)</span>
+    <span class="nv">A</span> <span class="o">=</span> [<span class="o">-</span><span class="mi">10</span>, <span class="mi">10</span>, <span class="mi">100</span>, <span class="mi">201</span>]
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">issorted</span><span class="ss">(</span><span class="nv">A</span><span class="ss">)</span>
+
+<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_issorted</span>
+</code></pre></div>
+
+<p>Results:</p>
+<blockquote>
+<p>ISSORTED Find the issorted elements of vector A.
+A= 10 -10 0 1 2 3 3 2 1 -10
+0
+A= -10 10 100 201
+1</p>
+</blockquote>
+<h2 id="authors">AUTHORS</h2>
+<div class="codehilite"><pre><span></span><code>John S. Urban, 2023-07-20
+</code></pre></div>
+
+<h2 id="license">LICENSE</h2>
+<div class="codehilite"><pre><span></span><code>CC0-1.0
+</code></pre></div>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a~6"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>A</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-setdiff"></span>
+      <h3>public        interface <a href='../interface/setdiff.html'>setdiff</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private  function setdiff_c(a, b, setOrder) result(answer)  
+
+    </h3>
+  <h2 id="name">NAME</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">setdiff</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Find</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">B</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="synopsis">SYNOPSIS</h2>
+<div class="codehilite"><pre><span></span><code>setdiff(A,B, setOrder)
+</code></pre></div>
+
+<h2 id="description">DESCRIPTION</h2>
+<p>setdiff(3f) returns the data in A that is not in B, with no repetitions.</p>
+<h2 id="options">OPTIONS</h2>
+<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>         <span class="nv">input</span> <span class="nv">array</span>
+ <span class="nv">B</span>         <span class="nv">input</span> <span class="nv">array</span>
+ <span class="nv">setOrder</span>  <span class="nv">May</span> <span class="nv">be</span> <span class="s2">&quot;</span><span class="s">sort</span><span class="s2">&quot;</span> <span class="nv">or</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span>. <span class="k">If</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span> <span class="nv">the</span> <span class="nv">values</span> <span class="nv">are</span>
+           <span class="nv">returned</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">order</span> <span class="nv">discovered</span>. <span class="nv">The</span> <span class="nv">default</span> <span class="nv">is</span>
+           <span class="s2">&quot;</span><span class="s">sorted</span><span class="s2">&quot;</span>, <span class="nv">which</span> <span class="nv">returns</span> <span class="nv">the</span> <span class="nv">data</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span>.
+</code></pre></div>
+
+<h2 id="examples">EXAMPLES</h2>
+<p>sample program:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_setdiff</span>
+<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">setdiff</span>
+<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
+<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
+<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">SETDIFF</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find the values in A that are not in B.</span><span class="s1">&#39;</span>
+    <span class="nv">A</span><span class="o">=</span>[<span class="mi">3</span>, <span class="mi">6</span>, <span class="mi">2</span>, <span class="mi">1</span>, <span class="mi">5</span>, <span class="mi">1</span>, <span class="mi">1</span>]
+    <span class="nv">B</span><span class="o">=</span>[<span class="mi">2</span>, <span class="mi">4</span>, <span class="mi">6</span>]
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">setdiff</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span><span class="ss">)</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">setdiff</span><span class="ss">(</span>[<span class="mi">4</span>, <span class="mi">1</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">5</span>], [<span class="mi">2</span>, <span class="mi">1</span>], <span class="s1">&#39;</span><span class="s">sorted</span><span class="s1">&#39;</span><span class="ss">)</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">setdiff</span><span class="ss">(</span>[<span class="mi">4</span>, <span class="mi">1</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">5</span>], [<span class="mi">2</span>, <span class="mi">1</span>], <span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+
+<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_setdiff</span>
+</code></pre></div>
+
+<p>Results:</p>
+<blockquote>
+<p>SETDIFF Find the values in A that are not in B.
+A= 3 6 2 1 5 1 1
+B= 2 4 6
+1 3 5
+3 4 5
+4 3 5</p>
+</blockquote>
+<h2 id="authors">AUTHORS</h2>
+<div class="codehilite"><pre><span></span><code>John S. Urban, 2023-07-20
+</code></pre></div>
+
+<h2 id="license">LICENSE</h2>
+<div class="codehilite"><pre><span></span><code>CC0-1.0
+</code></pre></div>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>a</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>b</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-setorder~4"></span>
+              character(len=*),
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>setOrder</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>character(len=:), allocatable, (:)</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-setxor"></span>
+      <h3>public        interface <a href='../interface/setxor.html'>setxor</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private  function setxor_c(a, b, setOrder) result(answer)  
+
+    </h3>
+  <h2 id="name">NAME</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">setxor</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Find</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">both</span><span class="w"> </span><span class="n">arrays</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="synopsis">SYNOPSIS</h2>
+<div class="codehilite"><pre><span></span><code>setxor(A,B, setOrder)
+</code></pre></div>
+
+<h2 id="description">DESCRIPTION</h2>
+<p>setxfor(3f) returns the exclusive OR of two arrays. That is, it returns
+ the data of A and B that are not in their intersection (the symmetric
+ difference), with no repetitions.</p>
+<p>Another way of defining the result is that setxor(3f) returns the data
+ that occurs in A or B, but not both.</p>
+<h2 id="options">OPTIONS</h2>
+<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>         <span class="nv">input</span> <span class="nv">array</span>
+ <span class="nv">B</span>         <span class="nv">input</span> <span class="nv">array</span>
+ <span class="nv">setOrder</span>  <span class="nv">May</span> <span class="nv">be</span> <span class="s2">&quot;</span><span class="s">sort</span><span class="s2">&quot;</span> <span class="nv">or</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span>. <span class="k">If</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span> <span class="nv">the</span> <span class="nv">values</span> <span class="nv">are</span>
+           <span class="nv">returned</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">order</span> <span class="nv">discovered</span>. <span class="nv">The</span> <span class="nv">default</span> <span class="nv">is</span>
+           <span class="s2">&quot;</span><span class="s">sorted</span><span class="s2">&quot;</span>, <span class="nv">which</span> <span class="nv">returns</span> <span class="nv">the</span> <span class="nv">data</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span>.
+</code></pre></div>
+
+<h2 id="examples">EXAMPLES</h2>
+<p>sample program:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_setxor</span>
+<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">setxor</span>
+<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
+<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
+<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">SETXOR</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find values of A and B not in their intersection.</span><span class="s1">&#39;</span>
+   <span class="nv">A</span> <span class="o">=</span> [<span class="mi">5</span>,<span class="mi">1</span>,<span class="mi">3</span>,<span class="mi">3</span>,<span class="mi">3</span>]
+   <span class="nv">B</span> <span class="o">=</span> [<span class="mi">4</span>,<span class="mi">1</span>,<span class="mi">2</span>]
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">setxor</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">setxor</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span>,<span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+
+<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_setxor</span>
+</code></pre></div>
+
+<p>Results:</p>
+<blockquote>
+<p>SETXOR Find values of A and B not in their intersection.
+A= 5 1 3 3 3
+B= 4 1 2
+2 3 4 5
+5 3 4 2</p>
+</blockquote>
+<h2 id="authors">AUTHORS</h2>
+<div class="codehilite"><pre><span></span><code>John S. Urban, 2023-07-20
+</code></pre></div>
+
+<h2 id="license">LICENSE</h2>
+<div class="codehilite"><pre><span></span><code>CC0-1.0
+</code></pre></div>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a~3"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>a</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b~3"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>b</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-setorder~5"></span>
+              character(len=*),
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>setOrder</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>character(len=:), allocatable, (:)</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-union"></span>
+      <h3>public        interface <a href='../interface/union.html'>union</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private  function union_c(A, B, setOrder) result(answer)  
+
+    </h3>
+  <h2 id="name">NAME</h2>
+<div class="codehilite"><pre><span></span><code><span class="ow">union</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">Join</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="k">sets</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">removes</span><span class="w"> </span><span class="n">duplicates</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">values</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="synopsis">SYNOPSIS</h2>
+<div class="codehilite"><pre><span></span><code>union(A,B, setOrder)
+</code></pre></div>
+
+<h2 id="description">DESCRIPTION</h2>
+<p>The two sets are combined and repetitions are removed.</p>
+<h2 id="options">OPTIONS</h2>
+<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>         <span class="nv">input</span> <span class="nv">array</span>
+ <span class="nv">B</span>         <span class="nv">input</span> <span class="nv">array</span>
+ <span class="nv">setOrder</span>  <span class="nv">May</span> <span class="nv">be</span> <span class="s2">&quot;</span><span class="s">sort</span><span class="s2">&quot;</span> <span class="nv">or</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span>. <span class="k">If</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span> <span class="nv">the</span> <span class="nv">values</span> <span class="nv">are</span>
+           <span class="nv">returned</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">order</span> <span class="nv">discovered</span>. <span class="nv">The</span> <span class="nv">default</span> <span class="nv">is</span>
+           <span class="s2">&quot;</span><span class="s">sorted</span><span class="s2">&quot;</span>, <span class="nv">which</span> <span class="nv">returns</span> <span class="nv">the</span> <span class="nv">data</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span>.
+</code></pre></div>
+
+<h2 id="examples">EXAMPLES</h2>
+<p>sample program:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_union</span>
+<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">union</span>
+<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
+<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
+<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">UNION</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">Find the union of vectors A and B.</span><span class="s1">&#39;</span>
+   <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>, <span class="mi">7</span>, <span class="mi">1</span>]
+   <span class="nv">B</span><span class="o">=</span>[<span class="mi">3</span>, <span class="mi">1</span>, <span class="mi">1</span>]
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">union</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>
+
+   <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>, <span class="mi">5</span>, <span class="mi">3</span>]
+   <span class="nv">B</span><span class="o">=</span>[<span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">5</span>]
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">union</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="s1">&#39;</span><span class="s">sorted</span><span class="s1">&#39;</span><span class="ss">)</span>
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">union</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+
+<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_union</span>
+</code></pre></div>
+
+<p>```
+ Results:</p>
+<blockquote>
+<p>UNION Find the union of vectors A and B.
+A= 5 7 1
+B= 3 1 1
+1 3 5 7
+A= 5 5 3
+B= 1 2 5
+1 2 3 5
+5 3 1 2</p>
+</blockquote>
+<h2 id="authors">AUTHORS</h2>
+<div class="codehilite"><pre><span></span><code>John S. Urban, 2023-07-20
+</code></pre></div>
+
+<h2 id="license">LICENSE</h2>
+<div class="codehilite"><pre><span></span><code>CC0-1.0
+</code></pre></div>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a~3"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>A</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>B</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-setorder~2"></span>
+              character(len=*),
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>setOrder</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>character(len=:), allocatable, (:)</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-unique"></span>
+      <h3>public        interface <a href='../interface/unique.html'>unique</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private  function unique_c(A, setOrder) result(answer)  
+
+    </h3>
+  <h2 id="name">NAME</h2>
+<div class="codehilite"><pre><span></span><code><span class="k">unique</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">array</span><span class="w"> </span><span class="n">A</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="synopsis">SYNOPSIS</h2>
+<div class="codehilite"><pre><span></span><code>unique(A,setOrder)
+</code></pre></div>
+
+<h2 id="description">DESCRIPTION</h2>
+<p>unique(3) returns the unique values found in an array. That is, it
+ eliminates all but one occurrence of each value.</p>
+<p>The result is in sorted order by default, but may be returned in the
+ order found.</p>
+<h2 id="options">OPTIONS</h2>
+<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>         <span class="nv">input</span> <span class="nv">array</span> <span class="nv">to</span> <span class="nv">extract</span> <span class="nv">unique</span> <span class="nv">values</span> <span class="nv">from</span>
+ <span class="nv">setOrder</span>  <span class="nv">May</span> <span class="nv">be</span> <span class="s2">&quot;</span><span class="s">sort</span><span class="s2">&quot;</span> <span class="nv">or</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span>. <span class="k">If</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span> <span class="nv">the</span> <span class="nv">values</span> <span class="nv">are</span>
+           <span class="nv">returned</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">order</span> <span class="nv">discovered</span>. <span class="nv">The</span> <span class="nv">default</span> <span class="nv">is</span>
+           <span class="s2">&quot;</span><span class="s">sorted</span><span class="s2">&quot;</span>, <span class="nv">which</span> <span class="nv">returns</span> <span class="nv">the</span> <span class="nv">data</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span>.
+</code></pre></div>
+
+<h2 id="returns">RETURNS</h2>
+<div class="codehilite"><pre><span></span><code> All the values that occur in the input occur in the output
+ just once. All duplicates are removed.
+</code></pre></div>
+
+<h2 id="examples">EXAMPLES</h2>
+<p>sample program:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_unique</span>
+<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">unique</span>
+<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
+<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
+
+   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">UNIQUE</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find the unique elements of vector A.</span><span class="s1">&#39;</span>
+    <span class="nv">A</span> <span class="o">=</span> [<span class="mi">10</span>, <span class="o">-</span><span class="mi">10</span>, <span class="mi">0</span>, <span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>, <span class="o">-</span><span class="mi">10</span>]
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">unique</span><span class="ss">(</span><span class="nv">A</span><span class="ss">)</span>
+    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">unique</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">setOrder</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+
+<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_unique</span>
+</code></pre></div>
+
+<p>Results:</p>
+<blockquote>
+<p>UNIQUE Find the unique elements of vector A.
+A= 10 -10 0 1 2 3 3 2 1 -10
+-10 0 1 2 3 10
+10 -10 0 1 2 3</p>
+</blockquote>
+<h2 id="authors">AUTHORS</h2>
+<div class="codehilite"><pre><span></span><code>John S. Urban, 2023-07-20
+</code></pre></div>
+
+<h2 id="license">LICENSE</h2>
+<div class="codehilite"><pre><span></span><code>CC0-1.0
+</code></pre></div>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a~2"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>A</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-setorder"></span>
+              character(len=*),
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>setOrder</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>character(len=:), allocatable, (:)</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+        </section>
+        <br>
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+      <hr>
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              M_sets
+ was developed by Michel Olagnon<br>              &copy; 2025 
+</p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+ on 2025-07-11 01:10 +0000             </p>
+          </div>
+        </div>
+        <br>
+      </div> <!-- /container -->
+    </footer>
+  </body>
+</html>
