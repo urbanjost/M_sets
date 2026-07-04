@@ -10,17 +10,20 @@ Set-theory operations compare the elements in two sets to find
 commonalities, differences, and membership.
 
 M_set(3f) is a Fortran module comprising a small group of set-theory
-functions reminiscent of related Matlab procedures.
+functions. Their names and function are reminiscent of related Matlab
+procedures.
 
 M_set(3f) is intended to be built with and used by fpm(1) projects.
-It requires M_orderpack(3f) as a dependency, which is of course
-taken care of automatically via fpm(1).
+It requires M_orderpack(3f) as a dependency, which is of course taken
+care of automatically via fpm(1). If not using fpm(1) the source for
+[M_orderpack](https://github.com/urbanjost/M_orderpack) must be downloaded
+as well.
 
-Currently the allowed sets are vectors of integer numbers or arrays
-of character variables. real numbers are allowed but "caveat emptor",
-as comparing floats for equality has issues. You may have to condition
-the float data by converting it to scaled integers or using intrinsics
-such as NEAREST(3f) to produce the desired results.
+Currently the recommended types of sets are vectors of integer numbers
+or arrays of character variables. real/float numbers are allowed but
+"caveat emptor", as comparing floats for equality has issues. You may
+have to condition the float data by converting it to scaled integers or
+using intrinsics such as NEAREST(3f) to produce the desired results.
 
 <!--
 M_sets(3f) basically uses some simple calls to the M_orderpack(3f)
