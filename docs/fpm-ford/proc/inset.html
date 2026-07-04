@@ -10,7 +10,7 @@
     <meta name="author" content="Michel Olagnon" >
     <link rel="icon" href="../favicon.png">
 
-    <title>unique &ndash; M_sets</title>
+    <title>inset &ndash; M_sets</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -77,8 +77,8 @@
 
     <div class="container">
   <div class="row">
-    <h1>unique
-      <small>Interface</small>
+    <h1>inset
+      <small>Function</small>
       
     </h1>
       <div class="container p-2 mb-4 bg-light border rounded-3">
@@ -88,21 +88,21 @@
 
             <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
               <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-                 title="<p> 0.6% of total for procedures.</p>Including implementation: 25 statements,  5.2% of total for procedures.">3 statements</a>
+                 title=" 2.7% of total for procedures.">13 statements</a>
             </li>
 
             <li class="list-inline-item" id="source-file">
               <i class="fa fa-code"></i>
-              <a href="../src/M_sets.F90"> Source File</a>
+              <a href="../src/fid.f90"> Source File</a>
             </li>
         </ul>
       </div>
       <div class="col">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb justify-content-end mb-0">
-                <li class="breadcrumb-item"><a href='../sourcefile/m_sets.f90.html'>M_sets.F90</a></li>
-                <li class="breadcrumb-item"><a href='../module/m_sets.html'>M_sets</a></li>
-            <li class="breadcrumb-item active" aria-current="page">unique</li>
+                <li class="breadcrumb-item"><a href='../sourcefile/fid.f90.html'>fid.f90</a></li>
+                <li class="breadcrumb-item"><a href='../program/test_id.html'>test_id</a></li>
+            <li class="breadcrumb-item active" aria-current="page">inset</li>
           </ol>
         </nav>
       </div>
@@ -117,117 +117,64 @@
   </script>
 
   </div>
-
+  
   <div class="row">
     <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
-        <div id="sidebar">
+      <div id="sidebar">
       <h3>Contents</h3>
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
       <div class="card mb-4">
-      <a data-bs-toggle="collapse" href="#modprocs-0"
-         aria-expanded="false" aria-controls="modprocs-0">
-         <h4 class="card-header bg-primary text-white">Module Procedures</h4>
+      <a data-bs-toggle="collapse" href="#vars-0"
+         aria-expanded="false" aria-controls="vars-0">
+         <h4 class="card-header bg-primary text-white">Variables</h4>
       </a>
-      <div id="modprocs-0" class="collapse">
+      <div id="vars-0" class="collapse">
         <div class="list-group list-group-flush">
-            <a class="list-group-item" href="../interface/unique.html#moduleprocedure-unique_c">unique_c</a>
+            <a class="list-group-item" href="../proc/inset.html#variable-i~3">i</a>
+            <a class="list-group-item" href="../proc/inset.html#variable-nl~2">nl</a>
         </div>
       </div>
     </div>
 
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <div class="card card-primary">
+      <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
+      <div class="list-group">
+        <a class="list-group-item" href="../proc/inset.html#src">inset</a>
+      </div>
+    </div>
 
 
   </div>
 
     </div>
-
+    
     <div class="col-md-9" id='text'>
-      <h2>public interface unique</h2>
-      
+    <h2> function inset(string) result(longer)  
+</h2>
+    
 
 
 
-        <h2>Module Procedures</h2>
-            <div class="card">
-    <div class="card-header codesum"><span class="anchor" id="proc-unique_c"></span> <h3>private  function unique_c(A, setOrder) result(answer)  
-</h3></div>
-    <div class="card-body">
-        <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="k">unique</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">array</span><span class="w"> </span><span class="n">A</span>
-</code></pre></div>
-
-<h2 id="synopsis">SYNOPSIS</h2>
-<div class="codehilite"><pre><span></span><code>unique(A,setOrder)
-</code></pre></div>
-
-<h2 id="description">DESCRIPTION</h2>
-<p>unique(3) returns the unique values found in an array. That is, it
- eliminates all but one occurrence of each value.</p>
-<p>The result is in sorted order by default, but may be returned in the
- order found.</p>
-<h2 id="options">OPTIONS</h2>
-<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="nv">A</span><span class="w">         </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">extract</span><span class="w"> </span><span class="nv">unique</span><span class="w"> </span><span class="nv">values</span><span class="w"> </span><span class="nv">from</span>
-<span class="w"> </span><span class="nv">setOrder</span><span class="w">  </span><span class="nv">May</span><span class="w"> </span><span class="nv">be</span><span class="w"> </span><span class="s2">&quot;sort&quot;</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span>.<span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">values</span><span class="w"> </span><span class="nv">are</span>
-<span class="w">           </span><span class="nv">returned</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">order</span><span class="w"> </span><span class="nv">discovered</span>.<span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">is</span>
-<span class="w">           </span><span class="s2">&quot;sorted&quot;</span>,<span class="w"> </span><span class="nv">which</span><span class="w"> </span><span class="nv">returns</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">ascending</span><span class="w"> </span><span class="nv">order</span>.
-</code></pre></div>
-
-<h2 id="returns">RETURNS</h2>
-<div class="codehilite"><pre><span></span><code> All the values that occur in the input occur in the output
- just once. All duplicates are removed.
-</code></pre></div>
-
-<h2 id="examples">EXAMPLES</h2>
-<p>sample program:</p>
-<div class="codehilite"><pre><span></span><code>program demo_unique
-use M_sets, only: unique
-character(len=*),parameter :: g=&#39;(*(g0,1x))&#39;
-integer,allocatable        :: A(:)
-
-   write(*,g) &#39;UNIQUE&#39;,&#39;Find the unique elements of vector A.&#39;
-    A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
-    write(*,g) &#39;A=&#39;, A
-    write(*,g) unique(A)
-    write(*,g) unique(A, setOrder=&#39;stable&#39;)
-
-end program demo_unique
-</code></pre></div>
-
-<p>Results:</p>
-<blockquote>
-<p>UNIQUE Find the unique elements of vector A.
-A= 10 -10 0 1 2 3 3 2 1 -10
--10 0 1 2 3 10
-10 -10 0 1 2 3</p>
-</blockquote>
-<h2 id="authors">AUTHORS</h2>
-<div class="codehilite"><pre><span></span><code>John S. Urban, 2023-07-20
-</code></pre></div>
-
-<h2 id="license">LICENSE</h2>
-<div class="codehilite"><pre><span></span><code>CC0-1.0
-</code></pre></div>
-
-  <h4>Arguments</h4>
-      <table class="table table-striped varlist">
+    <h3>Arguments</h3>
+        <table class="table table-striped varlist">
     <thead>
       <tr>
         <th scope="col">Type</th>
@@ -239,7 +186,7 @@ A= 10 -10 0 1 2 3 3 2 1 -10
     <tbody>
         <tr>
             <td>
-              <span class="anchor" id="variable-a~2"></span>
+              <span class="anchor" id="variable-string"></span>
               character(len=*),
             </td>
 <td>intent(in)</td>
@@ -247,22 +194,7 @@ A= 10 -10 0 1 2 3 3 2 1 -10
               
             </td>
             <td>::</td>
-            <td><strong>A</strong>(:)</td>
-            <td>
-                
-            </td>
-        </tr>
-        <tr>
-            <td>
-              <span class="anchor" id="variable-setorder"></span>
-              character(len=*),
-            </td>
-<td>intent(in),</td>
-              <td>optional</td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>setOrder</strong></td>
+            <td><strong>string</strong></td>
             <td>
                 
             </td>
@@ -270,17 +202,99 @@ A= 10 -10 0 1 2 3 3 2 1 -10
     </tbody>
   </table>
 
-    <h4>
-    Return Value
-    <small>character(len=:), allocatable, (:)</small>
-    </h4>
+      <h3>Return Value
+        <small>
+          <span class="anchor" id="variable-longer"></span>
+          character(len=:), allocatable
+        </small>
+      </h3>
+      
+    <br>
+
+
+    <section>    
+      <h2>Variables</h2>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Visibility</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+<th></th><th scope="col">Initial</th>        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-i~3"></span>
+              integer,
+            </td>
+              <td>public</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>i</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-nl~2"></span>
+              character(len=*),
+            </td>
+              <td>public,</td>
+            <td>
+parameter               
+            </td>
+            <td>::</td>
+            <td><strong>nl</strong></td>
+<td> =</td>
+                <td>new_line(&#39;a&#39;)</td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    </section>
+    <br>
+    
     
 
+    
+    
+
+
+
+    
+    <section>
+    <h2><span class="anchor" id="src"></span>Source Code</h2>
+    <div class="hl codehilite"><pre><span></span><span class="k">function </span><span class="n">inset</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">longer</span><span class="p">)</span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">    </span><span class="kd">::</span><span class="w"> </span><span class="n">string</span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="w">   </span><span class="kd">::</span><span class="w"> </span><span class="n">longer</span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span><span class="w">     </span><span class="kd">::</span><span class="w"> </span><span class="n">nl</span><span class="o">=</span><span class="nb">new_line</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="kt">integer</span><span class="w">                        </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span>
+<span class="w">   </span><span class="n">longer</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<span class="w">   </span><span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="w">      </span><span class="n">longer</span><span class="o">=</span><span class="n">longer</span><span class="o">//</span><span class="n">string</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">)</span>
+<span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">string</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="n">nl</span><span class="p">)</span><span class="k">then</span>
+<span class="k">         </span><span class="n">longer</span><span class="o">=</span><span class="n">longer</span><span class="o">//</span><span class="s1">&#39;   &#39;</span>
+<span class="w">      </span><span class="k">endif</span>
+<span class="k">   enddo</span>
+<span class="k">end function </span><span class="n">inset</span>
+</pre></div>
+
+    </section>
+    <br>
+    
     </div>
   </div>
 
-</div>
-  </div>
       <hr>
     </div> <!-- /container -->
     <footer>

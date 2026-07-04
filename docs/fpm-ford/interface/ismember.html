@@ -88,7 +88,7 @@
 
             <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
               <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-                 title="<p> 0.8% of total for procedures.</p>Including implementation: 24 statements,  6.3% of total for procedures.">3 statements</a>
+                 title="<p> 0.6% of total for procedures.</p>Including implementation: 24 statements,  5.0% of total for procedures.">3 statements</a>
             </li>
 
             <li class="list-inline-item" id="source-file">
@@ -171,7 +171,7 @@
 </h3></div>
     <div class="card-body">
         <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">ismember</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">Create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">mask</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">marking</span><span class="w"> </span><span class="n">elements</span><span class="w"> </span><span class="n">also</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">B</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">ismember</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">Create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">mask</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">marking</span><span class="w"> </span><span class="n">elements</span><span class="w"> </span><span class="n">also</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">B</span>
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -197,21 +197,21 @@
 
 <h2 id="examples">EXAMPLES</h2>
 <p>sample program:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_ismember</span>
-<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">ismember</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
-<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
-<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code>program demo_ismember
+use M_sets, only: ismember
+character(len=*),parameter :: g=&#39;(*(g0,1x))&#39;
+integer, allocatable       :: A(:)
+integer, allocatable       :: B(:)
 
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">ISMEMBER</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">Determine which elements of A are also in B.</span><span class="s1">&#39;</span>
+   write(*,g) &#39;ISMEMBER&#39;, &#39;Determine which elements of A are also in B.&#39;
 
-    <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">2</span>]
-    <span class="nv">B</span><span class="o">=</span>[<span class="mi">2</span>,<span class="mi">4</span>,<span class="mi">4</span>,<span class="mi">4</span>,<span class="mi">6</span>,<span class="mi">8</span>]
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">ismember</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>
+    A=[5,3,4,2]
+    B=[2,4,4,4,6,8]
+    write(*,g) &#39;A=&#39;, A
+    write(*,g) &#39;B=&#39;, B
+    write(*,g) ismember(A,B)
 
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_ismember</span>
+end program demo_ismember
 </code></pre></div>
 
 <p>Results:</p>
@@ -292,14 +292,14 @@ B= 2 4 4 4 6 8
           <div class="col">
             <p>
               M_sets
- was developed by Michel Olagnon<br>              &copy; 2025 
+ was developed by Michel Olagnon<br>              &copy; 2026 
 </p>
           </div>
           <div class="col">
             <p class="text-end">
               Documentation generated by
               <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2025-07-11 01:10 +0000             </p>
+ on 2026-07-04 13:31 +0000             </p>
           </div>
         </div>
         <br>

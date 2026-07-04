@@ -10,7 +10,7 @@
     <meta name="author" content="Michel Olagnon" >
     <link rel="icon" href="../favicon.png">
 
-    <title>demo_unique &ndash; M_sets</title>
+    <title>machineid &ndash; M_sets</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -77,7 +77,8 @@
 
     <div class="container">
   <div class="row">
-    <h1>demo_unique      <small>Program</small>
+    <h1>machineid
+      <small>Subroutine</small>
       
     </h1>
       <div class="container p-2 mb-4 bg-light border rounded-3">
@@ -87,20 +88,21 @@
 
             <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
               <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-                 title=" 1.5% of total for programs.">10 statements</a>
+                 title=" 2.5% of total for procedures.">12 statements</a>
             </li>
 
             <li class="list-inline-item" id="source-file">
               <i class="fa fa-code"></i>
-              <a href="../src/demo_unique.f90"> Source File</a>
+              <a href="../src/fid.f90"> Source File</a>
             </li>
         </ul>
       </div>
       <div class="col">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb justify-content-end mb-0">
-                <li class="breadcrumb-item"><a href='../sourcefile/demo_unique.f90.html'>demo_unique.f90</a></li>
-            <li class="breadcrumb-item active" aria-current="page">demo_unique</li>
+                <li class="breadcrumb-item"><a href='../sourcefile/fid.f90.html'>fid.f90</a></li>
+                <li class="breadcrumb-item"><a href='../program/test_id.html'>test_id</a></li>
+            <li class="breadcrumb-item active" aria-current="page">machineid</li>
           </ol>
         </nav>
       </div>
@@ -128,8 +130,9 @@
       </a>
       <div id="vars-0" class="collapse">
         <div class="list-group list-group-flush">
-            <a class="list-group-item" href="../program/demo_unique.html#variable-a~39">A</a>
-            <a class="list-group-item" href="../program/demo_unique.html#variable-g~5">g</a>
+            <a class="list-group-item" href="../proc/machineid.html#variable-iostat">iostat</a>
+            <a class="list-group-item" href="../proc/machineid.html#variable-line~2">line</a>
+            <a class="list-group-item" href="../proc/machineid.html#variable-lun">lun</a>
         </div>
       </div>
     </div>
@@ -155,7 +158,7 @@
     <div class="card card-primary">
       <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
       <div class="list-group">
-        <a class="list-group-item" href="../program/demo_unique.html#src">demo_unique</a>
+        <a class="list-group-item" href="../proc/machineid.html#src">machineid</a>
       </div>
     </div>
 
@@ -165,29 +168,25 @@
     </div>
     
     <div class="col-md-9" id='text'>
-        <div class="card mb-4">
-      <h3 class="card-header card-title bg-light">Uses</h3>
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              <ul class="list-inline">
-                  <li class="list-inline-item"><a href='../module/m_sets.html'>M_sets</a></li>
-              </ul>
-            </li>
-        </ul>
-      </div>
-    </div>
-
+    <h2> subroutine machineid()  
+</h2>
     
 
 
-    <section>
-    <h2>Variables</h2>
+
+    <h3>Arguments</h3>
+    <em>None</em>
+    <br>
+    <br>
+
+
+    <section>    
+      <h2>Variables</h2>
       <table class="table table-striped varlist">
     <thead>
       <tr>
         <th scope="col">Type</th>
-        <th scope="col">Attributes</th>
+<th scope="col">Visibility</th>        <th scope="col">Attributes</th>
         <th scope="col"></th>
         <th scope="col">Name</th>
 <th></th><th scope="col">Initial</th>        <th scope="col"></th>
@@ -195,14 +194,15 @@
     <tbody>
         <tr>
             <td>
-              <span class="anchor" id="variable-a~39"></span>
+              <span class="anchor" id="variable-iostat"></span>
               integer,
             </td>
+              <td>public</td>
             <td>
-              allocatable
+              
             </td>
             <td>::</td>
-            <td><strong>A</strong>(:)</td>
+            <td><strong>iostat</strong></td>
                 <td></td>
                 <td></td>
             <td>
@@ -211,16 +211,34 @@
         </tr>
         <tr>
             <td>
-              <span class="anchor" id="variable-g~5"></span>
-              character(len=*),
+              <span class="anchor" id="variable-line~2"></span>
+              character(len=256),
             </td>
+              <td>public</td>
             <td>
-parameter               
+              
             </td>
             <td>::</td>
-            <td><strong>g</strong></td>
-<td> =</td>
-                <td>&#39;(*(g0,1x))&#39;</td>
+            <td><strong>line</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-lun"></span>
+              integer,
+            </td>
+              <td>public</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>lun</strong></td>
+                <td></td>
+                <td></td>
             <td>
                 
             </td>
@@ -232,30 +250,33 @@ parameter
     <br>
     
     
-    
 
     
+    
+
 
 
     
-
     <section>
-    <h2 id="src">Source Code</h2>
-    <div class="hl codehilite"><pre><span></span><span class="w">     </span><span class="k">program </span><span class="n">demo_unique</span>
-<span class="w">     </span><span class="k">use </span><span class="n">M_sets</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">unique</span>
-<span class="w">     </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">g</span><span class="o">=</span><span class="s1">&#39;(*(g0,1x))&#39;</span>
-<span class="w">     </span><span class="kt">integer</span><span class="p">,</span><span class="k">allocatable</span><span class="w">        </span><span class="kd">::</span><span class="w"> </span><span class="n">A</span><span class="p">(:)</span>
-
-<span class="w">        </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="n">g</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;UNIQUE&#39;</span><span class="p">,</span><span class="s1">&#39;Find the unique elements of vector A.&#39;</span>
-<span class="w">         </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
-<span class="w">         </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="n">g</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;A=&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">A</span>
-<span class="w">         </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="n">g</span><span class="p">)</span><span class="w"> </span><span class="n">unique</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="w">         </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="n">g</span><span class="p">)</span><span class="w"> </span><span class="n">unique</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">setOrder</span><span class="o">=</span><span class="s1">&#39;stable&#39;</span><span class="p">)</span>
-
-<span class="w">     </span><span class="k">end program </span><span class="n">demo_unique</span>
+    <h2><span class="anchor" id="src"></span>Source Code</h2>
+    <div class="hl codehilite"><pre><span></span><span class="k">subroutine </span><span class="n">machineid</span><span class="p">()</span>
+<span class="c">! OS code for machine, not real hardware ID.</span>
+<span class="c">! should look something like 566f9e977c3c4c46d993b04f5f57f6a8</span>
+<span class="kt">integer</span><span class="w">            </span><span class="kd">::</span><span class="w"> </span><span class="n">lun</span>
+<span class="kt">integer</span><span class="w">            </span><span class="kd">::</span><span class="w"> </span><span class="n">iostat</span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">line</span>
+<span class="w">   </span><span class="k">open</span><span class="p">(</span><span class="n">newunit</span><span class="o">=</span><span class="n">lun</span><span class="p">,</span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;/var/lib/dbus/machine-id&#39;</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">iostat</span><span class="p">)</span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="n">iostat</span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="k">then</span>
+<span class="k">      read</span><span class="p">(</span><span class="n">lun</span><span class="p">,</span><span class="s1">&#39;(a)&#39;</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">iostat</span><span class="p">)</span><span class="n">line</span>
+<span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">iostat</span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="k">then</span>
+<span class="k">         write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;(*(g0))&#39;</span><span class="p">)</span><span class="s1">&#39;pseudo machine-id : &#39;</span><span class="p">,</span><span class="nb">trim</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="w">      </span><span class="k">endif</span>
+<span class="k">   endif</span>
+<span class="k">end subroutine </span><span class="n">machineid</span>
 </pre></div>
 
     </section>
+    <br>
     
     </div>
   </div>

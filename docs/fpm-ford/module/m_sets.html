@@ -173,12 +173,12 @@ functions
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
-<div class="codehilite"><pre><span></span><code><span class="k">Proc</span><span class="nv">edure</span><span class="w"> </span><span class="nv">names</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="nv">syntax</span><span class="p">:</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">Proc</span><span class="nv">edure</span><span class="w"> </span><span class="nv">names</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="nv">syntax</span><span class="p">:</span>
 
-<span class="w"> </span><span class="nf">use</span><span class="w"> </span><span class="nv">M_sets</span><span class="p">,</span><span class="w"> </span><span class="nv">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
-<span class="w"> </span><span class="err">&amp;</span><span class="w"> </span><span class="nf">union</span><span class="p">,</span><span class="w"> </span><span class="nv">unique</span><span class="p">,</span><span class="w"> </span><span class="nv">intersect</span><span class="p">,</span><span class="w"> </span><span class="nv">setdiff</span><span class="p">,</span><span class="w"> </span><span class="nv">ismember</span><span class="p">,</span><span class="w"> </span><span class="nv">setxor</span><span class="w"></span>
-<span class="w"> </span><span class="nf">use</span><span class="w"> </span><span class="nv">M_sets</span><span class="p">,</span><span class="w"> </span><span class="nv">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
-<span class="w"> </span><span class="err">&amp;</span><span class="w"> </span><span class="nf">issorted</span><span class="p">,</span><span class="w"> </span><span class="nv">isequal</span><span class="p">,</span><span class="w"> </span><span class="nv">bool</span><span class="w"></span>
+<span class="w"> </span><span class="nf">use</span><span class="w"> </span><span class="nv">M_sets</span><span class="p">,</span><span class="w"> </span><span class="nv">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w"> </span><span class="err">&amp;</span><span class="w"> </span><span class="nf">union</span><span class="p">,</span><span class="w"> </span><span class="nv">unique</span><span class="p">,</span><span class="w"> </span><span class="nv">intersect</span><span class="p">,</span><span class="w"> </span><span class="nv">setdiff</span><span class="p">,</span><span class="w"> </span><span class="nv">ismember</span><span class="p">,</span><span class="w"> </span><span class="nv">setxor</span>
+<span class="w"> </span><span class="nf">use</span><span class="w"> </span><span class="nv">M_sets</span><span class="p">,</span><span class="w"> </span><span class="nv">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w"> </span><span class="err">&amp;</span><span class="w"> </span><span class="nf">issorted</span><span class="p">,</span><span class="w"> </span><span class="nv">isequal</span><span class="p">,</span><span class="w"> </span><span class="nv">bool</span>
 </code></pre></div>
 
 <h2 id="description">DESCRIPTION</h2>
@@ -210,108 +210,108 @@ functions
   encountered.</p>
 <h2 id="examples">EXAMPLES</h2>
 <p>sample program:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_M_sets</span>
-<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="o">&amp;</span>
-<span class="o">&amp;</span> <span class="nv">unique</span>, <span class="nv">intersect</span>, <span class="nv">union</span>, <span class="nv">setdiff</span>, <span class="nv">setxor</span>, <span class="nv">bool</span>, <span class="o">&amp;</span>
-<span class="o">&amp;</span> <span class="nv">ismember</span>, <span class="nv">issorted</span>, <span class="nv">isequal</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">all</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">nl</span><span class="o">=</span><span class="nv">new_line</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">A</span><span class="s1">&#39;</span><span class="ss">)</span>
-<span class="nv">integer</span>, <span class="nv">allocatable</span>      :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
-<span class="nv">integer</span>, <span class="nv">allocatable</span>      :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
-<span class="nv">integer</span>, <span class="nv">allocatable</span>      :: <span class="nv">C</span><span class="ss">(</span>:<span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code>program demo_M_sets
+use M_sets, only: &amp;
+&amp; unique, intersect, union, setdiff, setxor, bool, &amp;
+&amp; ismember, issorted, isequal
+character(len=*),parameter :: all=&#39;(*(g0,1x))&#39;
+character(len=*),parameter :: nl=new_line(&#39;A&#39;)
+integer, allocatable      :: A(:)
+integer, allocatable      :: B(:)
+integer, allocatable      :: C(:)
 
-   <span class="nv">A</span> <span class="o">=</span> [<span class="mi">10</span>, <span class="o">-</span><span class="mi">10</span>, <span class="mi">0</span>, <span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>, <span class="o">-</span><span class="mi">10</span>]
-   <span class="o">!</span>
-   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">UNIQUE</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find the unique elements of vector A.</span><span class="s1">&#39;</span>            ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">sorted=</span><span class="s1">&#39;</span>,<span class="nv">unique</span><span class="ss">(</span><span class="nv">A</span><span class="ss">)</span>                                         ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">stable=</span><span class="s1">&#39;</span>,<span class="nv">unique</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">setOrder</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+   A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
+   !
+   print all                                                   ,nl, &amp;
+   &#39;UNIQUE&#39;,&#39;Find the unique elements of vector A.&#39;            ,nl, &amp;
+   &#39;A=&#39;, A                                                     ,nl, &amp;
+   &#39;sorted=&#39;,unique(A)                                         ,nl, &amp;
+   &#39;stable=&#39;,unique(A, setOrder=&#39;stable&#39;)
 
-   <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>, <span class="mi">7</span>, <span class="mi">1</span>]
-   <span class="nv">B</span><span class="o">=</span>[<span class="mi">3</span>, <span class="mi">1</span>, <span class="mi">1</span>]
-   <span class="o">!</span>
-   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">UNION</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">Find the union of vectors A and B.</span><span class="s1">&#39;</span>               ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">sorted=</span><span class="s1">&#39;</span>,<span class="nv">union</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="s1">&#39;</span><span class="s">sorted</span><span class="s1">&#39;</span><span class="ss">)</span>                             ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">stable=</span><span class="s1">&#39;</span>,<span class="nv">union</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+   A=[5, 7, 1]
+   B=[3, 1, 1]
+   !
+   print all                                                   ,nl, &amp;
+   &#39;UNION&#39;, &#39;Find the union of vectors A and B.&#39;               ,nl, &amp;
+   &#39;A=&#39;, A                                                     ,nl, &amp;
+   &#39;B=&#39;, B                                                     ,nl, &amp;
+   &#39;sorted=&#39;,union(A, B, &#39;sorted&#39;)                             ,nl, &amp;
+   &#39;stable=&#39;,union(A, B, &#39;stable&#39;)
 
-   <span class="nv">A</span><span class="o">=</span>[<span class="mi">7</span>, <span class="mi">1</span>, <span class="mi">7</span>, <span class="mi">7</span>, <span class="mi">4</span>]
-   <span class="nv">B</span><span class="o">=</span>[<span class="mi">7</span>, <span class="mi">0</span>, <span class="mi">4</span>, <span class="mi">4</span>, <span class="mi">0</span>]
-   <span class="o">!</span>
-   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">INTERSECT</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">Find the values common to both A and B.</span><span class="s1">&#39;</span>      ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">sorted=</span><span class="s1">&#39;</span>,<span class="nv">intersect</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span><span class="ss">)</span>                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">stable=</span><span class="s1">&#39;</span>,<span class="nv">intersect</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="nv">setOrder</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+   A=[7, 1, 7, 7, 4]
+   B=[7, 0, 4, 4, 0]
+   !
+   print all                                                   ,nl, &amp;
+   &#39;INTERSECT&#39;, &#39;Find the values common to both A and B.&#39;      ,nl, &amp;
+   &#39;A=&#39;, A                                                     ,nl, &amp;
+   &#39;B=&#39;, B                                                     ,nl, &amp;
+   &#39;sorted=&#39;,intersect(A, B)                                   ,nl, &amp;
+   &#39;stable=&#39;,intersect(A, B, setOrder=&#39;stable&#39;)
 
-   <span class="nv">A</span><span class="o">=</span>[<span class="mi">3</span>, <span class="mi">6</span>, <span class="mi">2</span>, <span class="mi">1</span>, <span class="mi">5</span>, <span class="mi">1</span>, <span class="mi">1</span>]
-   <span class="nv">B</span><span class="o">=</span>[<span class="mi">2</span>, <span class="mi">4</span>, <span class="mi">6</span>]
-   <span class="o">!</span>
-   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">SETDIFF</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find the values in A that are not in B.</span><span class="s1">&#39;</span>         ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">sorted=</span><span class="s1">&#39;</span>,<span class="nv">setdiff</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="s1">&#39;</span><span class="s">sorted</span><span class="s1">&#39;</span><span class="ss">)</span>                           ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">stable=</span><span class="s1">&#39;</span>,<span class="nv">setdiff</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+   A=[3, 6, 2, 1, 5, 1, 1]
+   B=[2, 4, 6]
+   !
+   print all                                                   ,nl, &amp;
+   &#39;SETDIFF&#39;,&#39;Find the values in A that are not in B.&#39;         ,nl, &amp;
+   &#39;A=&#39;, A                                                     ,nl, &amp;
+   &#39;B=&#39;, B                                                     ,nl, &amp;
+   &#39;sorted=&#39;,setdiff(A, B, &#39;sorted&#39;)                           ,nl, &amp;
+   &#39;stable=&#39;,setdiff(A, B, &#39;stable&#39;)
 
-   <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">2</span>]
-   <span class="nv">B</span><span class="o">=</span>[<span class="mi">2</span>,<span class="mi">4</span>,<span class="mi">4</span>,<span class="mi">4</span>,<span class="mi">6</span>,<span class="mi">8</span>]
-   <span class="o">!</span>
-   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">ISMEMBER</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Determine which elements of A are also in B.</span><span class="s1">&#39;</span>   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">in A and B=</span><span class="s1">&#39;</span>,<span class="nv">ismember</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>
+   A=[5,3,4,2]
+   B=[2,4,4,4,6,8]
+   !
+   print all                                                   ,nl, &amp;
+   &#39;ISMEMBER&#39;,&#39;Determine which elements of A are also in B.&#39;   ,nl, &amp;
+   &#39;A=&#39;, A                                                     ,nl, &amp;
+   &#39;B=&#39;, B                                                     ,nl, &amp;
+   &#39;in A and B=&#39;,ismember(A,B)
 
-   <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>,<span class="mi">1</span>,<span class="mi">3</span>,<span class="mi">3</span>,<span class="mi">3</span>]
-   <span class="nv">B</span><span class="o">=</span>[<span class="mi">4</span>,<span class="mi">1</span>,<span class="mi">2</span>]
-   <span class="o">!</span>
-   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">SETXOR</span><span class="s1">&#39;</span>                                                       , <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">Find values of A and B not in their intersection.</span><span class="s1">&#39;</span>         ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">sorted=</span><span class="s1">&#39;</span>,<span class="nv">setxor</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>                                       ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">stable=</span><span class="s1">&#39;</span>,<span class="nv">setxor</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span>,<span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+   A=[5,1,3,3,3]
+   B=[4,1,2]
+   !
+   print all                                                   ,nl, &amp;
+   &#39;SETXOR&#39;                                                       , &amp;
+   &#39;Find values of A and B not in their intersection.&#39;         ,nl, &amp;
+   &#39;A=&#39;, A                                                     ,nl, &amp;
+   &#39;B=&#39;, B                                                     ,nl, &amp;
+   &#39;sorted=&#39;,setxor(A,B)                                       ,nl, &amp;
+   &#39;stable=&#39;,setxor(A,B,&#39;stable&#39;)
 
-   <span class="nv">A</span><span class="o">=</span>[<span class="mi">1</span>,<span class="mi">2</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">5</span>]
-   <span class="nv">B</span><span class="o">=</span>[<span class="mi">5</span>,<span class="mi">4</span>,<span class="mi">3</span>,<span class="mi">2</span>,<span class="mi">1</span>]
-   <span class="o">!</span>
-   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">ISSSORTED</span><span class="s1">&#39;</span>                                                    , <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">confirm whether array is sorted in ascending order or not</span><span class="s1">&#39;</span> ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">is A sorted?</span><span class="s1">&#39;</span>,<span class="nv">issorted</span><span class="ss">(</span><span class="nv">A</span><span class="ss">)</span>                                  ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">is B sorted?</span><span class="s1">&#39;</span>,<span class="nv">issorted</span><span class="ss">(</span><span class="nv">B</span><span class="ss">)</span>
+   A=[1,2,3,4,5]
+   B=[5,4,3,2,1]
+   !
+   print all                                                   ,nl, &amp;
+   &#39;ISSSORTED&#39;                                                    , &amp;
+   &#39;confirm whether array is sorted in ascending order or not&#39; ,nl, &amp;
+   &#39;A=&#39;, A                                                     ,nl, &amp;
+   &#39;B=&#39;, B                                                     ,nl, &amp;
+   &#39;is A sorted?&#39;,issorted(A)                                  ,nl, &amp;
+   &#39;is B sorted?&#39;,issorted(B)
 
-   <span class="nv">A</span><span class="o">=</span>[<span class="mi">1</span>,<span class="mi">2</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">5</span>]
-   <span class="nv">B</span><span class="o">=</span>[<span class="mi">1</span>,<span class="mi">2</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">5</span>]
-   <span class="o">!</span>
-   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">ISEQUAL</span><span class="s1">&#39;</span>                                                     , <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">confirm whether sets have same elements in same order    </span><span class="s1">&#39;</span> ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">is A equal to B?</span><span class="s1">&#39;</span>,<span class="nv">isequal</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>                             ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">is B equal to -B?</span><span class="s1">&#39;</span>,<span class="nv">isequal</span><span class="ss">(</span><span class="nv">A</span>,<span class="o">-</span><span class="nv">B</span><span class="ss">)</span>
+   A=[1,2,3,4,5]
+   B=[1,2,3,4,5]
+   !
+   print all                                                   ,nl, &amp;
+   &#39;ISEQUAL&#39;                                                     , &amp;
+   &#39;confirm whether sets have same elements in same order    &#39; ,nl, &amp;
+   &#39;A=&#39;, A                                                     ,nl, &amp;
+   &#39;B=&#39;, B                                                     ,nl, &amp;
+   &#39;is A equal to B?&#39;,isequal(A,B)                             ,nl, &amp;
+   &#39;is B equal to -B?&#39;,isequal(A,-B)
 
-   <span class="nv">A</span><span class="o">=</span>[<span class="mi">1</span>,<span class="mi">2</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">5</span>]
-   <span class="nv">B</span><span class="o">=</span>[<span class="mi">5</span>,<span class="mi">2</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">1</span>]
-   <span class="o">!</span>
-   <span class="nv">print</span> <span class="nv">all</span>                                                   ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">BOOL</span><span class="s1">&#39;</span>                                                         , <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">if logical expression is true, 0 if false.</span><span class="s1">&#39;</span>                ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>                                                     ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">is A(i) = B(i) ?</span><span class="s1">&#39;</span>,<span class="nv">bool</span><span class="ss">(</span><span class="nv">A</span><span class="o">==</span><span class="nv">B</span><span class="ss">)</span>                               ,<span class="nv">nl</span>, <span class="o">&amp;</span>
-   <span class="s1">&#39;</span><span class="s">how many elements are the same?</span><span class="s1">&#39;</span>,<span class="nv">sum</span><span class="ss">(</span><span class="nv">bool</span><span class="ss">(</span><span class="nv">A</span><span class="o">==</span><span class="nv">B</span><span class="ss">))</span>
+   A=[1,2,3,4,5]
+   B=[5,2,3,4,1]
+   !
+   print all                                                   ,nl, &amp;
+   &#39;BOOL&#39;                                                         , &amp;
+   &#39;if logical expression is true, 0 if false.&#39;                ,nl, &amp;
+   &#39;A=&#39;, A                                                     ,nl, &amp;
+   &#39;B=&#39;, B                                                     ,nl, &amp;
+   &#39;is A(i) = B(i) ?&#39;,bool(A==B)                               ,nl, &amp;
+   &#39;how many elements are the same?&#39;,sum(bool(A==B))
 
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_M_sets</span>
+end program demo_M_sets
 </code></pre></div>
 
 <p>Results:</p>
@@ -397,9 +397,9 @@ functions
 
     </h3>
   <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="nv">bool</span><span class="ss">(</span><span class="mi">3</span><span class="nv">f</span><span class="ss">)</span> <span class="o">-</span> [<span class="nv">M_sets</span>::<span class="nv">LOGICAL</span>] <span class="nv">returns</span> <span class="nv">One</span> <span class="k">if</span> <span class="nv">expression</span> <span class="nv">is</span> <span class="nv">TRUE</span>,
-<span class="k">else</span> <span class="nv">returns</span> <span class="nv">Zero</span>.
-<span class="ss">(</span><span class="nv">LICENSE</span>:<span class="nv">PD</span><span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code>bool(3f) - [M_sets::LOGICAL] returns One if expression is TRUE,
+else returns Zero.
+(LICENSE:PD)
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -425,15 +425,15 @@ functions
    and a 0 otherwise.</p>
 <h2 id="examples">EXAMPLES</h2>
 <p>Sample usage:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_bool</span>
-<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">bool</span>
-<span class="nv">implicit</span> <span class="nv">none</span>
-   <span class="nv">write</span> <span class="ss">(</span><span class="o">*</span>, <span class="o">*</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">is 10 &lt; 20 ?</span><span class="s1">&#39;</span>, <span class="nv">bool</span><span class="ss">(</span><span class="mi">10</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="ss">)</span>
-   <span class="nv">write</span> <span class="ss">(</span><span class="o">*</span>, <span class="o">*</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">elemental</span><span class="s1">&#39;</span>, <span class="nv">bool</span><span class="ss">(</span>[<span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">1</span>, <span class="mi">3</span> <span class="o">==</span> <span class="mi">4</span>, <span class="mi">10</span> <span class="o">&lt;</span> <span class="mi">5</span>, <span class="mi">100</span> <span class="o">&gt;</span> <span class="mi">50</span>]<span class="ss">)</span>
-   <span class="k">if</span> <span class="ss">(</span><span class="nv">sum</span><span class="ss">(</span><span class="nv">bool</span><span class="ss">(</span>[<span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">1</span>, <span class="mi">3</span> <span class="o">==</span> <span class="mi">4</span>, <span class="mi">10</span> <span class="o">&lt;</span> <span class="mi">5</span>, <span class="mi">100</span> <span class="o">&gt;</span> <span class="mi">50</span>]<span class="ss">))</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="ss">)</span> <span class="k">then</span>
-      <span class="nv">write</span> <span class="ss">(</span><span class="o">*</span>, <span class="o">*</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">two or more are true</span><span class="s1">&#39;</span>
-   <span class="k">endif</span>
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_bool</span>
+<div class="codehilite"><pre><span></span><code><span class="nx">program</span><span class="w"> </span><span class="nx">demo_bool</span>
+<span class="nx">use</span><span class="w"> </span><span class="nx">M_sets</span><span class="p">,</span><span class="w"> </span><span class="nx">only</span><span class="p">:</span><span class="w"> </span><span class="kt">bool</span>
+<span class="nx">implicit</span><span class="w"> </span><span class="nx">none</span>
+<span class="w">   </span><span class="nx">write</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="err">&#39;</span><span class="k">is</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="p">?</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">20</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">write</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">elemental</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">([</span><span class="mi">2</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">50</span><span class="p">])</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">sum</span><span class="p">(</span><span class="kt">bool</span><span class="p">([</span><span class="mi">2</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">50</span><span class="p">]))</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span><span class="nx">write</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">two</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="nx">more</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="kc">true</span><span class="err">&#39;</span>
+<span class="w">   </span><span class="nx">endif</span>
+<span class="nx">end</span><span class="w"> </span><span class="nx">program</span><span class="w"> </span><span class="nx">demo_bool</span>
 </code></pre></div>
 
 <p>Results:</p>
@@ -850,7 +850,7 @@ functions
     <tbody>
         <tr>
             <td>
-              <span class="anchor" id="variable-string~2"></span>
+              <span class="anchor" id="variable-string~3"></span>
               character(len=*),
             </td>
 <td>intent(in)</td>
@@ -889,7 +889,7 @@ functions
 
     </h3>
   <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="ow">intersect</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Find</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="n">common</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">both</span><span class="w"> </span><span class="k">sets</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">B</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="ow">intersect</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Find</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="n">common</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">both</span><span class="w"> </span><span class="k">sets</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">B</span>
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -901,11 +901,11 @@ functions
 <p>That is, intersect(3f) returns the data common to both A and B, with
  no repetitions.</p>
 <h2 id="options">OPTIONS</h2>
-<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>         <span class="nv">input</span> <span class="nv">array</span>
- <span class="nv">B</span>         <span class="nv">input</span> <span class="nv">array</span>
- <span class="nv">setOrder</span>  <span class="nv">May</span> <span class="nv">be</span> <span class="s2">&quot;</span><span class="s">sort</span><span class="s2">&quot;</span> <span class="nv">or</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span>. <span class="k">If</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span> <span class="nv">the</span> <span class="nv">values</span> <span class="nv">are</span>
-           <span class="nv">returned</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">order</span> <span class="nv">discovered</span>. <span class="nv">The</span> <span class="nv">default</span> <span class="nv">is</span>
-           <span class="s2">&quot;</span><span class="s">sorted</span><span class="s2">&quot;</span>, <span class="nv">which</span> <span class="nv">returns</span> <span class="nv">the</span> <span class="nv">data</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span>.
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="nv">A</span><span class="w">         </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span>
+<span class="w"> </span><span class="nv">B</span><span class="w">         </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span>
+<span class="w"> </span><span class="nv">setOrder</span><span class="w">  </span><span class="nv">May</span><span class="w"> </span><span class="nv">be</span><span class="w"> </span><span class="s2">&quot;sort&quot;</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span>.<span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">values</span><span class="w"> </span><span class="nv">are</span>
+<span class="w">           </span><span class="nv">returned</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">order</span><span class="w"> </span><span class="nv">discovered</span>.<span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">is</span>
+<span class="w">           </span><span class="s2">&quot;sorted&quot;</span>,<span class="w"> </span><span class="nv">which</span><span class="w"> </span><span class="nv">returns</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">ascending</span><span class="w"> </span><span class="nv">order</span>.
 </code></pre></div>
 
 <h2 id="examples">EXAMPLES</h2>
@@ -1023,7 +1023,7 @@ B= 7 0 4 4 0
 
     </h3>
   <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">isequal</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Report</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">B</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">isequal</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Report</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">B</span>
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -1036,46 +1036,46 @@ B= 7 0 4 4 0
 </code></pre></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<div class="codehilite"><pre><span></span><code><span class="nv">Report</span> <span class="k">if</span> <span class="nv">A</span> <span class="nv">is</span> <span class="nv">equal</span> <span class="nv">to</span> <span class="nv">B</span>. <span class="nv">Equality</span> <span class="nv">is</span> <span class="nv">defined</span> <span class="nv">as</span> <span class="nv">the</span> <span class="nv">same</span> <span class="nv">element</span>
-<span class="nv">values</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">same</span> <span class="nv">order</span>.
+<div class="codehilite"><pre><span></span><code><span class="nv">Report</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">equal</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">B</span>.<span class="w"> </span><span class="nv">Equality</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">defined</span><span class="w"> </span><span class="nv">as</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">same</span><span class="w"> </span><span class="nv">element</span>
+<span class="nv">values</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">same</span><span class="w"> </span><span class="nv">order</span>.
 
-<span class="nv">A</span> <span class="mi">1</span> <span class="ss">(</span><span class="nv">true</span><span class="ss">)</span> <span class="nv">is</span> <span class="nv">returned</span> <span class="nv">when</span> <span class="nv">the</span> <span class="nv">elements</span> <span class="nv">of</span> <span class="nv">A</span> <span class="nv">have</span> <span class="nv">a</span> <span class="nv">one</span><span class="o">-</span><span class="nv">to</span><span class="o">-</span><span class="nv">one</span>
-<span class="nv">correspondence</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">elements</span> <span class="nv">of</span> <span class="nv">B</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">same</span> <span class="nv">values</span> <span class="nv">in</span> <span class="nv">the</span>
-<span class="nv">same</span> <span class="nv">order</span>.  <span class="mi">0</span> <span class="ss">(</span><span class="nv">false</span><span class="ss">)</span> <span class="nv">is</span> <span class="nv">returned</span> <span class="nv">otherwise</span>.
+<span class="nv">A</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="ss">(</span><span class="nv">true</span><span class="ss">)</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">returned</span><span class="w"> </span><span class="nv">when</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">elements</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">have</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">one</span><span class="o">-</span><span class="nv">to</span><span class="o">-</span><span class="nv">one</span>
+<span class="nv">correspondence</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">elements</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">B</span><span class="w"> </span><span class="nv">with</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">same</span><span class="w"> </span><span class="nv">values</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span>
+<span class="nv">same</span><span class="w"> </span><span class="nv">order</span>.<span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="ss">(</span><span class="nv">false</span><span class="ss">)</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">returned</span><span class="w"> </span><span class="nv">otherwise</span>.
 </code></pre></div>
 
 <h2 id="options">OPTIONS</h2>
-<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>          <span class="nv">input</span> <span class="nv">array</span> <span class="nv">to</span> <span class="nv">compare</span> <span class="nv">against</span>
- <span class="nv">B</span>          <span class="nv">input</span> <span class="nv">array</span> <span class="nv">to</span> <span class="nv">compare</span> <span class="nv">to</span> <span class="nv">A</span>
- <span class="nv">TOLERANCE</span>  <span class="k">for</span> <span class="nv">numeric</span> <span class="nv">values</span> <span class="nv">consider</span> <span class="nv">the</span> <span class="nv">corresponding</span> <span class="nv">elements</span>
-            <span class="nv">of</span> <span class="nv">A</span> <span class="nv">and</span> <span class="nv">B</span> <span class="nv">equal</span> <span class="k">if</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">equal</span> <span class="nv">within</span> <span class="nv">the</span> <span class="nv">specified</span>
-            <span class="nv">tolerance</span>.
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="nx">A</span><span class="w">          </span><span class="nx">input</span><span class="w"> </span><span class="nx">array</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">compare</span><span class="w"> </span><span class="nx">against</span>
+<span class="w"> </span><span class="nx">B</span><span class="w">          </span><span class="nx">input</span><span class="w"> </span><span class="nx">array</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">compare</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">A</span>
+<span class="w"> </span><span class="nx">TOLERANCE</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="nx">numeric</span><span class="w"> </span><span class="nx">values</span><span class="w"> </span><span class="nx">consider</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">corresponding</span><span class="w"> </span><span class="nx">elements</span>
+<span class="w">            </span><span class="nx">of</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="nx">equal</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">they</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">equal</span><span class="w"> </span><span class="nx">within</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">specified</span>
+<span class="w">            </span><span class="nx">tolerance</span><span class="p">.</span>
 
- <span class="nv">A</span>,<span class="nv">B</span> <span class="nv">and</span> <span class="nv">TOLERANCE</span> <span class="nv">are</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">same</span> <span class="nv">type</span> <span class="nv">and</span> <span class="nv">kind</span>.
+<span class="w"> </span><span class="nx">A</span><span class="p">,</span><span class="nx">B</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">TOLERANCE</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">same</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">kind</span><span class="p">.</span>
 </code></pre></div>
 
 <h2 id="returns">RETURNS</h2>
-<div class="codehilite"><pre><span></span><code> <span class="mi">1</span> <span class="k">if</span> <span class="nv">input</span> <span class="nv">array</span> <span class="nv">A</span> <span class="nv">is</span> <span class="nv">to</span> <span class="nv">array</span> <span class="nv">B</span>, <span class="mi">0</span> <span class="nv">otherwise</span>
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">array</span><span class="w"> </span><span class="nv">B</span>,<span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nv">otherwise</span>
 </code></pre></div>
 
 <h2 id="examples">EXAMPLES</h2>
 <p>sample program:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_isequal</span>
-<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">isequal</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
-<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
-<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code>program demo_isequal
+use M_sets, only: isequal
+character(len=*),parameter :: g=&#39;(*(g0,1x))&#39;
+integer,allocatable        :: A(:)
+integer,allocatable        :: B(:)
 
-<span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">isequal</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find if A is equal to B. </span><span class="s1">&#39;</span>
-    <span class="nv">A</span> <span class="o">=</span> [<span class="mi">10</span>, <span class="o">-</span><span class="mi">10</span>, <span class="mi">0</span>, <span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>,<span class="o">-</span><span class="mi">10</span>]
-    <span class="nv">B</span> <span class="o">=</span> [<span class="mi">10</span>, <span class="o">-</span><span class="mi">10</span>, <span class="mi">0</span>, <span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>, <span class="mi">10</span>]
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">isequal</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>
-<span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">isequal</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find if A is equal to A. </span><span class="s1">&#39;</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">isequal</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">A</span><span class="ss">)</span>
+write(*,g) &#39;isequal&#39;,&#39;Find if A is equal to B. &#39;
+    A = [10, -10, 0, 1, 2, 3, 3, 2, 1,-10]
+    B = [10, -10, 0, 1, 2, 3, 3, 2, 1, 10]
+    write(*,g) &#39;A=&#39;, A
+    write(*,g) &#39;B=&#39;, B
+    write(*,g) isequal(A,B)
+write(*,g) &#39;isequal&#39;,&#39;Find if A is equal to A. &#39;
+    write(*,g) isequal(A,A)
 
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_isequal</span>
+end program demo_isequal
 </code></pre></div>
 
 <p>Results:</p>
@@ -1161,7 +1161,7 @@ A= -10 10 100 201
 
     </h3>
   <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">ismember</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">Create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">mask</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">marking</span><span class="w"> </span><span class="n">elements</span><span class="w"> </span><span class="n">also</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">B</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">ismember</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">Create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">mask</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">marking</span><span class="w"> </span><span class="n">elements</span><span class="w"> </span><span class="n">also</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">B</span>
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -1187,21 +1187,21 @@ A= -10 10 100 201
 
 <h2 id="examples">EXAMPLES</h2>
 <p>sample program:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_ismember</span>
-<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">ismember</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
-<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
-<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code>program demo_ismember
+use M_sets, only: ismember
+character(len=*),parameter :: g=&#39;(*(g0,1x))&#39;
+integer, allocatable       :: A(:)
+integer, allocatable       :: B(:)
 
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">ISMEMBER</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">Determine which elements of A are also in B.</span><span class="s1">&#39;</span>
+   write(*,g) &#39;ISMEMBER&#39;, &#39;Determine which elements of A are also in B.&#39;
 
-    <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>,<span class="mi">3</span>,<span class="mi">4</span>,<span class="mi">2</span>]
-    <span class="nv">B</span><span class="o">=</span>[<span class="mi">2</span>,<span class="mi">4</span>,<span class="mi">4</span>,<span class="mi">4</span>,<span class="mi">6</span>,<span class="mi">8</span>]
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">ismember</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>
+    A=[5,3,4,2]
+    B=[2,4,4,4,6,8]
+    write(*,g) &#39;A=&#39;, A
+    write(*,g) &#39;B=&#39;, B
+    write(*,g) ismember(A,B)
 
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_ismember</span>
+end program demo_ismember
 </code></pre></div>
 
 <p>Results:</p>
@@ -1286,7 +1286,7 @@ B= 2 4 4 4 6 8
 
     </h3>
   <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">issorted</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Report</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">sorted</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">ascending</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="ow">not</span><span class="p">.</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">issorted</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Report</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">sorted</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">ascending</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="ow">not</span><span class="p">.</span>
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -1298,9 +1298,9 @@ B= 2 4 4 4 6 8
 </code></pre></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<div class="codehilite"><pre><span></span><code><span class="nv">Report</span> <span class="k">if</span> <span class="nv">A</span> <span class="nv">is</span> <span class="nv">sorted</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span> <span class="nv">or</span> <span class="nv">not</span>. <span class="nv">A</span> <span class="mi">1</span> <span class="ss">(</span><span class="nv">true</span><span class="ss">)</span> <span class="nv">is</span>
-<span class="nv">returned</span> <span class="nv">when</span> <span class="nv">the</span> <span class="nv">elements</span> <span class="nv">of</span> <span class="nv">A</span> <span class="nv">are</span> <span class="nv">listed</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span> <span class="nv">and</span> <span class="mi">0</span>
-<span class="ss">(</span><span class="nv">false</span><span class="ss">)</span> <span class="nv">otherwise</span>.
+<div class="codehilite"><pre><span></span><code><span class="nv">Report</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">sorted</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">ascending</span><span class="w"> </span><span class="nv">order</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="nv">not</span>.<span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="ss">(</span><span class="nv">true</span><span class="ss">)</span><span class="w"> </span><span class="nv">is</span>
+<span class="nv">returned</span><span class="w"> </span><span class="nv">when</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">elements</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">are</span><span class="w"> </span><span class="nv">listed</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">ascending</span><span class="w"> </span><span class="nv">order</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="mi">0</span>
+<span class="ss">(</span><span class="nv">false</span><span class="ss">)</span><span class="w"> </span><span class="nv">otherwise</span>.
 </code></pre></div>
 
 <h2 id="options">OPTIONS</h2>
@@ -1308,25 +1308,25 @@ B= 2 4 4 4 6 8
 </code></pre></div>
 
 <h2 id="returns">RETURNS</h2>
-<div class="codehilite"><pre><span></span><code> <span class="mi">1</span> <span class="k">if</span> <span class="nv">input</span> <span class="nv">array</span> <span class="nv">A</span> <span class="nv">is</span> <span class="nv">sorted</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span>, <span class="mi">0</span> <span class="nv">otherwise</span>
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">sorted</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">ascending</span><span class="w"> </span><span class="nv">order</span>,<span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nv">otherwise</span>
 </code></pre></div>
 
 <h2 id="examples">EXAMPLES</h2>
 <p>sample program:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_issorted</span>
-<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">issorted</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
-<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code>program demo_issorted
+use M_sets, only: issorted
+character(len=*),parameter :: g=&#39;(*(g0,1x))&#39;
+integer,allocatable        :: A(:)
 
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">ISSORTED</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find the issorted elements of vector A.</span><span class="s1">&#39;</span>
-    <span class="nv">A</span> <span class="o">=</span> [<span class="mi">10</span>, <span class="o">-</span><span class="mi">10</span>, <span class="mi">0</span>, <span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>, <span class="o">-</span><span class="mi">10</span>]
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">issorted</span><span class="ss">(</span><span class="nv">A</span><span class="ss">)</span>
-    <span class="nv">A</span> <span class="o">=</span> [<span class="o">-</span><span class="mi">10</span>, <span class="mi">10</span>, <span class="mi">100</span>, <span class="mi">201</span>]
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">issorted</span><span class="ss">(</span><span class="nv">A</span><span class="ss">)</span>
+   write(*,g) &#39;ISSORTED&#39;,&#39;Find the issorted elements of vector A.&#39;
+    A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
+    write(*,g) &#39;A=&#39;, A
+    write(*,g) issorted(A)
+    A = [-10, 10, 100, 201]
+    write(*,g) &#39;A=&#39;, A
+    write(*,g) issorted(A)
 
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_issorted</span>
+end program demo_issorted
 </code></pre></div>
 
 <p>Results:</p>
@@ -1397,7 +1397,7 @@ A= -10 10 100 201
 
     </h3>
   <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">setdiff</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Find</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">B</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">setdiff</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Find</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">B</span>
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -1407,31 +1407,31 @@ A= -10 10 100 201
 <h2 id="description">DESCRIPTION</h2>
 <p>setdiff(3f) returns the data in A that is not in B, with no repetitions.</p>
 <h2 id="options">OPTIONS</h2>
-<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>         <span class="nv">input</span> <span class="nv">array</span>
- <span class="nv">B</span>         <span class="nv">input</span> <span class="nv">array</span>
- <span class="nv">setOrder</span>  <span class="nv">May</span> <span class="nv">be</span> <span class="s2">&quot;</span><span class="s">sort</span><span class="s2">&quot;</span> <span class="nv">or</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span>. <span class="k">If</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span> <span class="nv">the</span> <span class="nv">values</span> <span class="nv">are</span>
-           <span class="nv">returned</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">order</span> <span class="nv">discovered</span>. <span class="nv">The</span> <span class="nv">default</span> <span class="nv">is</span>
-           <span class="s2">&quot;</span><span class="s">sorted</span><span class="s2">&quot;</span>, <span class="nv">which</span> <span class="nv">returns</span> <span class="nv">the</span> <span class="nv">data</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span>.
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="nv">A</span><span class="w">         </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span>
+<span class="w"> </span><span class="nv">B</span><span class="w">         </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span>
+<span class="w"> </span><span class="nv">setOrder</span><span class="w">  </span><span class="nv">May</span><span class="w"> </span><span class="nv">be</span><span class="w"> </span><span class="s2">&quot;sort&quot;</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span>.<span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">values</span><span class="w"> </span><span class="nv">are</span>
+<span class="w">           </span><span class="nv">returned</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">order</span><span class="w"> </span><span class="nv">discovered</span>.<span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">is</span>
+<span class="w">           </span><span class="s2">&quot;sorted&quot;</span>,<span class="w"> </span><span class="nv">which</span><span class="w"> </span><span class="nv">returns</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">ascending</span><span class="w"> </span><span class="nv">order</span>.
 </code></pre></div>
 
 <h2 id="examples">EXAMPLES</h2>
 <p>sample program:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_setdiff</span>
-<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">setdiff</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
-<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
-<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code>program demo_setdiff
+use M_sets, only: setdiff
+character(len=*),parameter :: g=&#39;(*(g0,1x))&#39;
+integer, allocatable       :: A(:)
+integer, allocatable       :: B(:)
 
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">SETDIFF</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find the values in A that are not in B.</span><span class="s1">&#39;</span>
-    <span class="nv">A</span><span class="o">=</span>[<span class="mi">3</span>, <span class="mi">6</span>, <span class="mi">2</span>, <span class="mi">1</span>, <span class="mi">5</span>, <span class="mi">1</span>, <span class="mi">1</span>]
-    <span class="nv">B</span><span class="o">=</span>[<span class="mi">2</span>, <span class="mi">4</span>, <span class="mi">6</span>]
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">setdiff</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span><span class="ss">)</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">setdiff</span><span class="ss">(</span>[<span class="mi">4</span>, <span class="mi">1</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">5</span>], [<span class="mi">2</span>, <span class="mi">1</span>], <span class="s1">&#39;</span><span class="s">sorted</span><span class="s1">&#39;</span><span class="ss">)</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">setdiff</span><span class="ss">(</span>[<span class="mi">4</span>, <span class="mi">1</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">5</span>], [<span class="mi">2</span>, <span class="mi">1</span>], <span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+   write(*,g) &#39;SETDIFF&#39;,&#39;Find the values in A that are not in B.&#39;
+    A=[3, 6, 2, 1, 5, 1, 1]
+    B=[2, 4, 6]
+    write(*,g) &#39;A=&#39;, A
+    write(*,g) &#39;B=&#39;, B
+    write(*,g) setdiff(A, B)
+    write(*,g) setdiff([4, 1, 3, 2, 5], [2, 1], &#39;sorted&#39;)
+    write(*,g) setdiff([4, 1, 3, 2, 5], [2, 1], &#39;stable&#39;)
 
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_setdiff</span>
+end program demo_setdiff
 </code></pre></div>
 
 <p>Results:</p>
@@ -1533,7 +1533,7 @@ B= 2 4 6
 
     </h3>
   <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">setxor</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Find</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">both</span><span class="w"> </span><span class="n">arrays</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">setxor</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Find</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">both</span><span class="w"> </span><span class="n">arrays</span>
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -1547,30 +1547,30 @@ B= 2 4 6
 <p>Another way of defining the result is that setxor(3f) returns the data
  that occurs in A or B, but not both.</p>
 <h2 id="options">OPTIONS</h2>
-<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>         <span class="nv">input</span> <span class="nv">array</span>
- <span class="nv">B</span>         <span class="nv">input</span> <span class="nv">array</span>
- <span class="nv">setOrder</span>  <span class="nv">May</span> <span class="nv">be</span> <span class="s2">&quot;</span><span class="s">sort</span><span class="s2">&quot;</span> <span class="nv">or</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span>. <span class="k">If</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span> <span class="nv">the</span> <span class="nv">values</span> <span class="nv">are</span>
-           <span class="nv">returned</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">order</span> <span class="nv">discovered</span>. <span class="nv">The</span> <span class="nv">default</span> <span class="nv">is</span>
-           <span class="s2">&quot;</span><span class="s">sorted</span><span class="s2">&quot;</span>, <span class="nv">which</span> <span class="nv">returns</span> <span class="nv">the</span> <span class="nv">data</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span>.
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="nv">A</span><span class="w">         </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span>
+<span class="w"> </span><span class="nv">B</span><span class="w">         </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span>
+<span class="w"> </span><span class="nv">setOrder</span><span class="w">  </span><span class="nv">May</span><span class="w"> </span><span class="nv">be</span><span class="w"> </span><span class="s2">&quot;sort&quot;</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span>.<span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">values</span><span class="w"> </span><span class="nv">are</span>
+<span class="w">           </span><span class="nv">returned</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">order</span><span class="w"> </span><span class="nv">discovered</span>.<span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">is</span>
+<span class="w">           </span><span class="s2">&quot;sorted&quot;</span>,<span class="w"> </span><span class="nv">which</span><span class="w"> </span><span class="nv">returns</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">ascending</span><span class="w"> </span><span class="nv">order</span>.
 </code></pre></div>
 
 <h2 id="examples">EXAMPLES</h2>
 <p>sample program:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_setxor</span>
-<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">setxor</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
-<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
-<span class="nv">integer</span>, <span class="nv">allocatable</span>       :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code>program demo_setxor
+use M_sets, only: setxor
+character(len=*),parameter :: g=&#39;(*(g0,1x))&#39;
+integer, allocatable       :: A(:)
+integer, allocatable       :: B(:)
 
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">SETXOR</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find values of A and B not in their intersection.</span><span class="s1">&#39;</span>
-   <span class="nv">A</span> <span class="o">=</span> [<span class="mi">5</span>,<span class="mi">1</span>,<span class="mi">3</span>,<span class="mi">3</span>,<span class="mi">3</span>]
-   <span class="nv">B</span> <span class="o">=</span> [<span class="mi">4</span>,<span class="mi">1</span>,<span class="mi">2</span>]
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">setxor</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">setxor</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span>,<span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+   write(*,g) &#39;SETXOR&#39;,&#39;Find values of A and B not in their intersection.&#39;
+   A = [5,1,3,3,3]
+   B = [4,1,2]
+   write(*,g) &#39;A=&#39;, A
+   write(*,g) &#39;B=&#39;, B
+   write(*,g) setxor(A,B)
+   write(*,g) setxor(A,B,&#39;stable&#39;)
 
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_setxor</span>
+end program demo_setxor
 </code></pre></div>
 
 <p>Results:</p>
@@ -1671,7 +1671,7 @@ B= 4 1 2
 
     </h3>
   <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="ow">union</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">Join</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="k">sets</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">removes</span><span class="w"> </span><span class="n">duplicates</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">values</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="ow">union</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">Join</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="k">sets</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">removes</span><span class="w"> </span><span class="n">duplicates</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">values</span>
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -1681,36 +1681,36 @@ B= 4 1 2
 <h2 id="description">DESCRIPTION</h2>
 <p>The two sets are combined and repetitions are removed.</p>
 <h2 id="options">OPTIONS</h2>
-<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>         <span class="nv">input</span> <span class="nv">array</span>
- <span class="nv">B</span>         <span class="nv">input</span> <span class="nv">array</span>
- <span class="nv">setOrder</span>  <span class="nv">May</span> <span class="nv">be</span> <span class="s2">&quot;</span><span class="s">sort</span><span class="s2">&quot;</span> <span class="nv">or</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span>. <span class="k">If</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span> <span class="nv">the</span> <span class="nv">values</span> <span class="nv">are</span>
-           <span class="nv">returned</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">order</span> <span class="nv">discovered</span>. <span class="nv">The</span> <span class="nv">default</span> <span class="nv">is</span>
-           <span class="s2">&quot;</span><span class="s">sorted</span><span class="s2">&quot;</span>, <span class="nv">which</span> <span class="nv">returns</span> <span class="nv">the</span> <span class="nv">data</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span>.
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="nv">A</span><span class="w">         </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span>
+<span class="w"> </span><span class="nv">B</span><span class="w">         </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span>
+<span class="w"> </span><span class="nv">setOrder</span><span class="w">  </span><span class="nv">May</span><span class="w"> </span><span class="nv">be</span><span class="w"> </span><span class="s2">&quot;sort&quot;</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span>.<span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">values</span><span class="w"> </span><span class="nv">are</span>
+<span class="w">           </span><span class="nv">returned</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">order</span><span class="w"> </span><span class="nv">discovered</span>.<span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">is</span>
+<span class="w">           </span><span class="s2">&quot;sorted&quot;</span>,<span class="w"> </span><span class="nv">which</span><span class="w"> </span><span class="nv">returns</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">ascending</span><span class="w"> </span><span class="nv">order</span>.
 </code></pre></div>
 
 <h2 id="examples">EXAMPLES</h2>
 <p>sample program:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_union</span>
-<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">union</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
-<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
-<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code>program demo_union
+use M_sets, only: union
+character(len=*),parameter :: g=&#39;(*(g0,1x))&#39;
+integer,allocatable        :: A(:)
+integer,allocatable        :: B(:)
 
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">UNION</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">Find the union of vectors A and B.</span><span class="s1">&#39;</span>
-   <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>, <span class="mi">7</span>, <span class="mi">1</span>]
-   <span class="nv">B</span><span class="o">=</span>[<span class="mi">3</span>, <span class="mi">1</span>, <span class="mi">1</span>]
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">union</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>
+   write(*,g) &#39;UNION&#39;, &#39;Find the union of vectors A and B.&#39;
+   A=[5, 7, 1]
+   B=[3, 1, 1]
+   write(*,g) &#39;A=&#39;, A
+   write(*,g) &#39;B=&#39;, B
+   write(*,g) union(A,B)
 
-   <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>, <span class="mi">5</span>, <span class="mi">3</span>]
-   <span class="nv">B</span><span class="o">=</span>[<span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">5</span>]
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">union</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="s1">&#39;</span><span class="s">sorted</span><span class="s1">&#39;</span><span class="ss">)</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">union</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+   A=[5, 5, 3]
+   B=[1, 2, 5]
+   write(*,g) &#39;A=&#39;, A
+   write(*,g) &#39;B=&#39;, B
+   write(*,g) union(A, B, &#39;sorted&#39;)
+   write(*,g) union(A, B, &#39;stable&#39;)
 
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_union</span>
+end program demo_union
 </code></pre></div>
 
 <p>```
@@ -1815,7 +1815,7 @@ B= 1 2 5
 
     </h3>
   <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="k">unique</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">array</span><span class="w"> </span><span class="n">A</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">unique</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">array</span><span class="w"> </span><span class="n">A</span>
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -1828,10 +1828,10 @@ B= 1 2 5
 <p>The result is in sorted order by default, but may be returned in the
  order found.</p>
 <h2 id="options">OPTIONS</h2>
-<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>         <span class="nv">input</span> <span class="nv">array</span> <span class="nv">to</span> <span class="nv">extract</span> <span class="nv">unique</span> <span class="nv">values</span> <span class="nv">from</span>
- <span class="nv">setOrder</span>  <span class="nv">May</span> <span class="nv">be</span> <span class="s2">&quot;</span><span class="s">sort</span><span class="s2">&quot;</span> <span class="nv">or</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span>. <span class="k">If</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span> <span class="nv">the</span> <span class="nv">values</span> <span class="nv">are</span>
-           <span class="nv">returned</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">order</span> <span class="nv">discovered</span>. <span class="nv">The</span> <span class="nv">default</span> <span class="nv">is</span>
-           <span class="s2">&quot;</span><span class="s">sorted</span><span class="s2">&quot;</span>, <span class="nv">which</span> <span class="nv">returns</span> <span class="nv">the</span> <span class="nv">data</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span>.
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="nv">A</span><span class="w">         </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">extract</span><span class="w"> </span><span class="nv">unique</span><span class="w"> </span><span class="nv">values</span><span class="w"> </span><span class="nv">from</span>
+<span class="w"> </span><span class="nv">setOrder</span><span class="w">  </span><span class="nv">May</span><span class="w"> </span><span class="nv">be</span><span class="w"> </span><span class="s2">&quot;sort&quot;</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span>.<span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">values</span><span class="w"> </span><span class="nv">are</span>
+<span class="w">           </span><span class="nv">returned</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">order</span><span class="w"> </span><span class="nv">discovered</span>.<span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">is</span>
+<span class="w">           </span><span class="s2">&quot;sorted&quot;</span>,<span class="w"> </span><span class="nv">which</span><span class="w"> </span><span class="nv">returns</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">ascending</span><span class="w"> </span><span class="nv">order</span>.
 </code></pre></div>
 
 <h2 id="returns">RETURNS</h2>
@@ -1841,18 +1841,18 @@ B= 1 2 5
 
 <h2 id="examples">EXAMPLES</h2>
 <p>sample program:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_unique</span>
-<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">unique</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
-<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code>program demo_unique
+use M_sets, only: unique
+character(len=*),parameter :: g=&#39;(*(g0,1x))&#39;
+integer,allocatable        :: A(:)
 
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">UNIQUE</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find the unique elements of vector A.</span><span class="s1">&#39;</span>
-    <span class="nv">A</span> <span class="o">=</span> [<span class="mi">10</span>, <span class="o">-</span><span class="mi">10</span>, <span class="mi">0</span>, <span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>, <span class="o">-</span><span class="mi">10</span>]
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">unique</span><span class="ss">(</span><span class="nv">A</span><span class="ss">)</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">unique</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">setOrder</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+   write(*,g) &#39;UNIQUE&#39;,&#39;Find the unique elements of vector A.&#39;
+    A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
+    write(*,g) &#39;A=&#39;, A
+    write(*,g) unique(A)
+    write(*,g) unique(A, setOrder=&#39;stable&#39;)
 
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_unique</span>
+end program demo_unique
 </code></pre></div>
 
 <p>Results:</p>
@@ -1944,14 +1944,14 @@ A= 10 -10 0 1 2 3 3 2 1 -10
           <div class="col">
             <p>
               M_sets
- was developed by Michel Olagnon<br>              &copy; 2025 
+ was developed by Michel Olagnon<br>              &copy; 2026 
 </p>
           </div>
           <div class="col">
             <p class="text-end">
               Documentation generated by
               <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2025-07-11 01:10 +0000             </p>
+ on 2026-07-04 13:31 +0000             </p>
           </div>
         </div>
         <br>

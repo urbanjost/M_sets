@@ -88,7 +88,7 @@
 
             <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
               <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-                 title="<p> 0.8% of total for procedures.</p>Including implementation: 14 statements,  3.7% of total for procedures.">3 statements</a>
+                 title="<p> 0.6% of total for procedures.</p>Including implementation: 14 statements,  2.9% of total for procedures.">3 statements</a>
             </li>
 
             <li class="list-inline-item" id="source-file">
@@ -171,7 +171,7 @@
 </h3></div>
     <div class="card-body">
         <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="ow">union</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">Join</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="k">sets</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">removes</span><span class="w"> </span><span class="n">duplicates</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">values</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="ow">union</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="k">Join</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="k">sets</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">removes</span><span class="w"> </span><span class="n">duplicates</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">values</span>
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -181,36 +181,36 @@
 <h2 id="description">DESCRIPTION</h2>
 <p>The two sets are combined and repetitions are removed.</p>
 <h2 id="options">OPTIONS</h2>
-<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>         <span class="nv">input</span> <span class="nv">array</span>
- <span class="nv">B</span>         <span class="nv">input</span> <span class="nv">array</span>
- <span class="nv">setOrder</span>  <span class="nv">May</span> <span class="nv">be</span> <span class="s2">&quot;</span><span class="s">sort</span><span class="s2">&quot;</span> <span class="nv">or</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span>. <span class="k">If</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span> <span class="nv">the</span> <span class="nv">values</span> <span class="nv">are</span>
-           <span class="nv">returned</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">order</span> <span class="nv">discovered</span>. <span class="nv">The</span> <span class="nv">default</span> <span class="nv">is</span>
-           <span class="s2">&quot;</span><span class="s">sorted</span><span class="s2">&quot;</span>, <span class="nv">which</span> <span class="nv">returns</span> <span class="nv">the</span> <span class="nv">data</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span>.
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="nv">A</span><span class="w">         </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span>
+<span class="w"> </span><span class="nv">B</span><span class="w">         </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span>
+<span class="w"> </span><span class="nv">setOrder</span><span class="w">  </span><span class="nv">May</span><span class="w"> </span><span class="nv">be</span><span class="w"> </span><span class="s2">&quot;sort&quot;</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span>.<span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">values</span><span class="w"> </span><span class="nv">are</span>
+<span class="w">           </span><span class="nv">returned</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">order</span><span class="w"> </span><span class="nv">discovered</span>.<span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">is</span>
+<span class="w">           </span><span class="s2">&quot;sorted&quot;</span>,<span class="w"> </span><span class="nv">which</span><span class="w"> </span><span class="nv">returns</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">ascending</span><span class="w"> </span><span class="nv">order</span>.
 </code></pre></div>
 
 <h2 id="examples">EXAMPLES</h2>
 <p>sample program:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_union</span>
-<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">union</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
-<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
-<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code>program demo_union
+use M_sets, only: union
+character(len=*),parameter :: g=&#39;(*(g0,1x))&#39;
+integer,allocatable        :: A(:)
+integer,allocatable        :: B(:)
 
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">UNION</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">Find the union of vectors A and B.</span><span class="s1">&#39;</span>
-   <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>, <span class="mi">7</span>, <span class="mi">1</span>]
-   <span class="nv">B</span><span class="o">=</span>[<span class="mi">3</span>, <span class="mi">1</span>, <span class="mi">1</span>]
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">union</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>
+   write(*,g) &#39;UNION&#39;, &#39;Find the union of vectors A and B.&#39;
+   A=[5, 7, 1]
+   B=[3, 1, 1]
+   write(*,g) &#39;A=&#39;, A
+   write(*,g) &#39;B=&#39;, B
+   write(*,g) union(A,B)
 
-   <span class="nv">A</span><span class="o">=</span>[<span class="mi">5</span>, <span class="mi">5</span>, <span class="mi">3</span>]
-   <span class="nv">B</span><span class="o">=</span>[<span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">5</span>]
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">union</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="s1">&#39;</span><span class="s">sorted</span><span class="s1">&#39;</span><span class="ss">)</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">union</span><span class="ss">(</span><span class="nv">A</span>, <span class="nv">B</span>, <span class="s1">&#39;</span><span class="s">stable</span><span class="s1">&#39;</span><span class="ss">)</span>
+   A=[5, 5, 3]
+   B=[1, 2, 5]
+   write(*,g) &#39;A=&#39;, A
+   write(*,g) &#39;B=&#39;, B
+   write(*,g) union(A, B, &#39;sorted&#39;)
+   write(*,g) union(A, B, &#39;stable&#39;)
 
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_union</span>
+end program demo_union
 </code></pre></div>
 
 <p>```
@@ -311,14 +311,14 @@ B= 1 2 5
           <div class="col">
             <p>
               M_sets
- was developed by Michel Olagnon<br>              &copy; 2025 
+ was developed by Michel Olagnon<br>              &copy; 2026 
 </p>
           </div>
           <div class="col">
             <p class="text-end">
               Documentation generated by
               <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2025-07-11 01:10 +0000             </p>
+ on 2026-07-04 13:31 +0000             </p>
           </div>
         </div>
         <br>

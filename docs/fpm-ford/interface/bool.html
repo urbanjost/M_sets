@@ -88,7 +88,7 @@
 
             <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
               <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-                 title="<p> 1.8% of total for procedures.</p>Including implementation: 47 statements, 12.4% of total for procedures.">7 statements</a>
+                 title="<p> 1.4% of total for procedures.</p>Including implementation: 47 statements,  9.7% of total for procedures.">7 statements</a>
             </li>
 
             <li class="list-inline-item" id="source-file">
@@ -180,9 +180,9 @@
 </h3></div>
     <div class="card-body">
         <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="nv">bool</span><span class="ss">(</span><span class="mi">3</span><span class="nv">f</span><span class="ss">)</span> <span class="o">-</span> [<span class="nv">M_sets</span>::<span class="nv">LOGICAL</span>] <span class="nv">returns</span> <span class="nv">One</span> <span class="k">if</span> <span class="nv">expression</span> <span class="nv">is</span> <span class="nv">TRUE</span>,
-<span class="k">else</span> <span class="nv">returns</span> <span class="nv">Zero</span>.
-<span class="ss">(</span><span class="nv">LICENSE</span>:<span class="nv">PD</span><span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code>bool(3f) - [M_sets::LOGICAL] returns One if expression is TRUE,
+else returns Zero.
+(LICENSE:PD)
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -208,15 +208,15 @@
    and a 0 otherwise.</p>
 <h2 id="examples">EXAMPLES</h2>
 <p>Sample usage:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_bool</span>
-<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">bool</span>
-<span class="nv">implicit</span> <span class="nv">none</span>
-   <span class="nv">write</span> <span class="ss">(</span><span class="o">*</span>, <span class="o">*</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">is 10 &lt; 20 ?</span><span class="s1">&#39;</span>, <span class="nv">bool</span><span class="ss">(</span><span class="mi">10</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="ss">)</span>
-   <span class="nv">write</span> <span class="ss">(</span><span class="o">*</span>, <span class="o">*</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">elemental</span><span class="s1">&#39;</span>, <span class="nv">bool</span><span class="ss">(</span>[<span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">1</span>, <span class="mi">3</span> <span class="o">==</span> <span class="mi">4</span>, <span class="mi">10</span> <span class="o">&lt;</span> <span class="mi">5</span>, <span class="mi">100</span> <span class="o">&gt;</span> <span class="mi">50</span>]<span class="ss">)</span>
-   <span class="k">if</span> <span class="ss">(</span><span class="nv">sum</span><span class="ss">(</span><span class="nv">bool</span><span class="ss">(</span>[<span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">1</span>, <span class="mi">3</span> <span class="o">==</span> <span class="mi">4</span>, <span class="mi">10</span> <span class="o">&lt;</span> <span class="mi">5</span>, <span class="mi">100</span> <span class="o">&gt;</span> <span class="mi">50</span>]<span class="ss">))</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="ss">)</span> <span class="k">then</span>
-      <span class="nv">write</span> <span class="ss">(</span><span class="o">*</span>, <span class="o">*</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">two or more are true</span><span class="s1">&#39;</span>
-   <span class="k">endif</span>
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_bool</span>
+<div class="codehilite"><pre><span></span><code><span class="nx">program</span><span class="w"> </span><span class="nx">demo_bool</span>
+<span class="nx">use</span><span class="w"> </span><span class="nx">M_sets</span><span class="p">,</span><span class="w"> </span><span class="nx">only</span><span class="p">:</span><span class="w"> </span><span class="kt">bool</span>
+<span class="nx">implicit</span><span class="w"> </span><span class="nx">none</span>
+<span class="w">   </span><span class="nx">write</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="err">&#39;</span><span class="k">is</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="p">?</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">20</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">write</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">elemental</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">([</span><span class="mi">2</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">50</span><span class="p">])</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">sum</span><span class="p">(</span><span class="kt">bool</span><span class="p">([</span><span class="mi">2</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">50</span><span class="p">]))</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span><span class="nx">write</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">two</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="nx">more</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="kc">true</span><span class="err">&#39;</span>
+<span class="w">   </span><span class="nx">endif</span>
+<span class="nx">end</span><span class="w"> </span><span class="nx">program</span><span class="w"> </span><span class="nx">demo_bool</span>
 </code></pre></div>
 
 <p>Results:</p>
@@ -642,7 +642,7 @@
     <tbody>
         <tr>
             <td>
-              <span class="anchor" id="variable-string~2"></span>
+              <span class="anchor" id="variable-string~3"></span>
               character(len=*),
             </td>
 <td>intent(in)</td>
@@ -677,14 +677,14 @@
           <div class="col">
             <p>
               M_sets
- was developed by Michel Olagnon<br>              &copy; 2025 
+ was developed by Michel Olagnon<br>              &copy; 2026 
 </p>
           </div>
           <div class="col">
             <p class="text-end">
               Documentation generated by
               <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2025-07-11 01:10 +0000             </p>
+ on 2026-07-04 13:31 +0000             </p>
           </div>
         </div>
         <br>

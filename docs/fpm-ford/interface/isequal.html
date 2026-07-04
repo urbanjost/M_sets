@@ -88,7 +88,7 @@
 
             <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
               <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-                 title="<p> 0.8% of total for procedures.</p>Including implementation: 20 statements,  5.3% of total for procedures.">3 statements</a>
+                 title="<p> 0.6% of total for procedures.</p>Including implementation: 20 statements,  4.1% of total for procedures.">3 statements</a>
             </li>
 
             <li class="list-inline-item" id="source-file">
@@ -171,7 +171,7 @@
 </h3></div>
     <div class="card-body">
         <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">isequal</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Report</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">B</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">isequal</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Report</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">B</span>
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -184,46 +184,46 @@
 </code></pre></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<div class="codehilite"><pre><span></span><code><span class="nv">Report</span> <span class="k">if</span> <span class="nv">A</span> <span class="nv">is</span> <span class="nv">equal</span> <span class="nv">to</span> <span class="nv">B</span>. <span class="nv">Equality</span> <span class="nv">is</span> <span class="nv">defined</span> <span class="nv">as</span> <span class="nv">the</span> <span class="nv">same</span> <span class="nv">element</span>
-<span class="nv">values</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">same</span> <span class="nv">order</span>.
+<div class="codehilite"><pre><span></span><code><span class="nv">Report</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">equal</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">B</span>.<span class="w"> </span><span class="nv">Equality</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">defined</span><span class="w"> </span><span class="nv">as</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">same</span><span class="w"> </span><span class="nv">element</span>
+<span class="nv">values</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">same</span><span class="w"> </span><span class="nv">order</span>.
 
-<span class="nv">A</span> <span class="mi">1</span> <span class="ss">(</span><span class="nv">true</span><span class="ss">)</span> <span class="nv">is</span> <span class="nv">returned</span> <span class="nv">when</span> <span class="nv">the</span> <span class="nv">elements</span> <span class="nv">of</span> <span class="nv">A</span> <span class="nv">have</span> <span class="nv">a</span> <span class="nv">one</span><span class="o">-</span><span class="nv">to</span><span class="o">-</span><span class="nv">one</span>
-<span class="nv">correspondence</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">elements</span> <span class="nv">of</span> <span class="nv">B</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">same</span> <span class="nv">values</span> <span class="nv">in</span> <span class="nv">the</span>
-<span class="nv">same</span> <span class="nv">order</span>.  <span class="mi">0</span> <span class="ss">(</span><span class="nv">false</span><span class="ss">)</span> <span class="nv">is</span> <span class="nv">returned</span> <span class="nv">otherwise</span>.
+<span class="nv">A</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="ss">(</span><span class="nv">true</span><span class="ss">)</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">returned</span><span class="w"> </span><span class="nv">when</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">elements</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">have</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">one</span><span class="o">-</span><span class="nv">to</span><span class="o">-</span><span class="nv">one</span>
+<span class="nv">correspondence</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">elements</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">B</span><span class="w"> </span><span class="nv">with</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">same</span><span class="w"> </span><span class="nv">values</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span>
+<span class="nv">same</span><span class="w"> </span><span class="nv">order</span>.<span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="ss">(</span><span class="nv">false</span><span class="ss">)</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">returned</span><span class="w"> </span><span class="nv">otherwise</span>.
 </code></pre></div>
 
 <h2 id="options">OPTIONS</h2>
-<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>          <span class="nv">input</span> <span class="nv">array</span> <span class="nv">to</span> <span class="nv">compare</span> <span class="nv">against</span>
- <span class="nv">B</span>          <span class="nv">input</span> <span class="nv">array</span> <span class="nv">to</span> <span class="nv">compare</span> <span class="nv">to</span> <span class="nv">A</span>
- <span class="nv">TOLERANCE</span>  <span class="k">for</span> <span class="nv">numeric</span> <span class="nv">values</span> <span class="nv">consider</span> <span class="nv">the</span> <span class="nv">corresponding</span> <span class="nv">elements</span>
-            <span class="nv">of</span> <span class="nv">A</span> <span class="nv">and</span> <span class="nv">B</span> <span class="nv">equal</span> <span class="k">if</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">equal</span> <span class="nv">within</span> <span class="nv">the</span> <span class="nv">specified</span>
-            <span class="nv">tolerance</span>.
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="nx">A</span><span class="w">          </span><span class="nx">input</span><span class="w"> </span><span class="nx">array</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">compare</span><span class="w"> </span><span class="nx">against</span>
+<span class="w"> </span><span class="nx">B</span><span class="w">          </span><span class="nx">input</span><span class="w"> </span><span class="nx">array</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">compare</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">A</span>
+<span class="w"> </span><span class="nx">TOLERANCE</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="nx">numeric</span><span class="w"> </span><span class="nx">values</span><span class="w"> </span><span class="nx">consider</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">corresponding</span><span class="w"> </span><span class="nx">elements</span>
+<span class="w">            </span><span class="nx">of</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="nx">equal</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">they</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">equal</span><span class="w"> </span><span class="nx">within</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">specified</span>
+<span class="w">            </span><span class="nx">tolerance</span><span class="p">.</span>
 
- <span class="nv">A</span>,<span class="nv">B</span> <span class="nv">and</span> <span class="nv">TOLERANCE</span> <span class="nv">are</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">same</span> <span class="nv">type</span> <span class="nv">and</span> <span class="nv">kind</span>.
+<span class="w"> </span><span class="nx">A</span><span class="p">,</span><span class="nx">B</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">TOLERANCE</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">same</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">kind</span><span class="p">.</span>
 </code></pre></div>
 
 <h2 id="returns">RETURNS</h2>
-<div class="codehilite"><pre><span></span><code> <span class="mi">1</span> <span class="k">if</span> <span class="nv">input</span> <span class="nv">array</span> <span class="nv">A</span> <span class="nv">is</span> <span class="nv">to</span> <span class="nv">array</span> <span class="nv">B</span>, <span class="mi">0</span> <span class="nv">otherwise</span>
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">array</span><span class="w"> </span><span class="nv">B</span>,<span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nv">otherwise</span>
 </code></pre></div>
 
 <h2 id="examples">EXAMPLES</h2>
 <p>sample program:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_isequal</span>
-<span class="nv">use</span> <span class="nv">M_sets</span>, <span class="nv">only</span>: <span class="nv">isequal</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">parameter</span> :: <span class="nv">g</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">(*(g0,1x))</span><span class="s1">&#39;</span>
-<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">A</span><span class="ss">(</span>:<span class="ss">)</span>
-<span class="nv">integer</span>,<span class="nv">allocatable</span>        :: <span class="nv">B</span><span class="ss">(</span>:<span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code>program demo_isequal
+use M_sets, only: isequal
+character(len=*),parameter :: g=&#39;(*(g0,1x))&#39;
+integer,allocatable        :: A(:)
+integer,allocatable        :: B(:)
 
-<span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">isequal</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find if A is equal to B. </span><span class="s1">&#39;</span>
-    <span class="nv">A</span> <span class="o">=</span> [<span class="mi">10</span>, <span class="o">-</span><span class="mi">10</span>, <span class="mi">0</span>, <span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>,<span class="o">-</span><span class="mi">10</span>]
-    <span class="nv">B</span> <span class="o">=</span> [<span class="mi">10</span>, <span class="o">-</span><span class="mi">10</span>, <span class="mi">0</span>, <span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>, <span class="mi">10</span>]
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">A=</span><span class="s1">&#39;</span>, <span class="nv">A</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">B=</span><span class="s1">&#39;</span>, <span class="nv">B</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">isequal</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">B</span><span class="ss">)</span>
-<span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="s1">&#39;</span><span class="s">isequal</span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">Find if A is equal to A. </span><span class="s1">&#39;</span>
-    <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="nv">g</span><span class="ss">)</span> <span class="nv">isequal</span><span class="ss">(</span><span class="nv">A</span>,<span class="nv">A</span><span class="ss">)</span>
+write(*,g) &#39;isequal&#39;,&#39;Find if A is equal to B. &#39;
+    A = [10, -10, 0, 1, 2, 3, 3, 2, 1,-10]
+    B = [10, -10, 0, 1, 2, 3, 3, 2, 1, 10]
+    write(*,g) &#39;A=&#39;, A
+    write(*,g) &#39;B=&#39;, B
+    write(*,g) isequal(A,B)
+write(*,g) &#39;isequal&#39;,&#39;Find if A is equal to A. &#39;
+    write(*,g) isequal(A,A)
 
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_isequal</span>
+end program demo_isequal
 </code></pre></div>
 
 <p>Results:</p>
@@ -305,14 +305,14 @@ A= -10 10 100 201
           <div class="col">
             <p>
               M_sets
- was developed by Michel Olagnon<br>              &copy; 2025 
+ was developed by Michel Olagnon<br>              &copy; 2026 
 </p>
           </div>
           <div class="col">
             <p class="text-end">
               Documentation generated by
               <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2025-07-11 01:10 +0000             </p>
+ on 2026-07-04 13:31 +0000             </p>
           </div>
         </div>
         <br>

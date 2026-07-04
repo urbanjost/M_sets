@@ -88,7 +88,7 @@
 
             <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
               <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-                 title="<p> 0.8% of total for procedures.</p>Including implementation: 19 statements,  5.0% of total for procedures.">3 statements</a>
+                 title="<p> 0.6% of total for procedures.</p>Including implementation: 19 statements,  3.9% of total for procedures.">3 statements</a>
             </li>
 
             <li class="list-inline-item" id="source-file">
@@ -171,7 +171,7 @@
 </h3></div>
     <div class="card-body">
         <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="ow">intersect</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Find</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="n">common</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">both</span><span class="w"> </span><span class="k">sets</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">B</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="ow">intersect</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sets</span><span class="o">]</span><span class="w"> </span><span class="n">Find</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="n">common</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">both</span><span class="w"> </span><span class="k">sets</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">B</span>
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -183,11 +183,11 @@
 <p>That is, intersect(3f) returns the data common to both A and B, with
  no repetitions.</p>
 <h2 id="options">OPTIONS</h2>
-<div class="codehilite"><pre><span></span><code> <span class="nv">A</span>         <span class="nv">input</span> <span class="nv">array</span>
- <span class="nv">B</span>         <span class="nv">input</span> <span class="nv">array</span>
- <span class="nv">setOrder</span>  <span class="nv">May</span> <span class="nv">be</span> <span class="s2">&quot;</span><span class="s">sort</span><span class="s2">&quot;</span> <span class="nv">or</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span>. <span class="k">If</span> <span class="s2">&quot;</span><span class="s">stable</span><span class="s2">&quot;</span> <span class="nv">the</span> <span class="nv">values</span> <span class="nv">are</span>
-           <span class="nv">returned</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">order</span> <span class="nv">discovered</span>. <span class="nv">The</span> <span class="nv">default</span> <span class="nv">is</span>
-           <span class="s2">&quot;</span><span class="s">sorted</span><span class="s2">&quot;</span>, <span class="nv">which</span> <span class="nv">returns</span> <span class="nv">the</span> <span class="nv">data</span> <span class="nv">in</span> <span class="nv">ascending</span> <span class="nv">order</span>.
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="nv">A</span><span class="w">         </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span>
+<span class="w"> </span><span class="nv">B</span><span class="w">         </span><span class="nv">input</span><span class="w"> </span><span class="nv">array</span>
+<span class="w"> </span><span class="nv">setOrder</span><span class="w">  </span><span class="nv">May</span><span class="w"> </span><span class="nv">be</span><span class="w"> </span><span class="s2">&quot;sort&quot;</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span>.<span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">values</span><span class="w"> </span><span class="nv">are</span>
+<span class="w">           </span><span class="nv">returned</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">order</span><span class="w"> </span><span class="nv">discovered</span>.<span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">is</span>
+<span class="w">           </span><span class="s2">&quot;sorted&quot;</span>,<span class="w"> </span><span class="nv">which</span><span class="w"> </span><span class="nv">returns</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">ascending</span><span class="w"> </span><span class="nv">order</span>.
 </code></pre></div>
 
 <h2 id="examples">EXAMPLES</h2>
@@ -301,14 +301,14 @@ B= 7 0 4 4 0
           <div class="col">
             <p>
               M_sets
- was developed by Michel Olagnon<br>              &copy; 2025 
+ was developed by Michel Olagnon<br>              &copy; 2026 
 </p>
           </div>
           <div class="col">
             <p class="text-end">
               Documentation generated by
               <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2025-07-11 01:10 +0000             </p>
+ on 2026-07-04 13:31 +0000             </p>
           </div>
         </div>
         <br>
