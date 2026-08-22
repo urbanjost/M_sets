@@ -106,7 +106,61 @@ EXAMPLES
 SEE ALSO
   diff(1),uniq(1),sort(1),comm(1),join(1)
 
-				 May 11, 2025	      settheory.1.man(1m_sets)
+				August 19, 2026       settheory.1.man(1m_sets)
+bool(3m_sets)							 bool(3m_sets)
+
+NAME
+  bool(3f) - [M_sets::LOGICAL] returns One if expression is TRUE, else returns
+  Zero.  (LICENSE:PD)
+
+SYNOPSIS
+  pure elemental integer function bool(expr)
+
+      logical,intent(in) :: expr
+	or
+      character(len=:)intent(in) :: expr
+	or
+      integer|real|complex(in) :: expr
+
+DESCRIPTION
+  bool(3f) returns an integer 1 given a true logical expression.
+
+OPTIONS
+  expr
+    A logical expression. If any other intrinsic type a blank string is TRUE
+    as well as 0. 0.0, and (0.0,0.0). Non-zero numeric values and non-blank or
+    non-null strings are FALSE.
+
+RETURNS
+  The result is a default INTEGER value of 1 if the expression is TRUE, and a
+  0 otherwise.
+
+EXAMPLES
+  Sample usage:
+
+     program demo_bool
+     use M_sets, only: bool
+     implicit none
+	write (*, *) 'is 10 < 20 ?', bool(10 < 20)
+	write (*, *) 'elemental', bool([2 > 1, 3 == 4, 10 < 5, 100 > 50])
+	if (sum(bool([2 > 1, 3 == 4, 10 < 5, 100 > 50])) >= 2) then
+	   write (*, *) 'two or more are true'
+	endif
+     end program demo_bool
+
+  Results:
+
+      > is 10 < 20 ? 1
+      > elemental 1 0 0 1
+      > two or more are true
+
+AUTHOR
+  John S. Urban
+
+LICENSE
+  CC0-1.0
+
+				August 19, 2026 		 bool(3m_sets)
 intersect(3m_sets)					    intersect(3m_sets)
 
 NAME
@@ -163,7 +217,79 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 11, 2025		    intersect(3m_sets)
+				August 19, 2026 	    intersect(3m_sets)
+isequal(3m_sets)					      isequal(3m_sets)
+
+NAME
+  isequal(3f) - [M_sets] Report if vector A is equal to vector B
+
+SYNOPSIS
+  isequal(A,B,TOLERANCE)
+
+       character(len=:)intent(in) :: A,B
+	 or
+       integer|real|complex(in) :: A,B
+       real,optional		:: TOLERANCE
+
+DESCRIPTION
+  Report if A is equal to B. Equality is defined as the same element values in
+  the same order.
+
+  A 1 (true) is returned when the elements of A have a one-to-one
+  correspondence to the elements of B with the same values in the
+
+  same order.
+    0 (false) is returned otherwise.
+
+OPTIONS
+  A input array to compare against
+
+  B input array to compare to A
+
+  TOLERANCE
+    for numeric values consider the corresponding elements of A and B equal if
+    they are equal within the specified tolerance.
+
+  A,B and TOLERANCE are of the same type and kind.
+
+RETURNS
+  1 if input array A is to array B, 0 otherwise
+
+EXAMPLES
+  sample program:
+
+     program demo_isequal
+     use M_sets, only: isequal
+     character(len=*),parameter :: g='(*(g0,1x))'
+     integer,allocatable	:: A(:)
+     integer,allocatable	:: B(:)
+
+     write(*,g) 'isequal','Find if A is equal to B. '
+	 A = [10, -10, 0, 1, 2, 3, 3, 2, 1,-10]
+	 B = [10, -10, 0, 1, 2, 3, 3, 2, 1, 10]
+	 write(*,g) 'A=', A
+	 write(*,g) 'B=', B
+	 write(*,g) isequal(A,B)
+     write(*,g) 'isequal','Find if A is equal to A. '
+	 write(*,g) isequal(A,A)
+
+     end program demo_isequal
+
+  Results:
+
+   > isequal Find the isequal elements of vector A.
+   > A= 10 -10 0 1 2 3 3 2 1 -10
+   > 0
+   > A= -10 10 100 201
+   > 1
+
+AUTHORS
+  John S. Urban, 2023-07-20
+
+LICENSE
+  CC0-1.0
+
+				August 19, 2026 	      isequal(3m_sets)
 ismember(3m_sets)					     ismember(3m_sets)
 
 NAME
@@ -222,7 +348,7 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 11, 2025		     ismember(3m_sets)
+				August 19, 2026 	     ismember(3m_sets)
 issorted(3m_sets)					     issorted(3m_sets)
 
 NAME
@@ -277,127 +403,7 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 11, 2025		     issorted(3m_sets)
-union(3m_sets)							union(3m_sets)
-
-NAME
-  union(3f) - [M_sets] Join two sets and removes duplicates of values
-
-SYNOPSIS
-  union(A,B, setOrder)
-
-DESCRIPTION
-  The two sets are combined and repetitions are removed.
-
-OPTIONS
-  A input array
-
-  B input array
-
-  setOrder
-    May be "sort" or "stable". If "stable" the values are returned in the
-    order discovered. The default is "sorted", which returns the data in
-    ascending order.
-
-EXAMPLES
-  sample program:
-
-     program demo_union
-     use M_sets, only: union
-     character(len=*),parameter :: g='(*(g0,1x))'
-     integer,allocatable	:: A(:)
-     integer,allocatable	:: B(:)
-
-	write(*,g) 'UNION', 'Find the union of vectors A and B.'
-	A=[5, 7, 1]
-	B=[3, 1, 1]
-	write(*,g) 'A=', A
-	write(*,g) 'B=', B
-	write(*,g) union(A,B)
-
-	A=[5, 5, 3]
-	B=[1, 2, 5]
-	write(*,g) 'A=', A
-	write(*,g) 'B=', B
-	write(*,g) union(A, B, 'sorted')
-	write(*,g) union(A, B, 'stable')
-
-     end program demo_union
-  ``` Results:
-
-   > UNION Find the union of vectors A and B.
-   > A= 5 7 1
-   > B= 3 1 1
-   > 1 3 5 7
-   > A= 5 5 3
-   > B= 1 2 5
-   > 1 2 3 5
-   > 5 3 1 2
-
-AUTHORS
-  John S. Urban, 2023-07-20
-
-LICENSE
-  CC0-1.0
-
-				 May 11, 2025			union(3m_sets)
-unique(3m_sets) 					       unique(3m_sets)
-
-NAME
-  unique(3f) - [M_sets] return unique values in array A
-
-SYNOPSIS
-  unique(A,setOrder)
-
-DESCRIPTION
-  unique(3) returns the unique values found in an array. That is, it
-  eliminates all but one occurrence of each value.
-
-  The result is in sorted order by default, but may be returned in the order
-  found.
-
-OPTIONS
-  A input array to extract unique values from
-
-  setOrder
-    May be "sort" or "stable". If "stable" the values are returned in the
-    order discovered. The default is "sorted", which returns the data in
-    ascending order.
-
-RETURNS
-  All the values that occur in the input occur in the output just once. All
-  duplicates are removed.
-
-EXAMPLES
-  sample program:
-
-     program demo_unique
-     use M_sets, only: unique
-     character(len=*),parameter :: g='(*(g0,1x))'
-     integer,allocatable	:: A(:)
-
-	write(*,g) 'UNIQUE','Find the unique elements of vector A.'
-	 A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
-	 write(*,g) 'A=', A
-	 write(*,g) unique(A)
-	 write(*,g) unique(A, setOrder='stable')
-
-     end program demo_unique
-
-  Results:
-
-   > UNIQUE Find the unique elements of vector A.
-   > A= 10 -10 0 1 2 3 3 2 1 -10
-   > -10 0 1 2 3 10
-   > 10 -10 0 1 2 3
-
-AUTHORS
-  John S. Urban, 2023-07-20
-
-LICENSE
-  CC0-1.0
-
-				 May 11, 2025		       unique(3m_sets)
+				August 19, 2026 	     issorted(3m_sets)
 M_sets(3m_sets) 					       M_sets(3m_sets)
 
 NAME
@@ -615,7 +621,7 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 11, 2025		       M_sets(3m_sets)
+				August 19, 2026 	       M_sets(3m_sets)
 setdiff(3m_sets)					      setdiff(3m_sets)
 
 NAME
@@ -672,7 +678,7 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 11, 2025		      setdiff(3m_sets)
+				August 19, 2026 	      setdiff(3m_sets)
 setxor(3m_sets) 					       setxor(3m_sets)
 
 NAME
@@ -732,71 +738,62 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 11, 2025		       setxor(3m_sets)
-isequal(3m_sets)					      isequal(3m_sets)
+				August 19, 2026 	       setxor(3m_sets)
+union(3m_sets)							union(3m_sets)
 
 NAME
-  isequal(3f) - [M_sets] Report if vector A is equal to vector B
+  union(3f) - [M_sets] Join two sets and removes duplicates of values
 
 SYNOPSIS
-  isequal(A,B,TOLERANCE)
-
-       character(len=:)intent(in) :: A,B
-	 or
-       integer|real|complex(in) :: A,B
-       real,optional		:: TOLERANCE
+  union(A,B, setOrder)
 
 DESCRIPTION
-  Report if A is equal to B. Equality is defined as the same element values in
-  the same order.
-
-  A 1 (true) is returned when the elements of A have a one-to-one
-  correspondence to the elements of B with the same values in the
-
-  same order.
-    0 (false) is returned otherwise.
+  The two sets are combined and repetitions are removed.
 
 OPTIONS
-  A input array to compare against
+  A input array
 
-  B input array to compare to A
+  B input array
 
-  TOLERANCE
-    for numeric values consider the corresponding elements of A and B equal if
-    they are equal within the specified tolerance.
-
-  A,B and TOLERANCE are of the same type and kind.
-
-RETURNS
-  1 if input array A is to array B, 0 otherwise
+  setOrder
+    May be "sort" or "stable". If "stable" the values are returned in the
+    order discovered. The default is "sorted", which returns the data in
+    ascending order.
 
 EXAMPLES
   sample program:
 
-     program demo_isequal
-     use M_sets, only: isequal
+     program demo_union
+     use M_sets, only: union
      character(len=*),parameter :: g='(*(g0,1x))'
      integer,allocatable	:: A(:)
      integer,allocatable	:: B(:)
 
-     write(*,g) 'isequal','Find if A is equal to B. '
-	 A = [10, -10, 0, 1, 2, 3, 3, 2, 1,-10]
-	 B = [10, -10, 0, 1, 2, 3, 3, 2, 1, 10]
-	 write(*,g) 'A=', A
-	 write(*,g) 'B=', B
-	 write(*,g) isequal(A,B)
-     write(*,g) 'isequal','Find if A is equal to A. '
-	 write(*,g) isequal(A,A)
+	write(*,g) 'UNION', 'Find the union of vectors A and B.'
+	A=[5, 7, 1]
+	B=[3, 1, 1]
+	write(*,g) 'A=', A
+	write(*,g) 'B=', B
+	write(*,g) union(A,B)
 
-     end program demo_isequal
+	A=[5, 5, 3]
+	B=[1, 2, 5]
+	write(*,g) 'A=', A
+	write(*,g) 'B=', B
+	write(*,g) union(A, B, 'sorted')
+	write(*,g) union(A, B, 'stable')
 
-  Results:
+     end program demo_union
+  ``` Results:
 
-   > isequal Find the isequal elements of vector A.
-   > A= 10 -10 0 1 2 3 3 2 1 -10
-   > 0
-   > A= -10 10 100 201
-   > 1
+   > UNION Find the union of vectors A and B.
+   > A= 5 7 1
+   > B= 3 1 1
+   > 1 3 5 7
+   > A= 5 5 3
+   > B= 1 2 5
+   > 1 2 3 5
+   > 5 3 1 2
 
 AUTHORS
   John S. Urban, 2023-07-20
@@ -804,58 +801,61 @@ AUTHORS
 LICENSE
   CC0-1.0
 
-				 May 11, 2025		      isequal(3m_sets)
-bool(3m_sets)							 bool(3m_sets)
+				August 19, 2026 		union(3m_sets)
+unique(3m_sets) 					       unique(3m_sets)
 
 NAME
-  bool(3f) - [M_sets::LOGICAL] returns One if expression is TRUE, else returns
-  Zero.  (LICENSE:PD)
+  unique(3f) - [M_sets] return unique values in array A
 
 SYNOPSIS
-  pure elemental integer function bool(expr)
-
-      logical,intent(in) :: expr
-	or
-      character(len=:)intent(in) :: expr
-	or
-      integer|real|complex(in) :: expr
+  unique(A,setOrder)
 
 DESCRIPTION
-  bool(3f) returns an integer 1 given a true logical expression.
+  unique(3) returns the unique values found in an array. That is, it
+  eliminates all but one occurrence of each value.
+
+  The result is in sorted order by default, but may be returned in the order
+  found.
 
 OPTIONS
-  expr
-    A logical expression. If any other intrinsic type a blank string is TRUE
-    as well as 0. 0.0, and (0.0,0.0). Non-zero numeric values and non-blank or
-    non-null strings are FALSE.
+  A input array to extract unique values from
+
+  setOrder
+    May be "sort" or "stable". If "stable" the values are returned in the
+    order discovered. The default is "sorted", which returns the data in
+    ascending order.
 
 RETURNS
-  The result is a default INTEGER value of 1 if the expression is TRUE, and a
-  0 otherwise.
+  All the values that occur in the input occur in the output just once. All
+  duplicates are removed.
 
 EXAMPLES
-  Sample usage:
+  sample program:
 
-     program demo_bool
-     use M_sets, only: bool
-     implicit none
-	write (*, *) 'is 10 < 20 ?', bool(10 < 20)
-	write (*, *) 'elemental', bool([2 > 1, 3 == 4, 10 < 5, 100 > 50])
-	if (sum(bool([2 > 1, 3 == 4, 10 < 5, 100 > 50])) >= 2) then
-	   write (*, *) 'two or more are true'
-	endif
-     end program demo_bool
+     program demo_unique
+     use M_sets, only: unique
+     character(len=*),parameter :: g='(*(g0,1x))'
+     integer,allocatable	:: A(:)
+
+	write(*,g) 'UNIQUE','Find the unique elements of vector A.'
+	 A = [10, -10, 0, 1, 2, 3, 3, 2, 1, -10]
+	 write(*,g) 'A=', A
+	 write(*,g) unique(A)
+	 write(*,g) unique(A, setOrder='stable')
+
+     end program demo_unique
 
   Results:
 
-      > is 10 < 20 ? 1
-      > elemental 1 0 0 1
-      > two or more are true
+   > UNIQUE Find the unique elements of vector A.
+   > A= 10 -10 0 1 2 3 3 2 1 -10
+   > -10 0 1 2 3 10
+   > 10 -10 0 1 2 3
 
-AUTHOR
-  John S. Urban
+AUTHORS
+  John S. Urban, 2023-07-20
 
 LICENSE
   CC0-1.0
 
-				 May 11, 2025			 bool(3m_sets)
+				August 19, 2026 	       unique(3m_sets)
